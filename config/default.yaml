@@ -8,3 +8,8 @@ manifest:
         stripTrailingSlash: true
   registrations:
     - plugin: './api'
+knex:
+  useNullAsDefault: true
+  client: 'sqlite3'
+  connection:
+    filename: './database.sqlite3'

@@ -1,1 +1,6 @@
 testing: true
+knex:
+  useNullAsDefault: true
+  client: 'sqlite3'
+  connection:
+    filename: ':memory:'
