@@ -29,6 +29,8 @@ $ yarn run test
 
 - **glue** - Server composer for hapi.js.
 https://github.com/hapijs/glue
+- **hapi-ending** - Documentation endpoint for hapi.js.
+https://github.com/desirable-objects/hapi-ending
 - **blipp** - Simple hapi plugin to display the routes table at startup.
 https://github.com/danielb2/blipp
 - **good** - Hapi process monitor. It listens for events emitted by Hapi Server instances and allows custom reporters to be registered that output subscribed events.
