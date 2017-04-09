@@ -41,6 +41,8 @@ https://github.com/hapijs/good-console
 https://github.com/hapijs/good-squeeze
 - **ava** - Node test utility.
 https://github.com/avajs/ava
+- **supertest** - Utility to test the api's responses.
+https://github.com/visionmedia/supertest
 - **nodemon** - Monitor for any changes in your node.js application and automatically restart the server.
 https://github.com/remy/nodemon
 - **eslint** - A fully pluggable tool for identifying and reporting on patterns in JavaScript.
