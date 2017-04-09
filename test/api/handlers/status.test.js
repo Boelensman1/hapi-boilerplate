@@ -6,15 +6,13 @@ test.before((t) => (
   serverPromise
 ))
 
-test.cb('get status', (t) => {
+test('get status', (t) => (
   request(server.listener)
     .get('/status')
     .expect('Content-Type', /json/)
     .expect(200)
-    .end((err, res) => {
-      t.ifError(err)
+    .then((res) => {
       t.is(res.body.result, 'OK')
-      t.end()
     })
-})
+))
 
