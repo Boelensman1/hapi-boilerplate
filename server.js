@@ -5,7 +5,7 @@ const glue = require('glue')
  * Create the server
  *
  * @param {object} manifest The serverconfig
- * @returns {object} The hapi server object
+ * @returns {Promise} Promise resolving into the hapi server object
  */
 function createServer(manifest) {
   return new Promise((resolve, reject) => {
@@ -19,7 +19,9 @@ function createServer(manifest) {
   })
 }
 
-module.exports = createServer
+module.exports = {
+  createServer,
+}
 
 if (!module.parent) {
   createServer(config.manifest).then((server) => {
