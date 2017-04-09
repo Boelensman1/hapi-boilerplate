@@ -1,12 +1,12 @@
 const test = require('ava')
 const request = require('supertest')
-require('../server')
+require('../initServer')
 
 test.before((t) => (
   serverPromise
 ))
 
-test.cb('get', (t) => {
+test.cb('get non defined route', (t) => {
   request(server.listener)
     .get('/undefinedurl')
     .expect(404)

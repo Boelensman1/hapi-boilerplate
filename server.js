@@ -32,7 +32,7 @@ function initModels(knexConfig) {
  * Create the server
  *
  * @param {object} manifest The serverconfig
- * @returns {object} The hapi server object
+ * @returns {Promise} Promise resolving into the hapi server object
  */
 function createServer(manifest) {
   return new Promise((resolve, reject) => {
@@ -46,7 +46,9 @@ function createServer(manifest) {
   })
 }
 
-module.exports = createServer
+module.exports = {
+  createServer,
+}
 
 // check if we're running as a require, if so, don't start up the server
 if (!module.parent) {
