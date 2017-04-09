@@ -1,0 +1,7 @@
+{
+  "extends" : "../.eslintrc.js",
+  'rules': {
+    'require-jsdoc': [0],
+    'func-names': [0],
+  }
+}
