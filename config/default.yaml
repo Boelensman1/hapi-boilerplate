@@ -1,0 +1,10 @@
+manifest:
+  connections:
+    - host: 'localhost'
+      port: 8080
+      routes:
+        cors: true
+      router:
+        stripTrailingSlash: true
+  registrations:
+    - plugin: './api'

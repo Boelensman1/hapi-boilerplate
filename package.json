@@ -1,0 +1,56 @@
+{
+  "name": "hapi-boilerplate",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "Hapi API Boilerplate with AVA",
+  "bugs": {
+    "url": "https://github.com/boelensman1/hapi-boilerplate/issues"
+  },
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon -e 'js,yaml' ./server.js",
+    "test": "ava",
+    "test:watch": "nodemon -e 'yaml' --exec 'ava --watch'",
+    "lint": "eslint ."
+  },
+  "author": "Wigger Boelens",
+  "homepage": "https://github.com/boelensman1/hapi-boilerplate#readme",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boelensman1/hapi-boilerplate.git"
+  },
+  "keywords": [
+    "hapi",
+    "boilerplate",
+    "ava"
+  ],
+  "dependencies": {
+    "config": "^1.25.1",
+    "glue": "^4.1.0",
+    "good": "^7.1.0",
+    "good-console": "^6.4.0",
+    "good-squeeze": "^5.0.2",
+    "hapi": "^16.1.1",
+    "hapi-ending": "^0.9.2",
+    "joi": "^10.4.1"
+  },
+  "devDependencies": {
+    "ava": "^0.19.0",
+    "blipp": "^2.3.0",
+    "env-test": "^1.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "require": [
+      "env-test"
+    ]
+  }
+}
