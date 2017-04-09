@@ -35,15 +35,17 @@ function initModels(knexConfig) {
  * @returns {Promise} Promise resolving into the hapi server object
  */
 function createServer(manifest) {
-  return new Promise((resolve, reject) => {
-    glue.compose(manifest, { relativeTo: __dirname }, (err, server) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(server)
-      }
+  return initModels(config.knex).then(() => (
+    new Promise((resolve, reject) => {
+      glue.compose(manifest, { relativeTo: __dirname }, (err, server) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(server)
+        }
+      })
     })
-  })
+  ))
 }
 
 module.exports = {
@@ -53,12 +55,9 @@ module.exports = {
 // check if we're running as a require, if so, don't start up the server
 if (!module.parent) {
   // start up the server!
-  initModels(config.knex).then(() => {
-    createServer(config.manifest).then((server) => {
-      server.start(() => {
-        const listenAdress = server.info.uri.toLowerCase()
-        console.log(`✅  Server is listening on${listenAdress}`)
-      })
+  createServer(config.manifest).then((server) => {
+    server.start(() => {
+      console.log(`✅  Server is listening o n${server.info.uri.toLowerCase()}`)
     })
   })
 }
