@@ -6,6 +6,7 @@ exports.register = (plugin, options, next) => {
   plugin.route([
     { method: 'GET', path: '/status', config: Status },
     { method: 'GET', path: '/posts', config: Post.get },
+    { method: 'POST', path: '/posts', config: Post.post },
     // { method: 'POST', path: '/post', config: Post.post },
     { method: 'GET', path: '/{path*}', config: NotFound },
   ])

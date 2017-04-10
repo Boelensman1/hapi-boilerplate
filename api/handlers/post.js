@@ -25,4 +25,15 @@ module.exports = {
       return reply(findQuery(Post).build(request.query))
     },
   },
+  post: {
+    description: 'Create a new post on the server',
+    tags: ['api', 'post'],
+    validate: {
+      // validate using the scheme defined in the model
+      payload: Post.validation,
+    },
+    handler(request, reply) {
+      return reply(Post.query().insert(request.payload)).code(201)
+    },
+  },
 }
