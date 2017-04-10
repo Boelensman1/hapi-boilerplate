@@ -35,7 +35,8 @@
     "good-squeeze": "^5.0.2",
     "hapi": "^16.1.1",
     "hapi-ending": "^0.9.2",
-    "joi": "^10.4.1"
+    "joi": "^10.4.1",
+    "js-yaml": "^3.8.3"
   },
   "devDependencies": {
     "ava": "^0.19.0",
