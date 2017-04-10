@@ -4,8 +4,4 @@ module.exports = {
     server: true,
     serverPromise: true
   },
-  env: {
-    node: true,
-    es6: true,
-  },
 };
