@@ -53,16 +53,20 @@ https://github.com/eslint/eslint
 .
 ├── api/
 |   ├── handlers/
-|   |   └── status.js           * Sample handler
-|   |   └── notFound.js         * The catchall 404 handler
-|   └── index.js                * REST routes
+|   |   └── status.js               * Sample handler
+|   |   └── notFound.js             * The catchall 404 handler
+|   └── index.js                    * REST routes
 ├── config/
-|   ├── default.yaml            * Server configuration
+|   ├── default.yaml                * Server configuration
+|   ├── development.yaml            * Configuration overrides for development env
+|   ├── test.yaml                   * Configuration overrides for test environment
 ├── test/
-|   └── handlers/     
-|       ├── status.test.js      * Status endpoint test
-|       └── notFound.test.js    * Notfound endpoint test
-├── server.js                   * Server definition (uses the Glue plugin)
+|   ├── api/
+|   |   ├── handlers/
+|   |   |   ├── status.test.js      * Status endpoint test
+|   |   |   └── notFound.test.js    * Notfound endpoint test
+|   |   └── initServer.js           * Initializes the server for the tests
+├── server.js                       * Server definition (uses the Glue plugin)
 └── package.json
 ```
 
