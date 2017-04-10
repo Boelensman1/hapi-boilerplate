@@ -1,13 +1,17 @@
 const test = require('ava')
 const request = require('supertest')
-require('../initServer')
+const server = require('../initServer')
+
+let listener
 
 test.before((t) => (
-  serverPromise
+  server.then((srv) => {
+    listener = srv.listener
+  })
 ))
 
 test('get status', (t) => (
-  request(server.listener)
+  request(listener)
     .get('/status')
     .expect('Content-Type', /json/)
     .expect(200)
