@@ -5,6 +5,7 @@ hapi API Boilerplate with an opinionated view on project structure.
 
 - **Node.js** - [http://nodejs.org/](http://nodejs.org/)
 - **Hapi** - [http://hapijs.com/](http://hapijs.com/)
+- **Objection** - [http://vincit.github.io/objection.js](http://vincit.github.io/objection.js/)
 
 ## Quick Start
 
@@ -27,6 +28,8 @@ $ yarn run test
 
 ## Plugins
 
+- **objection-find** - module for building search queries
+https://github.com/Vincit/objection-find
 - **glue** - Server composer for hapi.js.
 https://github.com/hapijs/glue
 - **hapi-ending** - Documentation endpoint for hapi.js.
@@ -60,12 +63,21 @@ https://github.com/eslint/eslint
 |   ├── default.yaml                * Server configuration
 |   ├── development.yaml            * Configuration overrides for development env
 |   ├── test.yaml                   * Configuration overrides for test environment
+├── migrations/
+|   ├── 20170409142333_posts.js     * A knex migration for the tables
+├── models/
+|   ├── baseModel.js                * The model all other models inherit from
+|   ├── posts.js                    * The objection models
 ├── test/
 |   ├── api/
 |   |   ├── handlers/
 |   |   |   ├── status.test.js      * Status endpoint test
+|   |   |   ├── post.test.js        * Post endpoint test
 |   |   |   └── notFound.test.js    * Notfound endpoint test
 |   |   └── initServer.js           * Initializes the server for the tests
+|   └── models/
+|       ├── initModels.js           * Initializes the models for the tests
+|       └── post.test.js            * Tests of the post model
 ├── server.js                       * Server definition (uses the Glue plugin)
 └── package.json
 ```
