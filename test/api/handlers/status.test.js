@@ -1,11 +1,11 @@
 const test = require('ava')
 const request = require('supertest')
-const server = require('../initServer')
+const initServer = require('../initServer')
 
 let listener
 
 test.before((t) => (
-  server.then((srv) => {
+  initServer().then((srv) => {
     listener = srv.listener
   })
 ))
