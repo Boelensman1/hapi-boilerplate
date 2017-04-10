@@ -4,6 +4,9 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
+# yarn error log
+yarn-error.log
+
 # databases
 *.sqlite3
 
