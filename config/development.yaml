@@ -18,4 +18,5 @@ manifest:
         register: 'blipp'
     - plugin:
         register: 'hapi-ending'
-        options: { enabled: true }
+        options:
+          enabled: true
