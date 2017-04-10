@@ -12,22 +12,18 @@ const queryValidation = {
 
 module.exports = {
   get: {
-    description: 'Simple endpoint you can use to see if the server is up',
-    tags: ['status'],
+    description: 'List all posts on the server',
+    tags: ['post'],
     validate: {
       query: queryValidation,
     },
-    notes: [
-      `Does not actually check the status,
-    will just always return OK (if the server is running of course)`,
-    ],
     handler(request, reply) {
       return reply(findQuery(Post).build(request.query))
     },
   },
   post: {
     description: 'Create a new post on the server',
-    tags: ['api', 'post'],
+    tags: ['post'],
     validate: {
       // validate using the scheme defined in the model
       payload: Post.validation,
