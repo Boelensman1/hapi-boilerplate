@@ -36,6 +36,8 @@
     "joi": "^10.4.1",
     "knex": "^0.12.9",
     "objection": "^0.7.12",
+    "objection-find": "^0.4.0",
+    "randomstring": "^1.1.5",
     "sqlite3": "^3.1.8"
   },
   "devDependencies": {

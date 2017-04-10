@@ -1,10 +1,14 @@
 const Joi = require('joi')
 const Post = require('../../models/post')
+const findQuery = require('objection-find')
 
+/* eslint-disable max-len */
 const queryValidation = {
-  limit: Joi.number().max(50).description('The maximum amount of posts to get'),
-  page: Joi.number().description('Which page of posts to get'),
+  title: Joi.string().description('Filter the posts by title'),
+  orderBy: Joi.string().allow(['title', 'id']).description('Sort the posts'),
+  orderByDesc: Joi.string().allow(['title', 'id']).description('Reverse sort the posts'),
 }
+/* eslint-enable */
 
 module.exports = {
   get: {
@@ -18,7 +22,7 @@ module.exports = {
     will just always return OK (if the server is running of course)`,
     ],
     handler(request, reply) {
-      return reply(Post.query())
+      return reply(findQuery(Post).build(request.query))
     },
   },
 }

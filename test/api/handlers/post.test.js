@@ -1,5 +1,7 @@
 const test = require('ava')
 const request = require('supertest')
+const randomstring = require('randomstring').generate
+
 require('../initServer')
 
 test.before((t) => (
