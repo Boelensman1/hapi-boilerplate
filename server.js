@@ -56,7 +56,7 @@ if (!module.parent) {
   // start up the server!
   createServer(config.manifest).then((server) => {
     server.start(() => {
-      console.log(`✅  Server is listening o n${server.info.uri.toLowerCase()}`)
+      console.log(`✅  Server is listening on ${server.info.uri.toLowerCase()}`)
     })
   })
 }
