@@ -12,6 +12,7 @@
     "test": "ava",
     "test:watch": "nodemon -e 'yaml' --exec 'ava --watch'",
     "coverage": "nyc ava",
+    "report": "nyc report --reporter=html",
     "lint": "eslint ."
   },
   "author": "Wigger Boelens",
