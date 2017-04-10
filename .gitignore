@@ -6,3 +6,7 @@ node_modules
 
 # databases
 *.sqlite3
+
+# coverage
+coverage
+.nyc_output
