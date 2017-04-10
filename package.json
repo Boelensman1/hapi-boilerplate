@@ -11,7 +11,7 @@
     "dev": "nodemon -e 'js,yaml' ./server.js",
     "test": "ava",
     "test:watch": "nodemon -e 'yaml' --exec 'ava --watch'",
-    "coverage": "nyc ava",
+    "coverage": "nyc ava -v",
     "report": "nyc report --reporter=html",
     "lint": "eslint ."
   },
