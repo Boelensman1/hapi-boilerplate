@@ -21,7 +21,6 @@ function initModels(knexConfig) {
 
   if (env === 'test') {
     // if we're in test, migrate to the latest db
-    console.log('Migrating scheme...')
     return knex.migrate.latest().then(() => (knex))
   }
   return Promise.resolve(knex)
