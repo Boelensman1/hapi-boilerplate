@@ -41,6 +41,8 @@ https://github.com/hapijs/good-console
 https://github.com/hapijs/good-squeeze
 - **ava** - Node test utility.
 https://github.com/avajs/ava
+- **nyc** - Basically istanbul (code coverage tool) with sub-process support.
+https://github.com/istanbuljs/nyc
 - **supertest** - Utility to test the api's responses.
 https://github.com/visionmedia/supertest
 - **nodemon** - Monitor for any changes in your node.js application and automatically restart the server.
