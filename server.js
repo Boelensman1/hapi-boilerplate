@@ -6,7 +6,7 @@ const Model = require('objection').Model
 const env = process.env.NODE_ENV || 'development'
 
 /**
- * Initializes the knex models
+ * Initializes the objection models
  *
  * @param {object} knexConfig The knex configuration
  * @returns {Promise} Promise that resolves to the knex instance
@@ -14,6 +14,7 @@ const env = process.env.NODE_ENV || 'development'
 function initModels(knexConfig) {
   // Initialize knex.
   const knex = new Knex(knexConfig)
+
   // Bind all Models to a knex instance. If you only have one database in
   // your server this is all you have to do. For multi database systems, see
   // the Model.bindKnex method.

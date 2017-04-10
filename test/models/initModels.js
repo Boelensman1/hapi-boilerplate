@@ -1,9 +1,7 @@
 const config = require('config')
-// const initModels = require('../../server').initModels
 
 module.exports = () => {
   const Knex = require('knex')
-  // const Model = require('objection').Model
 
   const knex = new Knex(config.knex)
   // Bind all Models to a knex instance. If you only have one database in
