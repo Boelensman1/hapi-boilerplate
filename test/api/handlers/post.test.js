@@ -47,3 +47,22 @@ test('insert & then get posts by name', (t) => {
         })
     })
 })
+
+test('validation', (t) => {
+  const post = {
+    title: randomstring(7),
+    // missing contents
+  }
+
+  return request(server.listener)
+    .post('/posts')
+    .send(post)
+    .expect('Content-Type', /json/)
+    .expect(400)
+    .then((res) => {
+      t.truthy(res.body instanceof Object)
+      const validationError = res.body.validation
+      t.is(validationError.source, 'payload')
+      t.deepEqual(validationError.keys, ['contents'])
+    })
+})
