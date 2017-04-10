@@ -1,15 +1,18 @@
 const test = require('ava')
 const request = require('supertest')
 const randomstring = require('randomstring').generate
+const server = require('../initServer')
 
-require('../initServer')
+let listener
 
 test.before((t) => (
-  serverPromise
+  server.then((srv) => {
+    listener = srv.listener
+  })
 ))
 
 test('get posts', (t) => (
-  request(server.listener)
+  request(listener)
     .get('/posts')
     .expect('Content-Type', /json/)
     .expect(200)
@@ -25,7 +28,7 @@ test('insert & then get posts by name', (t) => {
     contents: randomstring(),
   }
 
-  return request(server.listener)
+  return request(listener)
     .post('/posts')
     .send(post)
     .expect('Content-Type', /json/)
@@ -37,7 +40,7 @@ test('insert & then get posts by name', (t) => {
       t.is(res.body.title, post.title)
       t.is(res.body.contents, post.contents)
 
-      return request(server.listener)
+      return request(listener)
         .get('/posts')
         .query({ title: post.title })
         .expect('Content-Type', /json/)
@@ -54,7 +57,7 @@ test('validation', (t) => {
     // missing contents
   }
 
-  return request(server.listener)
+  return request(listener)
     .post('/posts')
     .send(post)
     .expect('Content-Type', /json/)
