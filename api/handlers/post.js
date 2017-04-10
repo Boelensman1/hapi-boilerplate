@@ -26,10 +26,13 @@ module.exports = {
     tags: ['post'],
     validate: {
       // validate using the scheme defined in the model
-      payload: Post.validation,
+      payload: Post.payloadValidation,
     },
     handler(request, reply) {
       return reply(Post.query().insert(request.payload)).code(201)
+    },
+    response: {
+      schema: Post.schema,
     },
   },
 }

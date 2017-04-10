@@ -13,7 +13,7 @@ test('inserting post', (t) => {
 
   return Post
     .query()
-    .insert({ title: 'test post', contents: 'Lorum Ipsum.' })
+    .insert({ title: 'test post', contents: 'Lorum Ipsum.', author: 'testr' })
     .then((post) => {
       t.truthy(post instanceof Post)
       t.is(post.title, 'test post')
@@ -31,7 +31,7 @@ test('querying posts', (t) => {
   }).then(() => (
   Post
     .query()
-    .insert({ title: 'test post 2', contents: 'Lorum Ipsum.' })
+    .insert({ title: 'test post 2', contents: 'Lorum Ipsum.', author: 'testr' })
     .then(() => (
       Post
       .query()
