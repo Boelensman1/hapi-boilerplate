@@ -1,9 +1,17 @@
+const Joi = require('joi')
 const BaseModel = require('./baseModel')
 
 class Post extends BaseModel {
-  // Table name is the only required property.
   static get tableName() {
     return 'posts'
+  }
+
+  // used by hapi to validate, see the handler
+  static get validation() {
+    return {
+      title: Joi.string().max(20).description('The title of the post, maxlength of 20'),
+      contents: Joi.string().max(500).description('The contents of the post, maxlength of 500'),
+    }
   }
 }
 
