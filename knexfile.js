@@ -1,3 +1,3 @@
 const config = require('config')
 
-module.exports = config.knex
+module.exports = config.get('knex')
