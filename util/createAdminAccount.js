@@ -40,7 +40,7 @@ function askUsernamePassword() {
     rl.question('Username: ', (username) => {
       askHidden(rl, 'Password: ', (password) => {
         rl.close()
-        resolve(username, password)
+        resolve({ username, password })
       })
     })
   })
@@ -55,45 +55,27 @@ function askUsernamePassword() {
  */
 async function createAdminAcount(ioc) {
   const models = ioc.resolve('models')
-  const log = ioc.resolve('logger')
-  log.info('Creating admin role & account')
-  const role = await models.role.query().insert({
-    name: 'admin',
-    wanted_read: true,
-    wanted_write: true,
-    wanted_delete: true,
 
-    users_read: true,
-    users_write: true,
-    users_delete: true,
+  let adminRole = await models.role.query().findOne({ name: 'admin' })
+  if (!adminRole) {
+    const permissions = models.role.objects.reduce((perm, obj) => {
+      perm[`${obj}_create`] = true
+      perm[`${obj}_read`] = true
+      perm[`${obj}_update`] = true
+      perm[`${obj}_delete`] = true
+      return perm
+    }, {})
 
-    registerTokens_read: true,
-    registerTokens_write: true,
-    registerTokens_delete: true,
-
-    movies_read: true,
-    movies_write: true,
-    movies_delete: true,
-
-    downloads_read: true,
-    downloads_write: true,
-    downloads_delete: true,
-
-    possibleDownloads_read: true,
-    possibleDownloads_write: true,
-    possibleDownloads_delete: true,
-
-    roles_read: true,
-    roles_write: true,
-    roles_delete: true,
-
-    plex_read: true,
-  })
+    adminRole = await models.role.query().insert({
+      name: 'admin',
+      ...permissions,
+    })
+  }
 
   // eslint-disable-next-line no-console
   console.log('creating new admin account')
-  const { username, password } = askUsernamePassword()
-  await role.$relatedQuery('users').insert({
+  const { username, password } = await askUsernamePassword()
+  await adminRole.$relatedQuery('users').insert({
     username,
     password,
   })

@@ -1,5 +1,8 @@
 const startUpServer = require('../..')
 
+// hapi-good uses too many event listeners
+process.stdout.setMaxListeners(process.stdout.getMaxListeners() + 11)
+
 /**
  * Do the setup for a handler test
  *

@@ -1,4 +1,7 @@
 const createIoC = require('ioc/create')
+const createAdminAccount = require('util/createAdminAccount')
+
+const env = process.env.NODE_ENV || 'development'
 
 /**
  * Startup the server
@@ -15,6 +18,16 @@ async function startUpServer(ioc) {
     server.app.ioc = ioc
     server.log(`✅  Server is listening on ${server.info.uri.toLowerCase()}`)
 
+    if (env !== 'test') {
+      // check if there are any users, if not, create the default
+      const models = ioc.resolve('models')
+      const users = await models.user.query()
+        .select('id').whereNot({ username: 'SYSTEM' }).limit(1)
+
+      if (users.length === 0) {
+        await createAdminAccount(ioc)
+      }
+    }
     // return the server instance
     return server
   } catch (error) {
