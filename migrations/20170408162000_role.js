@@ -5,16 +5,19 @@ exports.up = (knex) => (
     table.increments()
     table.string('name').notNullable().unique()
 
-    table.boolean('post_read').notNullable().defaultTo(false)
-    table.boolean('post_write').notNullable().defaultTo(false)
-    table.boolean('post_delete').notNullable().defaultTo(false)
+    table.boolean('posts_create').notNullable().defaultTo(false)
+    table.boolean('posts_read').notNullable().defaultTo(false)
+    table.boolean('posts_update').notNullable().defaultTo(false)
+    table.boolean('posts_delete').notNullable().defaultTo(false)
 
+    table.boolean('users_create').notNullable().defaultTo(false)
     table.boolean('users_read').notNullable().defaultTo(false)
-    table.boolean('users_write').notNullable().defaultTo(false)
+    table.boolean('users_update').notNullable().defaultTo(false)
     table.boolean('users_delete').notNullable().defaultTo(false)
 
+    table.boolean('roles_create').notNullable().defaultTo(false)
     table.boolean('roles_read').notNullable().defaultTo(false)
-    table.boolean('roles_write').notNullable().defaultTo(false)
+    table.boolean('roles_update').notNullable().defaultTo(false)
     table.boolean('roles_delete').notNullable().defaultTo(false)
 
     table.timestamp('createdAt')

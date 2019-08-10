@@ -11,7 +11,7 @@ module.exports = {
       schema: Joi.array().items(responseValidation),
     },
     plugins: {
-      hapiRouteAcl: {
+      hapiCrudAcl: {
         permissions: ['post:write'],
       },
     },
@@ -35,7 +35,7 @@ module.exports = {
       schema: responseValidation,
     },
     plugins: {
-      hapiRouteAcl: {
+      hapiCrudAcl: {
         permissions: ['post:read'],
       },
     },

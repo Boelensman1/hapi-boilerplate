@@ -10,7 +10,7 @@ module.exports = {
       modify: true,
     },
     plugins: {
-      hapiRouteAcl: {
+      hapiCrudAcl: {
         permissions: ['roles:read'],
       },
     },

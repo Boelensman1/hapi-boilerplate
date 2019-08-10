@@ -7,7 +7,7 @@ const omit = require('lodash.omit')
  * @param {function} callback Callback to call when done
  * @returns {undefined}
  */
-function permissionsFunc(session, callback) {
+function permissionsFunc(session) {
   const role = omit(session.user.role.toJSON(), [
     'id',
     'name',
@@ -24,7 +24,7 @@ function permissionsFunc(session, callback) {
     rolePermissions[resource][action] = !!role[key]
   })
 
-  callback(null, rolePermissions)
+  return rolePermissions
 }
 
 module.exports = permissionsFunc

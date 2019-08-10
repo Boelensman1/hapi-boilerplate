@@ -1,11 +1,11 @@
-const hapiRouteAcl = require('hapi-route-acl')
+const hapiCrudAcl = require('hapi-crud-acl')
 const permissionsFunc = require('util/permissionsFunc')
 
 module.exports = {
   register: (server, options) => {
     // add the permissionsFunc
     Object.assign(options, { permissionsFunc })
-    return hapiRouteAcl.plugin.register(server, options)
+    return hapiCrudAcl.plugin.register(server, options)
   },
 }
 

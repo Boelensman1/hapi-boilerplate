@@ -10,7 +10,7 @@ module.exports = {
       schema: Joi.array().items(responseValidation),
     },
     plugins: {
-      hapiRouteAcl: {
+      hapiCrudAcl: {
         permissions: ['users:read'],
       },
     },
@@ -31,7 +31,7 @@ module.exports = {
       },
     },
     plugins: {
-      hapiRouteAcl: {
+      hapiCrudAcl: {
         permissions: ['users:delete'],
       },
     },
