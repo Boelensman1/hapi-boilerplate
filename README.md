@@ -16,6 +16,12 @@ $ cd hapi-boilerplate
 $ npm install
 ```
 
+Create local config file and modify it
+```bash
+$ echo jwtSecret: \'$(LC_ALL=C tr -dc 'a-zA-Z0-9'<
+/dev/urandom | fold -w 32 | head -n 1)\' > config/local.yaml
+```
+
 Start the server:
 ```bash
 $ npm run dev
