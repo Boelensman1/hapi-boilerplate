@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 const Joi = require('@hapi/joi')
 const setUpModelTest = require('test/models/setUpModelTest')
 const BaseModel = require('models/baseModel')

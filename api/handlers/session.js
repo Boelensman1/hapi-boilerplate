@@ -62,7 +62,7 @@ module.exports = {
       schema: responseValidation,
     },
     handler(request, h) {
-      const sessionInfo = Object.assign({}, request.auth.credentials)
+      const sessionInfo = { ...request.auth.credentials }
       sessionInfo.user = sessionInfo.user.getFiltered()
       return h.response(sessionInfo).code(200)
     },

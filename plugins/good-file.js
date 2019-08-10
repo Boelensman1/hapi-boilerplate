@@ -11,7 +11,7 @@ const internals = {
 
 class GoodFile extends Fs.WriteStream {
   constructor(path, options) {
-    const settings = Object.assign({}, internals.defaults, options)
+    const settings = { ...internals.defaults, ...options }
     settings.fd = -1 // prevent open from being called in `super`
 
     super(path, settings)

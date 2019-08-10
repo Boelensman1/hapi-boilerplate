@@ -16,7 +16,7 @@ class User extends BaseModel {
     return ['password']
   }
 
-  setPassword(queryContext) {
+  setPassword() {
     if (zxcvbn(this.password).score < 3) {
       throw new Error('Password is too weak')
     }

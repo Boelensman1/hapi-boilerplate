@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 const { Model } = require('objection')
 const Joi = require('@hapi/joi')
 const { Validator } = require('objection')

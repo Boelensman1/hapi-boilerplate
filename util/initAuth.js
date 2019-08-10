@@ -13,7 +13,7 @@ const validate = (decoded, request) => (
   })
 )
 
-exports.register = (plugin, options, next) => {
+exports.register = (plugin) => {
   // initialise the authentication
   plugin.auth.strategy('jwt', 'jwt', {
     key: config.get('jwtSecret'),
