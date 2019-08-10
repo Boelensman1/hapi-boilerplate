@@ -1,7 +1,7 @@
 apps:
   - script: ./server.js
     append_env_to_name: true
-    name: 'RobinHuurt Backend'
+    name: 'Boilerplate'
     instances: 1
     exec_mode: cluster
     env:
