@@ -1,10 +1,15 @@
-const { payloadValidation } = require('models/post')
+const Joi = require('@hapi/joi')
+const { payloadValidation, responseValidation } = require('models/post')
 const Boom = require('@hapi/boom')
 
 module.exports = {
   get: {
     description: 'List all posts on the server',
     tags: ['post'],
+    response: {
+      // validate using the scheme defined in the model
+      schema: Joi.array().items(responseValidation),
+    },
     async handler(request, h) {
       const { ioc } = request.server.app
       const Post = ioc.resolve('models').post
@@ -19,6 +24,10 @@ module.exports = {
     validate: {
       // validate using the scheme defined in the model
       payload: payloadValidation,
+    },
+    response: {
+      // validate using the scheme defined in the model
+      schema: responseValidation,
     },
     async handler(request, h) {
       const { ioc } = request.server.app
