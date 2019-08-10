@@ -9,11 +9,12 @@ hapi API Boilerplate with an opinionated view on project structure.
 
 ## Quick Start
 
-Clone project and install dependencies:
+Clone project, install dependencies and migrate the database:
 ```bash
 $ git clone https://github.com/boelensman1/hapi-boilerplate.git
 $ cd hapi-boilerplate
 $ npm install
+$ knex migrate:latest
 ```
 
 Create local config file and modify it
