@@ -1,5 +1,5 @@
 const Joi = require('@hapi/joi')
-const initModels = require('test/models/initModels')
+const setUpModelTest = require('test/models/setUpModelTest')
 const BaseModel = require('models/baseModel')
 
 class SimpleModel extends BaseModel {
@@ -15,7 +15,7 @@ class SimpleModel extends BaseModel {
 }
 
 const setup = async (model) => {
-  const knex = await initModels()
+  const { knex } = await setUpModelTest()
   await knex.schema.createTable('simpleModel', (table) => {
     table.increments()
     table.integer('num')

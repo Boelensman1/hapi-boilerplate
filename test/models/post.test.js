@@ -1,14 +1,9 @@
-const initModels = require('test/models/initModels')
-const PostModel = require('models/post')
-
-const setup = async () => {
-  const knex = await initModels()
-  return PostModel.bindKnex(knex)
-}
+const setUpModelTest = require('test/models/setUpModelTest')
 
 describe('Test the post model', () => {
   test('inserting post', async () => {
-    const Post = await setup()
+    const { models } = await setUpModelTest()
+    const Post = models.post
 
     const post = await Post
       .query()
@@ -20,7 +15,8 @@ describe('Test the post model', () => {
   })
 
   test('querying posts', async () => {
-    const Post = await setup()
+    const { models } = await setUpModelTest()
+    const Post = models.post
 
     let posts = await Post.query()
     expect(posts.length).toBe(0)

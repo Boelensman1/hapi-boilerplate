@@ -7,6 +7,9 @@ manifest:
       stripTrailingSlash: true
   register:
     plugins:
+      - plugin: 'hapi-auth-jwt2'
+      - plugin: 'util/initAuth'
+      - plugin: 'util/initPermissions'
       - plugin: './api'
       - plugin: '@hapi/inert'
       - plugin: '@hapi/vision'
@@ -33,3 +36,11 @@ knex:
   client: 'sqlite3'
   connection:
     filename: './database.sqlite3'
+cookieOptions:
+  ttl: 31536000000               # expires a year from today
+  encoding: 'none'               # we already used JWT to encode
+  isSecure: false                # can be enabled if the server runs https
+  isHttpOnly: true               # we validate with http, so has to be false
+  clearInvalid: true             # remove invalid cookies
+  strictHeader: true             # don't allow violations of RFC 6265
+  path: '/'                      # set the cookie for all routes

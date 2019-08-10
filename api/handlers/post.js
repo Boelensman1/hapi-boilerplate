@@ -10,6 +10,11 @@ module.exports = {
       // validate using the scheme defined in the model
       schema: Joi.array().items(responseValidation),
     },
+    plugins: {
+      hapiRouteAcl: {
+        permissions: ['post:write'],
+      },
+    },
     async handler(request, h) {
       const { ioc } = request.server.app
       const Post = ioc.resolve('models').post
@@ -28,6 +33,11 @@ module.exports = {
     response: {
       // validate using the scheme defined in the model
       schema: responseValidation,
+    },
+    plugins: {
+      hapiRouteAcl: {
+        permissions: ['post:read'],
+      },
     },
     async handler(request, h) {
       const { ioc } = request.server.app

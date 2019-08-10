@@ -4,13 +4,16 @@ const startUpServer = require('../..')
  * Do the setup for a handler test
  *
  * @param {objet} ioc The ioc object
+ * @param {boolean} skipModels Wether to skip the model initialisation
  * @returns {Promise} Promise that resolves when done
  */
-async function setUpServer(ioc) {
-  const knex = ioc.resolve('knex')
+async function setUpServer(ioc, skipModels = false) {
+  if (!skipModels) {
+    const knex = ioc.resolve('knex')
 
-  // migrate to the latest db
-  await knex.migrate.latest()
+    // migrate to the latest db
+    await knex.migrate.latest()
+  }
 
   const { listener } = await startUpServer(ioc)
   return listener

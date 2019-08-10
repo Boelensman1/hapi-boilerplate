@@ -6,7 +6,7 @@ module.exports = {
     'will just always return OK (if the server is running of course)',
   ],
   auth: false,
-  handler() {
-    return { result: 'OK' }
+  handler(request, h) {
+    return h.response({ result: 'OK' }).code(200)
   },
 }

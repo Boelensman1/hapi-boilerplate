@@ -9,6 +9,9 @@ manifest:
       stripTrailingSlash: true
   register:
     plugins:
+      - plugin: 'hapi-auth-jwt2'
+      - plugin: 'util/initAuth'
+      - plugin: 'util/initPermissions'
       - plugin: './api'
       - plugin: '@hapi/inert'
       - plugin: '@hapi/vision'

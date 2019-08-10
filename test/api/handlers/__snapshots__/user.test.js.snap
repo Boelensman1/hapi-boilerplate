@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test /user route Get users 1`] = `
+Array [
+  Object {
+    "createdAt": "1970-01-01T00:00:00.000Z",
+    "id": 0,
+    "loggedInAt": null,
+    "roleId": 0,
+    "updatedAt": null,
+    "username": "SYSTEM",
+  },
+  Object {
+    "createdAt": "2029-12-31T22:00:00.000Z",
+    "id": 10,
+    "loggedInAt": null,
+    "roleId": 200,
+    "updatedAt": null,
+    "username": "testUser1",
+  },
+  Object {
+    "createdAt": "2029-12-31T22:00:00.000Z",
+    "id": 11,
+    "loggedInAt": null,
+    "roleId": 200,
+    "updatedAt": null,
+    "username": "testUser2",
+  },
+]
+`;

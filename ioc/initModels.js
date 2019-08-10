@@ -1,4 +1,7 @@
 const post = require('models/post')
+const role = require('models/role')
+const session = require('models/session')
+const user = require('models/user')
 
 /**
  * Make the first letter of a string lowercase
@@ -21,6 +24,9 @@ function initModels() {
 
   const modelArray = [
     post,
+    role,
+    session,
+    user,
   ]
 
   const models = {}

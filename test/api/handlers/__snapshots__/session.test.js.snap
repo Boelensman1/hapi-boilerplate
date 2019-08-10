@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test /session route get current 1`] = `
+Object {
+  "createdAt": Any<String>,
+  "uid": Any<String>,
+  "updatedAt": null,
+  "userId": 10,
+  "valid": 1,
+}
+`;
+
+exports[`Test /session route get current 2`] = `
+Object {
+  "createdAt": Any<String>,
+  "id": Any<Number>,
+  "loggedInAt": Any<Number>,
+  "role": Object {
+    "createdAt": "2029-12-31T22:00:00.000Z",
+    "id": 200,
+    "name": "userRoleName",
+    "post_delete": 0,
+    "post_read": 0,
+    "post_write": 0,
+    "roles_delete": 0,
+    "roles_read": 0,
+    "roles_write": 0,
+    "updatedAt": null,
+    "users_delete": 0,
+    "users_read": 0,
+    "users_write": 0,
+  },
+  "roleId": 200,
+  "updatedAt": Any<String>,
+  "username": "testUser1",
+}
+`;
