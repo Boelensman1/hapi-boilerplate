@@ -18,8 +18,7 @@ $ npm install
 
 Create local config file and modify it
 ```bash
-$ echo jwtSecret: \'$(LC_ALL=C tr -dc 'a-zA-Z0-9'<
-/dev/urandom | fold -w 32 | head -n 1)\' > config/local.yaml
+$ echo jwtSecret: \'$(LC_ALL=C tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)\' > config/local.yaml
 ```
 
 Start the server:
@@ -67,40 +66,74 @@ https://github.com/eslint/eslint
 .
 ├── api/
 |   ├── handlers/
+|   |   ├── notFound.js             * The catchall 404 handler
+|   |   ├── post.js                 * Sample handler with db support
+|   |   ├── roles.js                * Handler for creating sessions
+|   |   ├── session                 * Handler for creating sessions
 |   |   └── status.js               * Sample handler
-|   |   └── post.js                 * Sample handler with db support
-|   |   └── notFound.js             * The catchall 404 handler
+|   |   ├── roles.js                * Sample handler for viewing/deleting users
 |   └── index.js                    * REST routes
 ├── config/
 |   ├── default.yaml                * Server configuration
-|   ├── development.yaml            * Configuration overrides for development env
+|   ├── development.yaml            * Config overrides for development env
+|   ├── local.yaml                  * Config overrides specific for this machine
 |   ├── production.yaml             * Configuration overrides for production env
-|   ├── test.yaml                   * Configuration overrides for test environment
+|   ├── test.yaml                   * Configuration overrides for test env
 ├── ioc/
 |   ├── create.js                   * Creates the IoC container
 |   ├── createServer.js             * The server creation factory
 |   ├── initKnex.js                 * The knex (database) creation factory
-|   ├── initModels                  * The ORM creation factory
+|   ├── initModels.js               * The ORM creation factory
 ├── migrations/
+|   ├── 20170408162000_role.js      * A knex migration for the tables
+|   ├── 20170408162010_user.js      * A knex migration for the tables
+|   ├── 20170408162030_session.js   * A knex migration for the tables
 |   ├── 20170409142333_posts.js     * A knex migration for the tables
 ├── models/
 |   ├── baseModel.js                * The model all other models inherit from
-|   ├── posts.js                    * The objection models
+|   ├── post.js                     * The objection model for posts
+|   ├── role.js                     * The objection model for roles
+|   ├── session.js                  * The objection model for sessions
+|   ├── user.js                     * The objection model for users
 ├── test/
 |   ├── api/
 |   |   ├── handlers/
-|   |   |   ├── status.test.js      * Status endpoint test
+|   |   |   ├── notFound.test.js    * Notfound endpoint test
 |   |   |   ├── post.test.js        * Post endpoint test
-|   |   |   └── notFound.test.js    * Notfound endpoint test
-|   |   └── setUpServer.js          * Initializes the server for the tests
+|   |   |   ├── session.seed.js     * Session seed file for its endpoint test
+|   |   |   ├── session.test.js     * Session endpoint test
+|   |   |   ├── status.test.js      * Status endpoint test
+|   |   |   ├── user.seed.js        * User seed file for its endpoint test
+|   |   |   └── user.test.js        * User endpoint test
+|   |   ├── setUpServer.js          * Initializes the server for the tests
+|   |   └── setUpHandlerTest.js     * Initializes the server & runs migrations
 |   ├── migrations/
-|   |   ├── migrations.test.js      * Test if the knex migrations run
-|   └── models/
-|       └── baseModel.test.js       * Tests of the base model
-|       ├── initModels.js           * Initializes the models for the tests
-|       └── post.test.js            * Tests of the post model
-├── server.js                       * Server definition (uses the Glue plugin)
-└── package.json
+|   |   └── migrations.test.js      * Test if the knex migrations run
+|   ├── models/
+|   |   ├── baseModel.test.js       * Tests of the base model
+|   |   ├── post.test.js            * Tests of the post model
+|   |   ├── role.test.js            * Tests of the role model
+|   |   ├── setUpModelTest.js       * Initializes the models for the tests
+|   |   ├── user.seed.yaml          * User seed file for its model test
+|   |   └── user.test.js            * Tests of the user model
+|   └── seedDatabase.js             * Utility function to seeds the database
+├── util/
+|   ├── createAdminAccount.js       * Interactively creates an admin account
+|   ├── initAuth.js                 * Initialises the authentication plugin
+|   ├── initPermissions.js          * Initialises the permissions plugin
+|   ├── permissionsFunc.js          * Determines what user has what permissions
+|   └── validateJwt.js              * Validate the javascript web token
+├── .editorconfig                   * Sets editor settings like the # of spaces
+├── .eslintignore                   * Determines what files should not be linted
+├── .eslintrc                       * Linter settings
+├── .gitignore
+├── ecosystem.config.yaml           * Configuration for pm2
+├── jsconfig.json                   * Supresses invalid vscode warnings
+├── knexfile.js                     * Utility file that loads the knex config
+├── package-lock.json
+├── package.json
+├── README.md                       * This file!
+└── server.js                       * Server definition (uses the Glue plugin)
 ```
 
 ## Thanks
