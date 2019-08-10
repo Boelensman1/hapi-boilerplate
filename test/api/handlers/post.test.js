@@ -1,71 +1,67 @@
-const test = require('ava')
+const createIoC = require('ioc/create')
 const request = require('supertest')
 const randomstring = require('randomstring').generate
-const initServer = require('../initServer')
+const setUpServer = require('test/api/setUpServer')
 
-let listener
+describe('Test /post route', () => {
+  test('get posts', async () => {
+    const listener = await setUpServer(createIoC())
+    const response = await request(listener)
+      .get('/posts')
+      .expect('Content-Type', /json/)
+      .expect(200)
 
-test.before((t) => (
-  initServer().then((srv) => {
-    listener = srv.listener
+    // should return an array
+    expect(response.body).toBeInstanceOf(Array)
   })
-))
 
-test('get posts', (t) => (
-  request(listener)
-    .get('/posts')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .then((res) => {
-      // should return an array
-      t.truthy(res.body instanceof Array)
-    })
-))
+  test('insert & then get posts by name', async () => {
+    const listener = await setUpServer(createIoC())
 
-test('insert & then get posts by name', (t) => {
-  const post = {
-    title: randomstring(7),
-    contents: randomstring(),
-  }
+    const post = {
+      title: randomstring(7),
+      contents: randomstring(),
+    }
 
-  return request(listener)
-    .post('/posts')
-    .send(post)
-    .expect('Content-Type', /json/)
-    .expect(201)
-    .then((res) => {
-      // should return the inserted object
-      t.truthy(res.body instanceof Object)
-      t.truthy(res.body.id)
-      t.is(res.body.title, post.title)
-      t.is(res.body.contents, post.contents)
+    let response = await request(listener)
+      .post('/posts')
+      .send(post)
+      .expect('Content-Type', /json/)
+      .expect(201)
 
-      return request(listener)
-        .get('/posts')
-        .query({ title: post.title })
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .then((response) => {
-          t.is(response.body.length, 1)
-        })
-    })
-})
+    // should return the inserted object
+    expect(response.body).toBeInstanceOf(Object)
+    expect(response.body).toHaveProperty('id')
 
-test('validation', (t) => {
-  const post = {
-    title: randomstring(7),
-    // missing contents
-  }
+    expect(response.body.title).toBe(post.title)
+    expect(response.body.contents).toBe(post.contents)
 
-  return request(listener)
-    .post('/posts')
-    .send(post)
-    .expect('Content-Type', /json/)
-    .expect(400)
-    .then((res) => {
-      t.truthy(res.body instanceof Object)
-      const validationError = res.body.validation
-      t.is(validationError.source, 'payload')
-      t.deepEqual(validationError.keys, ['contents'])
-    })
+    response = await request(listener)
+      .get('/posts')
+      .query({ title: post.title })
+      .expect('Content-Type', /json/)
+      .expect(200)
+
+    expect(response.body.length).toBe(1)
+  })
+
+  test('validation', async () => {
+    const listener = await setUpServer(createIoC())
+    const post = {
+      title: randomstring(7),
+      // missing contents
+    }
+
+    const response = await request(listener)
+      .post('/posts')
+      .send(post)
+      .expect('Content-Type', /json/)
+      .expect(400)
+
+    expect(response.body).toBeInstanceOf(Object)
+
+    const validationError = response.body.validation
+    expect(validationError.source).toBe('payload')
+    expect(validationError.keys).toEqual(['contents'])
+  })
 })

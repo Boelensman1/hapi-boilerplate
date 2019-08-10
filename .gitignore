@@ -4,12 +4,16 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
-# yarn error log
-yarn-error.log
-
 # databases
 *.sqlite3
 
+# local config files
+/config/local*.yaml
+# but don't ignore the local test file
+!/config/local-test.yaml
+
+# logs
+logs/*
+
 # coverage
 coverage
-.nyc_output

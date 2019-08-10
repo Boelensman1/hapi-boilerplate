@@ -1,5 +1,5 @@
 {
-  "extends" : "../.eslintrc.js",
+  "extends" : "../.eslintrc",
   'rules': {
     'require-jsdoc': [0],
     'func-names': [0],

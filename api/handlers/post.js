@@ -1,38 +1,40 @@
-const Joi = require('joi')
-const Post = require('../../models/post')
-const findQuery = require('objection-find')
-
-/* eslint-disable max-len */
-const queryValidation = {
-  title: Joi.string().description('Filter the posts by title'),
-  orderBy: Joi.string().allow(['title', 'id']).description('Sort the posts'),
-  orderByDesc: Joi.string().allow(['title', 'id']).description('Reverse sort the posts'),
-}
-/* eslint-enable */
+const { payloadValidation } = require('models/post')
+const Boom = require('@hapi/boom')
 
 module.exports = {
   get: {
     description: 'List all posts on the server',
     tags: ['post'],
-    validate: {
-      query: queryValidation,
-    },
-    handler(request, reply) {
-      return reply(findQuery(Post).build(request.query))
+    async handler(request, h) {
+      const { ioc } = request.server.app
+      const Post = ioc.resolve('models').post
+
+      const posts = await Post.query()
+      return h.response(posts).code(200)
     },
   },
   post: {
     description: 'Create a new post on the server',
-    tags: ['post'],
+    tags: ['api', 'post'],
     validate: {
       // validate using the scheme defined in the model
-      payload: Post.payloadValidation,
+      payload: payloadValidation,
     },
-    handler(request, reply) {
-      return reply(Post.query().insert(request.payload)).code(201)
-    },
-    response: {
-      schema: Post.schema,
+    async handler(request, h) {
+      const { ioc } = request.server.app
+      const Post = ioc.resolve('models').post
+
+      let post
+      try {
+        // insert the interested persons data into the database
+        post = await Post.query().insert(request.payload)
+      } catch (error) {
+        request.log('error', error)
+        throw new Boom('Error while inserting')
+      }
+
+      // return the wanted object
+      return h.response(post).code(201)
     },
   },
 }

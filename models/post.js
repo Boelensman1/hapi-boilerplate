@@ -1,7 +1,9 @@
-const Joi = require('joi')
-const BaseModel = require('./baseModel')
+const Joi = require('@hapi/joi')
+
+const BaseModel = require('models/baseModel')
 
 class Post extends BaseModel {
+  // Table name is the only required property.
   static get tableName() {
     return 'posts'
   }
@@ -24,6 +26,23 @@ class Post extends BaseModel {
       contents: Post.schema.contents,
       author: Post.schema.author.optional().default('Anonymous'),
     }
+  }
+
+  // used by hapi to validate the response, see the handler
+  static get responseValidation() {
+    return BaseModel.compileSchema({
+      id: Post.schema.id.required(),
+      title: Post.schema.title,
+      contents: Post.schema.contents,
+      author: Post.schema.author.optional().default('Anonymous'),
+      createdAt: Post.schema.createdAt.required(),
+      updatedAt: Post.schema.updatedAt,
+    })
+  }
+
+  // This object defines the relations to other models.
+  static get relationMappings() {
+    return { }
   }
 }
 

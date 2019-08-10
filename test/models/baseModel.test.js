@@ -1,6 +1,5 @@
-const test = require('ava')
-const initModels = require('./initModels')
-const BaseModel = require('../../models/baseModel')
+const initModels = require('test/models/initModels')
+const BaseModel = require('models/baseModel')
 
 class SimpleModel extends BaseModel {
   static get tableName() {
@@ -8,47 +7,38 @@ class SimpleModel extends BaseModel {
   }
 }
 
-test.beforeEach((t) => (
-  initModels().then((knex) => (
-    knex.schema.createTable('simpleModel', (table) => {
-      table.increments()
-      table.timestamp('createdAt')
-      table.timestamp('updatedAt')
-    }).then(() => {
-      t.context.Simple = SimpleModel.bindKnex(knex)
-    })
-  ))
-))
+const setup = async (model) => {
+  const knex = await initModels()
+  await knex.schema.createTable('simpleModel', (table) => {
+    table.increments()
+    table.timestamp('createdAt')
+    table.timestamp('updatedAt')
+  })
 
-test('inserting the basemodel', (t) => {
-  const Simple = t.context.Simple
+  return model.bindKnex(knex)
+}
 
-  return Simple
-    .query()
-    .insert({})
-    .then((simple) => {
-      t.truthy(simple instanceof Simple)
-      // createdAt should be less then 2 seconds ago
-      t.truthy((new Date(simple.createdAt) - new Date()) < 2)
-      t.is(simple.updatedAt, undefined)
-    })
-})
+describe('Test the basemodel', () => {
+  test('Inserting', async () => {
+    const Simple = await setup(SimpleModel)
 
-test('updating the basemodel', (t) => {
-  const Simple = t.context.Simple
+    const simple = await Simple.query().insert({})
+    expect(simple).toBeInstanceOf(Simple)
 
-  return Simple
-    .query()
-    .insert({})
-    .then((simple) => (
-      simple
-      .$query()
-      .update({})
-      .then(() => {
-        // updatedAt should now be defined and be less then 2 seconds ago
-        t.truthy((new Date(simple.updatedAt) - new Date()) < 2)
-        // updatedAt should be later then the creation time
-        t.truthy((new Date(simple.updatedAt) > new Date(simple.createdAt)))
-      })
-    ))
+    // createdAt should be less then 2 seconds ago
+    expect((new Date(simple.createdAt) - new Date()) < 2).toBe(true)
+    expect(simple.updatedAt).toBe(undefined)
+  })
+
+  test('Updating', async () => {
+    const Simple = await setup(SimpleModel)
+
+    const simple = await Simple.query().insert({})
+
+    await simple.$query().update({})
+    // updatedAt should be defined and be less then 2 seconds ago
+    expect((new Date(simple.updatedAt) - new Date()) < 2).toBe(true)
+    // updatedAt should be later then the creation time
+    expect(new Date(simple.updatedAt) > new Date(simple.createdAt)).toBe(true)
+  })
 })
