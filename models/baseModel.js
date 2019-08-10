@@ -1,7 +1,7 @@
 const { Model } = require('objection')
 const Joi = require('@hapi/joi')
 const { Validator } = require('objection')
-const pick = require('lodash.pick')
+const { pick } = require('lodash')
 
 
 class JoiValidator extends Validator {

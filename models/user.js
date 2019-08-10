@@ -1,5 +1,5 @@
 const Joi = require('@hapi/joi')
-const omit = require('lodash.omit')
+const { omit } = require('lodash')
 const zxcvbn = require('zxcvbn')
 const argon2 = require('argon2')
 
