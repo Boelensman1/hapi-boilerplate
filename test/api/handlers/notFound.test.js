@@ -1,21 +1,12 @@
-const test = require('ava')
+const createIoC = require('ioc/create')
 const request = require('supertest')
-const initServer = require('../initServer')
+const setUpServer = require('test/api/setUpServer')
 
-let listener
+describe('Test 404 route', () => {
+  test('Requesting an nonexisting route returns a 404', async () => {
+    const listener = await setUpServer(createIoC())
 
-test.before((t) => (
-  initServer().then((srv) => {
-    listener = srv.listener
+    const response = await request(listener).post('/nonexisting')
+    expect(response.status).toEqual(404)
   })
-))
-
-test('get non defined route', (t) => (
-  request(listener)
-    .get('/undefinedurl')
-    .expect(404)
-    .then((res) => {
-      t.is(res.body.result, 'Page not found.')
-    })
-))
-
+})

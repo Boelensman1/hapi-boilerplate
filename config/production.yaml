@@ -1,7 +1,12 @@
 manifest:
   server:
     address: '0.0.0.0'
-    port: 8080
+    port: 3000
+    routes:
+      cors:
+        origin: ['*']
+    router:
+      stripTrailingSlash: true
   register:
     plugins:
       - plugin: './api'
@@ -18,11 +23,20 @@ manifest:
           ops:
             interval: 1000
           reporters:
+            audit:
+              - module: '@hapi/good-squeeze'
+                name: 'Squeeze'
+                args:
+                - response: '*'
+              - module: '@hapi/good-squeeze'
+                name: 'SafeJson'
+              - module: 'plugins/good-file'
+                args: ['./logs/audit.json']
             console:
               - module: '@hapi/good-squeeze'
                 name: 'Squeeze'
                 args:
-                - error: '*'
+                - log: '*'
+                - response: '*'
               - module: '@hapi/good-console'
               - 'stdout'
-      - plugin: 'blipp'

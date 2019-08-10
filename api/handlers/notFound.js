@@ -1,7 +1,10 @@
+const Boom = require('@hapi/boom')
+
 module.exports = {
   description: 'The catch-all 404 endpoint',
   tags: ['private'],
-  handler(request, reply) {
-    return reply({ result: 'Page not found.' }).code(404)
+  auth: false,
+  handler() {
+    throw Boom.notFound('Endpoint does not exist')
   },
 }

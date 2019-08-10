@@ -1,0 +1,40 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "jest": true,
+  },
+  "globals": {
+    "approot": true,
+  },
+  "rules": {
+    "semi": [2, "never"],
+    "comma-dangle": [2, "always-multiline"],
+    "max-len": 0,
+    "no-shadow": 0,
+    "arrow-body-style": 0,
+    "arrow-parens": 0,
+    "global-require": 0,
+    "no-unused-expressions": 0,
+    "no-param-reassign": 0,
+    "no-confusing-arrow": 0,
+    "no-unused-vars": [2, { "ignoreRestSiblings": true }],
+    "import/no-dynamic-require": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/prefer-default-export": 0,
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": [
+          "node_modules",
+          "."
+        ]
+      }
+    }
+  }
+}

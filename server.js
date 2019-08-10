@@ -1,32 +1,38 @@
-const config = require('config')
-const glue = require('glue')
+const createIoC = require('ioc/create')
 
 /**
- * Create the server
+ * Startup the server
  *
- * @param {object} manifest The serverconfig
+ * @param {object} ioc The IoC service
  * @returns {Promise} Promise resolving into the hapi server object
  */
-function createServer(manifest) {
-  return new Promise((resolve, reject) => {
-    glue.compose(manifest, { relativeTo: __dirname }, (err, server) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(server)
-      }
-    })
-  })
+async function startUpServer(ioc) {
+  try {
+    const config = ioc.resolve('config')
+    // start up the server!
+    const server = await ioc.resolve('server', config.get('manifest'))
+    await server.start()
+    server.app.ioc = ioc
+    server.log(`✅  Server is listening on ${server.info.uri.toLowerCase()}`)
+
+    // return the server instance
+    return server
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error while starting up the server', error)
+    throw new Error('Error while starting up, check logs for details')
+  }
 }
 
-module.exports = {
-  createServer,
-}
+module.exports = startUpServer
 
+// check if we're running as a require. If we are not, start up the server
 if (!module.parent) {
-  createServer(config.manifest).then((server) => {
-    server.start(() => {
-      console.log(`✅  Server is listening on ${server.info.uri.toLowerCase()}`)
-    })
+  process.on('unhandledRejection', (err) => {
+    // eslint-disable-next-line no-console
+    console.log(err)
+    process.exit(1)
   })
+
+  startUpServer(createIoC())
 }

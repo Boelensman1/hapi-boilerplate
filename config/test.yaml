@@ -1,1 +1,33 @@
-# empty config file
+knex:
+  useNullAsDefault: true
+  client: 'sqlite3'
+  connection:
+    filename: ':memory:'
+bunyan:
+  src: true
+  streams:
+    - type: 'file'
+      path: 'logs/tests.log'
+      level: 'debug'
+manifest:
+  server:
+    autoListen: false
+    routes:
+      cors:
+        origin: 'ignore'
+    router:
+      stripTrailingSlash: true
+  register:
+    plugins:
+      - plugin: './api'
+      - plugin: '@hapi/good'
+        options:
+          ops: false
+          reporters:
+            console:
+              - module: '@hapi/good-squeeze'
+                name: 'Squeeze'
+                args:
+                - error: '*'
+              - module: '@hapi/good-console'
+              - 'stdout'

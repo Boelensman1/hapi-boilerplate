@@ -1,23 +1,35 @@
 manifest:
-  connections:
-    - host: 'localhost'
-      port: 8080
-      routes:
-        cors: true
-      router:
-        stripTrailingSlash: true
-  registrations:
-    - plugin: './api'
-    - plugin:
-        register: 'good'
+  server:
+    routes:
+      cors:
+        origin: ['*']
+    router:
+      stripTrailingSlash: true
+  register:
+    plugins:
+      - plugin: './api'
+      - plugin: '@hapi/inert'
+      - plugin: '@hapi/vision'
+      - plugin: 'hapi-swagger'
+        options:
+          info:
+            title: 'Boilerplate'
+          grouping: 'tags'
+          documentationPath: '/'
+      - plugin: '@hapi/good'
         options:
           ops:
             interval: 1000
           reporters:
             console:
-              - module: 'good-squeeze'
+              - module: '@hapi/good-squeeze'
                 name: 'Squeeze'
                 args:
                 - error: '*'
-              - module: 'good-console'
+              - module: '@hapi/good-console'
               - 'stdout'
+knex:
+  useNullAsDefault: true
+  client: 'sqlite3'
+  connection:
+    filename: './database.sqlite3'
