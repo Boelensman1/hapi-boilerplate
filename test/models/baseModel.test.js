@@ -36,7 +36,7 @@ describe('Test the basemodel', () => {
     expect(simple).toBeInstanceOf(Simple)
 
     // createdAt should be less then 2 seconds ago
-    expect((new Date(simple.createdAt) - new Date()) < 2).toBe(true)
+    expect(new Date(simple.createdAt) - new Date() < 2).toBe(true)
     expect(simple.updatedAt).toBe(undefined)
   })
 
@@ -47,7 +47,7 @@ describe('Test the basemodel', () => {
 
     await simple.$query().patch({ num: 1 })
     // updatedAt should be defined and be less then 2 seconds ago
-    expect((new Date(simple.updatedAt) - new Date()) < 2).toBe(true)
+    expect(new Date(simple.updatedAt) - new Date() < 2).toBe(true)
     // updatedAt should be later then the creation time
     expect(new Date(simple.updatedAt) > new Date(simple.createdAt)).toBe(true)
     // test should be updated
@@ -57,7 +57,8 @@ describe('Test the basemodel', () => {
   test('Validation', async () => {
     const Simple = await setup(SimpleModel)
 
-    const e = 'child "num" fails because ["num" must be larger than or equal to 0]'
+    const e =
+      'child "num" fails because ["num" must be larger than or equal to 0]'
     await expect(Simple.query().insert({ num: -1 })).rejects.toThrow(e)
 
     expect(() => {

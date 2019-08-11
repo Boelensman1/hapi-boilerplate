@@ -2,7 +2,6 @@ const fs = require('fs')
 const yaml = require('js-yaml')
 const tk = require('timekeeper')
 
-
 /**
  * Insert a list of models
  *
@@ -28,7 +27,9 @@ function insert(model, dataList, insertCount, inserted) {
 
   // objection.js does not support batch for all database engines
   // so we have to do this sequentially as well
-  return model.query().insert(dataList[insertCount])
+  return model
+    .query()
+    .insert(dataList[insertCount])
     .then((i) => {
       inserted.push(i)
       return insert(model, dataList, insertCount + 1, inserted)
@@ -78,17 +79,18 @@ async function seedDatabase(models, seedfile) {
   const seed = yaml.safeLoad(fs.readFileSync(seedfile))
 
   const batchModels = Object.keys(seed).map((modelName) => {
-    if (!models[modelName]) { throw new Error(`Unknown model ${modelName}`) }
+    if (!models[modelName]) {
+      throw new Error(`Unknown model ${modelName}`)
+    }
     return models[modelName]
   })
 
-  const batchData = Object.keys(seed).map((modelName) => (seed[modelName]))
+  const batchData = Object.keys(seed).map((modelName) => seed[modelName])
   const names = Object.keys(seed)
   const result = await insertBatch(batchModels, batchData, names, 0)
 
   tk.reset() // Reset, time is normal again
   return result
 }
-
 
 module.exports = seedDatabase

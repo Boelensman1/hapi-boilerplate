@@ -9,7 +9,10 @@
 async function validateJwt(decoded, models, callback) {
   const { uid } = decoded
 
-  const session = await models.session.query().findById(uid).eager('user.role')
+  const session = await models.session
+    .query()
+    .findById(uid)
+    .eager('user.role')
   if (!session || !session.valid) {
     return callback(false)
   }

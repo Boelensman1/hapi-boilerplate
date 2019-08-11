@@ -20,7 +20,8 @@ class User extends BaseModel {
     if (zxcvbn(this.password).score < 3) {
       throw new Error('Password is too weak')
     }
-    return argon2.hash(this.password, { type: argon2.argon2id })
+    return argon2
+      .hash(this.password, { type: argon2.argon2id })
       .then((hash) => {
         this.passwordHash = hash
         this.password = undefined
@@ -43,14 +44,24 @@ class User extends BaseModel {
 
   static get schema() {
     return {
-      id: Joi.number().min(0).description('The id of the wanted object'),
-      username: Joi.string().min(3).max(255).required()
+      id: Joi.number()
+        .min(0)
+        .description('The id of the wanted object'),
+      username: Joi.string()
+        .min(3)
+        .max(255)
+        .required()
         .description('The username that the user can use to login'),
-      passwordHash: Joi.string().min(3).max(255)
+      passwordHash: Joi.string()
+        .min(3)
+        .max(255)
         .description('The hash of the user'),
-      password: Joi.string().min(3).max(255)
+      password: Joi.string()
+        .min(3)
+        .max(255)
         .description('The password of the user'),
-      roleId: Joi.number().min(0)
+      roleId: Joi.number()
+        .min(0)
         .description('The id of the role of the user'),
       loggedInAt: Joi.date().description('When the user last logged in'),
       createdAt: Joi.date().description('When the object was created'),

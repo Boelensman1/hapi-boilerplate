@@ -27,7 +27,10 @@ async function createServer(manifest, skipModelsInit) {
   if (!skipModelsInit) {
     await this.resolve('knex')
   }
-  return glue.compose(manifestObject, { relativeTo: path.resolve(__dirname, '..') })
+  return glue.compose(
+    manifestObject,
+    { relativeTo: path.resolve(__dirname, '..') },
+  )
 }
 
 module.exports = createServer

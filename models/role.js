@@ -15,34 +15,75 @@ class Role extends BaseModel {
 
   static get schema() {
     return {
-      id: Joi.number().min(0).description('The id of the role object'),
-      name: Joi.string().min(3).required().description('Name of the role'),
+      id: Joi.number()
+        .min(0)
+        .description('The id of the role object'),
+      name: Joi.string()
+        .min(3)
+        .required()
+        .description('Name of the role'),
 
-      posts_create: Joi.boolean().truthy(1).falsy(0).default(false)
+      posts_create: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to add a post'),
-      posts_read: Joi.boolean().truthy(1).falsy(0).default(false)
+      posts_read: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to read the list of post'),
-      posts_update: Joi.boolean().truthy(1).falsy(0).default(false)
+      posts_update: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to update the list of post'),
-      posts_delete: Joi.boolean().truthy(1).falsy(0).default(false)
+      posts_delete: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to remove a post'),
 
-      users_create: Joi.boolean().truthy(1).falsy(0).default(false)
+      users_create: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to add a user'),
-      users_read: Joi.boolean().truthy(1).falsy(0).default(false)
+      users_read: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to read the list of users'),
-      users_update: Joi.boolean().truthy(1).falsy(0).default(false)
+      users_update: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to update the list of users'),
-      users_delete: Joi.boolean().truthy(1).falsy(0).default(false)
+      users_delete: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to remove a user'),
 
-      roles_create: Joi.boolean().truthy(1).falsy(0).default(false)
+      roles_create: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to add a role'),
-      roles_read: Joi.boolean().truthy(1).falsy(0).default(false)
+      roles_read: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to read the list of roles'),
-      roles_update: Joi.boolean().truthy(1).falsy(0).default(false)
+      roles_update: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to update the list of roles'),
-      roles_delete: Joi.boolean().truthy(1).falsy(0).default(false)
+      roles_delete: Joi.boolean()
+        .truthy(1)
+        .falsy(0)
+        .default(false)
         .description('Allow this role to remove a role'),
 
       createdAt: Joi.date().description('When the object was created'),

@@ -25,7 +25,7 @@ manifest:
               - module: '@hapi/good-squeeze'
                 name: 'Squeeze'
                 args:
-                - error: '*'
+                  - error: '*'
               - module: '@hapi/good-console'
               - 'stdout'
       - plugin: 'blipp'

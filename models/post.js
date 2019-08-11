@@ -10,10 +10,21 @@ class Post extends BaseModel {
 
   static get schema() {
     return {
-      id: Joi.number().min(0).description('The identifier of the post'),
-      title: Joi.string().max(20).required().description('The title of the post, maxlength of 20'),
-      contents: Joi.string().max(500).required().description('The contents of the post, maxlength of 500'),
-      author: Joi.string().max(100).required().description('The author of the post, maxlength of 100'),
+      id: Joi.number()
+        .min(0)
+        .description('The identifier of the post'),
+      title: Joi.string()
+        .max(20)
+        .required()
+        .description('The title of the post, maxlength of 20'),
+      contents: Joi.string()
+        .max(500)
+        .required()
+        .description('The contents of the post, maxlength of 500'),
+      author: Joi.string()
+        .max(100)
+        .required()
+        .description('The author of the post, maxlength of 100'),
       createdAt: Joi.date().description('When the post was created'),
       updatedAt: Joi.date().description('When the post was last updated'),
     }
@@ -42,7 +53,7 @@ class Post extends BaseModel {
 
   // This object defines the relations to other models.
   static get relationMappings() {
-    return { }
+    return {}
   }
 }
 

@@ -30,7 +30,7 @@ manifest:
               - module: '@hapi/good-squeeze'
                 name: 'Squeeze'
                 args:
-                - response: '*'
+                  - response: '*'
               - module: '@hapi/good-squeeze'
                 name: 'SafeJson'
               - module: 'plugins/good-file'
@@ -39,7 +39,7 @@ manifest:
               - module: '@hapi/good-squeeze'
                 name: 'Squeeze'
                 args:
-                - log: '*'
-                - response: '*'
+                  - log: '*'
+                  - response: '*'
               - module: '@hapi/good-console'
               - 'stdout'

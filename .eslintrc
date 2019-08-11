@@ -1,7 +1,8 @@
 {
   "parser": "babel-eslint",
   "extends": [
-    "airbnb"
+    "airbnb",
+    "prettier",
   ],
   "env": {
     "node": true,

@@ -5,9 +5,11 @@ describe('Test the post model', () => {
     const { models } = await setUpModelTest()
     const Post = models.post
 
-    const post = await Post
-      .query()
-      .insert({ title: 'test post', contents: 'Lorum Ipsum.', author: 'testr' })
+    const post = await Post.query().insert({
+      title: 'test post',
+      contents: 'Lorum Ipsum.',
+      author: 'testr',
+    })
 
     expect(post).toBeInstanceOf(Post)
     expect(post.title).toBe('test post')
@@ -21,9 +23,11 @@ describe('Test the post model', () => {
     let posts = await Post.query()
     expect(posts.length).toBe(0)
 
-    await Post
-      .query()
-      .insert({ title: 'test post 2', contents: 'Lorum Ipsum.', author: 'testr' })
+    await Post.query().insert({
+      title: 'test post 2',
+      contents: 'Lorum Ipsum.',
+      author: 'testr',
+    })
 
     posts = await Post.query()
     // all tests are standalone,
