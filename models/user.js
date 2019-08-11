@@ -16,15 +16,13 @@ class User extends BaseModel {
     return ['password']
   }
 
-  setPassword() {
+  async setPassword() {
     if (zxcvbn(this.password).score < 3) {
       throw new Error('Password is too weak')
     }
-    return argon2.hash(this.password, { type: argon2.argon2id })
-      .then((hash) => {
-        this.passwordHash = hash
-        this.password = undefined
-      })
+    const hash = await argon2.hash(this.password, { type: argon2.argon2id })
+    this.passwordHash = hash
+    this.password = undefined
   }
 
   checkPassword(password) {
