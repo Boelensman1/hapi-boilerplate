@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 const readline = require('readline')
 
 /**
@@ -30,6 +32,11 @@ function askHidden(rl, query, callback) {
   })
 }
 
+/**
+ * Ask for the username and password
+ *
+ * @returns {object} Object containing the username and password
+ */
 function askUsernamePassword() {
   return new Promise((resolve) => {
     // create a readline interface for asking username & passwd
