@@ -37,6 +37,8 @@ $ npm run test:watch
 ```
 
 ## Plugins
+- **zxcvbn** - Password Strength Estimation for user passwords
+https://github.com/dropbox/zxcvbn
 - **inverse** - Inversion of Control container
 https://github.com/mcordingley/Inverse.js
 - **glue** - Server composer for hapi.js.
