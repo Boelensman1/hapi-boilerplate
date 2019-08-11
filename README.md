@@ -71,31 +71,35 @@ https://github.com/eslint/eslint
 |   |   ├── post.js                 * Sample handler with db support
 |   |   ├── roles.js                * Handler for creating sessions
 |   |   ├── session                 * Handler for creating sessions
-|   |   └── status.js               * Sample handler
-|   |   ├── roles.js                * Sample handler for viewing/deleting users
+|   |   ├── status.js               * Sample handler
+|   |   └── roles.js                * Sample handler for viewing/deleting users
 |   └── index.js                    * REST routes
 ├── config/
 |   ├── default.yaml                * Server configuration
 |   ├── development.yaml            * Config overrides for development env
 |   ├── local.yaml                  * Config overrides specific for this machine
 |   ├── production.yaml             * Configuration overrides for production env
-|   ├── test.yaml                   * Configuration overrides for test env
+|   └── test.yaml                   * Configuration overrides for test env
 ├── ioc/
 |   ├── create.js                   * Creates the IoC container
 |   ├── createServer.js             * The server creation factory
 |   ├── initKnex.js                 * The knex (database) creation factory
-|   ├── initModels.js               * The ORM creation factory
+|   └── initModels.js               * The ORM creation factory
 ├── migrations/
 |   ├── 20170408162000_role.js      * A knex migration for the tables
 |   ├── 20170408162010_user.js      * A knex migration for the tables
 |   ├── 20170408162030_session.js   * A knex migration for the tables
-|   ├── 20170409142333_posts.js     * A knex migration for the tables
+|   └── 20170409142333_posts.js     * A knex migration for the tables
 ├── models/
 |   ├── baseModel.js                * The model all other models inherit from
 |   ├── post.js                     * The objection model for posts
 |   ├── role.js                     * The objection model for roles
 |   ├── session.js                  * The objection model for sessions
-|   ├── user.js                     * The objection model for users
+|   └── user.js                     * The objection model for users
+├── plugins/
+|   ├── good-file.js                * Plugin that saves the logs to a file
+|   ├── initAuth.js                 * Initialises the authentication plugin
+|   └── initPermissions.js          * Initialises the permissions plugin
 ├── test/
 |   ├── api/
 |   |   ├── handlers/
@@ -120,8 +124,6 @@ https://github.com/eslint/eslint
 |   └── seedDatabase.js             * Utility function to seeds the database
 ├── util/
 |   ├── createAdminAccount.js       * Interactively creates an admin account
-|   ├── initAuth.js                 * Initialises the authentication plugin
-|   ├── initPermissions.js          * Initialises the permissions plugin
 |   ├── permissionsFunc.js          * Determines what user has what permissions
 |   └── validateJwt.js              * Validate the javascript web token
 ├── .editorconfig                   * Sets editor settings like the # of spaces

@@ -19,7 +19,7 @@ async function setUpHandlerTest(seedLocation, enableAuth) {
     const globalConfig = require('config')
     const config = clone(globalConfig, true, undefined, undefined, true)
     config.manifest.register.plugins.push({ plugin: 'hapi-auth-jwt2' })
-    config.manifest.register.plugins.push({ plugin: 'util/initAuth' })
+    config.manifest.register.plugins.push({ plugin: 'plugins/initAuth' })
     ioc.singleton('config', () => (config))
   }
 

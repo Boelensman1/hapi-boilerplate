@@ -8,8 +8,8 @@ manifest:
   register:
     plugins:
       - plugin: 'hapi-auth-jwt2'
-      - plugin: 'util/initAuth'
-      - plugin: 'util/initPermissions'
+      - plugin: 'plugins/initAuth'
+      - plugin: 'plugins/initPermissions'
       - plugin: './api'
       - plugin: '@hapi/inert'
       - plugin: '@hapi/vision'
