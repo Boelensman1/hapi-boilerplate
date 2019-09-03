@@ -20,7 +20,9 @@ function permissionsFunc(session) {
     const split = key.split('_')
     const resource = split[0]
     const action = split[1]
-    if (!rolePermissions[resource]) { rolePermissions[resource] = {} }
+    if (!rolePermissions[resource]) {
+      rolePermissions[resource] = {}
+    }
     rolePermissions[resource][action] = !!role[key]
   })
 

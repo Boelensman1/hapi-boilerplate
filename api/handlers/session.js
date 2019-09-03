@@ -23,8 +23,7 @@ module.exports = {
 
       const { username, password } = request.payload
 
-      const user = await User
-        .query()
+      const user = await User.query()
         .where({ username })
         .first()
       if (!user) {
@@ -37,10 +36,13 @@ module.exports = {
       }
 
       const uid = aguid()
-      const token = JWT.sign({
-        uid,
-        exp: Math.floor(new Date().getTime() / 1000) + (7 * 24 * 60 * 60),
-      }, config.get('jwtSecret'))
+      const token = JWT.sign(
+        {
+          uid,
+          exp: Math.floor(new Date().getTime() / 1000) + 7 * 24 * 60 * 60,
+        },
+        config.get('jwtSecret'),
+      )
 
       // we only care about the inserted session, therefore the [, ...]
       const [, session] = await Promise.all([

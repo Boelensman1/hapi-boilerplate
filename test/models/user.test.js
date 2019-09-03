@@ -61,18 +61,14 @@ test('Two users with the same password should have unequal hash', async () => {
   const password = randomstring(15)
 
   const inserted = await Promise.all([
-    role
-      .$relatedQuery('users')
-      .insert({
-        username: randomstring(),
-        password,
-      }),
-    role
-      .$relatedQuery('users')
-      .insert({
-        username: randomstring(),
-        password,
-      }),
+    role.$relatedQuery('users').insert({
+      username: randomstring(),
+      password,
+    }),
+    role.$relatedQuery('users').insert({
+      username: randomstring(),
+      password,
+    }),
   ])
 
   expect(inserted[0].passwordHash).not.toBe(inserted[1].passwordHash)

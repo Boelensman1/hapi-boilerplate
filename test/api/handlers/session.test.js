@@ -54,7 +54,10 @@ describe('Test /session route', () => {
   test('post with wrong password', async () => {
     const { listener } = await setUpHandlerTest(seedLoc, true)
 
-    const payload = { username: 'testUser1', password: 'not users test password' }
+    const payload = {
+      username: 'testUser1',
+      password: 'not users test password',
+    }
 
     const noCookieHeader = (response) => {
       Object.keys(response.headers).forEach((header) => {
@@ -81,7 +84,10 @@ describe('Test /session route', () => {
     // login
     const payload = { username: 'testUser1', password: 'user test password' }
 
-    await agent.post('/session').send(payload).expect(201)
+    await agent
+      .post('/session')
+      .send(payload)
+      .expect(201)
 
     // get current
     const sessionInfo = (await agent.get('/session/current').expect(200)).body

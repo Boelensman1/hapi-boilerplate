@@ -10,7 +10,7 @@ const createServer = require('ioc/createServer')
 const createIOC = () => {
   const container = new Inverse()
 
-  container.singleton('config', () => (require('config')))
+  container.singleton('config', () => require('config'))
   container.singleton('knex', initKnex)
   container.singleton('models', initModels)
 

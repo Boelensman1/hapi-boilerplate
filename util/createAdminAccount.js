@@ -16,11 +16,15 @@ function askHidden(rl, query, callback) {
   const onDataHandler = (char) => {
     char += ''
     switch (char) {
-      case '\n': case '\r': case '\u0004':
+      case '\n':
+      case '\r':
+      case '\u0004':
         stdin.removeListener('data', onDataHandler)
         break
       default:
-        process.stdout.write(`\x1B[2K\x1B[200D${query}${Array(rl.line.length + 1).join('*')}`)
+        process.stdout.write(
+          `\x1B[2K\x1B[200D${query}${Array(rl.line.length + 1).join('*')}`,
+        )
         break
     }
   }
@@ -52,7 +56,6 @@ function askUsernamePassword() {
     })
   })
 }
-
 
 /**
  * just a helper script to create the admin role & user

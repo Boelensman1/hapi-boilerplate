@@ -1,17 +1,16 @@
 const config = require('config')
 const validateJwt = require('util/validateJwt')
 
-const validate = (decoded, request) => (
+const validate = (decoded, request) =>
   new Promise((resolve) => {
     const models = request.server.app.ioc.resolve('models')
-    return validateJwt(decoded, models, (valid, credentials) => (
+    return validateJwt(decoded, models, (valid, credentials) =>
       resolve({
         isValid: valid,
         credentials,
-      })
-    ))
+      }),
+    )
   })
-)
 
 exports.register = (plugin) => {
   // initialise the authentication

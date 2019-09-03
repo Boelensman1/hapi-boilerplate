@@ -19,7 +19,7 @@ module.exports = {
       const User = ioc.resolve('models').user
 
       const users = await User.query()
-      return h.response(users.map((user) => (user.getFiltered()))).code(200)
+      return h.response(users.map((user) => user.getFiltered())).code(200)
     },
   },
   delete: {

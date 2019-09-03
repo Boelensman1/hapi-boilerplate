@@ -13,7 +13,6 @@ function lowerFirstLetter(string) {
   return string.charAt(0).toLowerCase() + string.slice(1)
 }
 
-
 /**
  * Initialise the objection.js models and bind them to knex
  *
@@ -22,17 +21,12 @@ function lowerFirstLetter(string) {
 function initModels() {
   const knex = this.resolve('knex')
 
-  const modelArray = [
-    post,
-    role,
-    session,
-    user,
-  ]
+  const modelArray = [post, role, session, user]
 
   const models = {}
   modelArray.forEach((model) => {
     models[lowerFirstLetter(model.name)] = model.bindKnex(knex)
-    model.prototype.getIoc = () => (this)
+    model.prototype.getIoc = () => this
   })
 
   return models

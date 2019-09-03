@@ -5,9 +5,9 @@ const Joi = require('@hapi/joi')
 const { Validator } = require('objection')
 const { pick } = require('lodash')
 
-
 class JoiValidator extends Validator {
-  validate(args) { // eslint-disable-line class-methods-use-this
+  // eslint-disable-next-line class-methods-use-this
+  validate(args) {
     // model = The model instance. May be empty at this point.
     // json = The properties to validate. After validation these values will
     // be merged into `model` by objection.
@@ -22,7 +22,9 @@ class JoiValidator extends Validator {
     // validation fails.
     let joiSchema = model.constructor.schema
     // if no schema has been defined, just return immediatly
-    if (!joiSchema) { return json }
+    if (!joiSchema) {
+      return json
+    }
 
     if (isPatch) {
       // remove all values not present in the patch
