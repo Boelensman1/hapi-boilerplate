@@ -16,7 +16,7 @@ Object {
   "id": Any<Number>,
   "loggedInAt": Any<Number>,
   "role": Object {
-    "createdAt": "2029-12-31T22:00:00.000Z",
+    "createdAt": Any<String>,
     "id": 200,
     "name": "userRoleName",
     "posts_create": 0,

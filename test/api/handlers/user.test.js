@@ -14,7 +14,9 @@ describe('Test /user route', () => {
       .expect(200)
 
     // should return an array
-    expect(response.body).toMatchSnapshot()
+    response.body.forEach((user) => {
+      expect(user).toMatchSnapshot({ createdAt: expect.any(String) })
+    })
   })
 
   test('Delete a user', async () => {

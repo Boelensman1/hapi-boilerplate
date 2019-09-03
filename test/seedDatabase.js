@@ -1,6 +1,5 @@
 const fs = require('fs')
 const yaml = require('js-yaml')
-const tk = require('timekeeper')
 
 /**
  * Insert a list of models
@@ -20,10 +19,6 @@ function insert(model, dataList, insertCount, inserted) {
     // we're done!
     return Promise.resolve(inserted)
   }
-
-  // freeze the time, needed so we get consistent createdAt dates
-  // if we set this to somwehere in the past knex errors out
-  tk.freeze(new Date(1893448800000))
 
   // objection.js does not support batch for all database engines
   // so we have to do this sequentially as well
@@ -89,7 +84,6 @@ async function seedDatabase(models, seedfile) {
   const names = Object.keys(seed)
   const result = await insertBatch(batchModels, batchData, names, 0)
 
-  tk.reset() // Reset, time is normal again
   return result
 }
 

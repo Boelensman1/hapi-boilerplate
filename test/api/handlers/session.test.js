@@ -102,6 +102,9 @@ describe('Test /session route', () => {
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
       loggedInAt: expect.any(Number),
+      role: {
+        createdAt: expect.any(String),
+      },
     })
   })
 })
