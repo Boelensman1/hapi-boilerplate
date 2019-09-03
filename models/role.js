@@ -9,11 +9,24 @@ class Role extends BaseModel {
   }
 
   static get objects() {
-    // used by createAdminAcount
+    // also used by createAdminAcount
     return ['posts', 'users', 'roles']
   }
 
   static get schema() {
+    const base = Joi.boolean()
+      .truthy(1)
+      .falsy(0)
+      .default(false)
+
+    const permissionBlocks = Role.objects.reduce((perm, obj) => {
+      perm[`${obj}_create`] = base.description(`Allow role to add a ${obj}`)
+      perm[`${obj}_read`] = base.description(`Allow role to read a ${obj}`)
+      perm[`${obj}_update`] = base.description(`Allow role to update a ${obj}`)
+      perm[`${obj}_delete`] = base.description(`Allow role to delete a ${obj}`)
+      return perm
+    }, {})
+
     return {
       id: Joi.number()
         .min(0)
@@ -23,68 +36,7 @@ class Role extends BaseModel {
         .required()
         .description('Name of the role'),
 
-      posts_create: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to add a post'),
-      posts_read: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to read the list of post'),
-      posts_update: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to update the list of post'),
-      posts_delete: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to remove a post'),
-
-      users_create: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to add a user'),
-      users_read: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to read the list of users'),
-      users_update: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to update the list of users'),
-      users_delete: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to remove a user'),
-
-      roles_create: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to add a role'),
-      roles_read: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to read the list of roles'),
-      roles_update: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to update the list of roles'),
-      roles_delete: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
-        .default(false)
-        .description('Allow this role to remove a role'),
+      ...permissionBlocks,
 
       createdAt: Joi.date().description('When the object was created'),
       updatedAt: Joi.date().description('When the object was last updated'),
@@ -93,24 +45,18 @@ class Role extends BaseModel {
 
   // used by hapi to validate the response, see the handler
   static get responseValidation() {
+    const permissionBlocks = Role.objects.reduce((perm, obj) => {
+      perm[`${obj}_create`] = Role.schema[`${obj}_create`].required()
+      perm[`${obj}_read`] = Role.schema[`${obj}_read`].required()
+      perm[`${obj}_update`] = Role.schema[`${obj}_update`].required()
+      perm[`${obj}_delete`] = Role.schema[`${obj}_delete`].required()
+      return perm
+    }, {})
     return BaseModel.compileSchema({
       id: Role.schema.id.required(),
       name: Role.schema.name.required(),
 
-      posts_create: Role.schema.posts_create.required(),
-      posts_read: Role.schema.posts_read.required(),
-      posts_update: Role.schema.posts_update.required(),
-      posts_delete: Role.schema.posts_delete.required(),
-
-      users_create: Role.schema.users_create.required(),
-      users_read: Role.schema.users_read.required(),
-      users_update: Role.schema.users_update.required(),
-      users_delete: Role.schema.users_delete.required(),
-
-      roles_create: Role.schema.roles_create.required(),
-      roles_read: Role.schema.roles_read.required(),
-      roles_update: Role.schema.roles_update.required(),
-      roles_delete: Role.schema.roles_delete.required(),
+      ...permissionBlocks,
 
       createdAt: Role.schema.createdAt.required(),
       updatedAt: Role.schema.updatedAt,
