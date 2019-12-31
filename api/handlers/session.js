@@ -1,8 +1,11 @@
+const Joi = require('@hapi/joi')
 const Boom = require('@hapi/boom')
 const JWT = require('jsonwebtoken')
 const aguid = require('aguid')
 
+const responseSchema = require('util/responseSchema')
 const { payloadValidation, responseValidation } = require('models/session')
+const user = require('models/user')
 
 module.exports = {
   post: {
@@ -11,10 +14,10 @@ module.exports = {
     auth: false,
     validate: {
       // validate using the scheme defined in the model
-      payload: payloadValidation,
+      payload: Joi.compile(payloadValidation),
     },
     response: {
-      schema: responseValidation,
+      schema: responseSchema(responseValidation),
     },
     async handler(request, h) {
       const { ioc } = request.server.app
@@ -49,24 +52,27 @@ module.exports = {
         //  update last logged in date
         user.$query().patch({ loggedInAt: new Date().toISOString() }),
         // insert session
-        user.$relatedQuery('sessions').insert({ uid }),
+        user.$relatedQuery('session').insert({ uid }),
       ])
 
       h.state('token', token, config.get('cookieOptions'))
 
-      return h.response(session).code(201)
+      return h.response({ statusCode: 201, result: session }).code(201)
     },
   },
   info: {
     description: 'Get information about your current session',
     tags: ['api', 'session'],
     response: {
-      schema: responseValidation,
+      schema: responseSchema({
+        ...responseValidation,
+        user: user.responseValidation,
+      }),
     },
     handler(request, h) {
       const sessionInfo = { ...request.auth.credentials }
       sessionInfo.user = sessionInfo.user.getFiltered()
-      return h.response(sessionInfo).code(200)
+      return h.response({ statusCode: 200, result: sessionInfo }).code(200)
     },
   },
 }
