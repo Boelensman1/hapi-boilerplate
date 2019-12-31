@@ -2,44 +2,6 @@ manifest:
   server:
     address: '0.0.0.0'
     port: 3000
-    routes:
-      cors:
-        origin: ['*']
-    router:
-      stripTrailingSlash: true
   register:
     plugins:
-      - plugin: 'hapi-auth-jwt2'
-      - plugin: 'plugins/initAuth'
-      - plugin: 'plugins/initPermissions'
-      - plugin: './api'
-      - plugin: '@hapi/inert'
-      - plugin: '@hapi/vision'
-      - plugin: 'hapi-swagger'
-        options:
-          info:
-            title: 'Boilerplate'
-          grouping: 'tags'
-          documentationPath: '/'
-      - plugin: '@hapi/good'
-        options:
-          ops:
-            interval: 1000
-          reporters:
-            audit:
-              - module: '@hapi/good-squeeze'
-                name: 'Squeeze'
-                args:
-                  - response: '*'
-              - module: '@hapi/good-squeeze'
-                name: 'SafeJson'
-              - module: 'plugins/good-file'
-                args: ['./logs/audit.json']
-            console:
-              - module: '@hapi/good-squeeze'
-                name: 'Squeeze'
-                args:
-                  - log: '*'
-                  - response: '*'
-              - module: '@hapi/good-console'
-              - 'stdout'
+      - plugin: 'hapi-pino'

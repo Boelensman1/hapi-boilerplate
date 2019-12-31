@@ -1,36 +1,12 @@
 manifest:
-  server:
-    routes:
-      cors:
-        origin: ['*']
-    router:
-      stripTrailingSlash: true
   register:
     plugins:
-      - plugin: 'hapi-auth-jwt2'
-      - plugin: 'plugins/initAuth'
-      - plugin: 'plugins/initPermissions'
-      - plugin: './api'
-      - plugin: '@hapi/inert'
-      - plugin: '@hapi/vision'
       - plugin: 'hapi-swagger'
         options:
           info:
-            title: 'Boilerplate'
+            title: 'Lumberjack'
           grouping: 'tags'
           documentationPath: '/'
-      - plugin: '@hapi/good'
-        options:
-          ops:
-            interval: 1000
-          reporters:
-            console:
-              - module: '@hapi/good-squeeze'
-                name: 'Squeeze'
-                args:
-                  - error: '*'
-              - module: '@hapi/good-console'
-              - 'stdout'
 knex:
   useNullAsDefault: true
   client: 'sqlite3'
@@ -40,7 +16,11 @@ cookieOptions:
   ttl: 31536000000 # expires a year from today
   encoding: 'none' # we already used JWT to encode
   isSecure: false # can be enabled if the server runs https
-  isHttpOnly: true # we validate with http, so has to be false
+  isHttpOnly: false # we validate with http, so has to be false
   clearInvalid: true # remove invalid cookies
   strictHeader: true # don't allow violations of RFC 6265
   path: '/' # set the cookie for all routes
+defaultRange:
+  rangeStart: 0
+  rangeEnd: 30
+baseUrl: 'https://www.example.org'
