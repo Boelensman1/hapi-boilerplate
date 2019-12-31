@@ -13,10 +13,10 @@ class Role extends BaseModel {
     return ['posts', 'users', 'roles']
   }
 
-  static get schema() {
+  static get baseSchema() {
     const base = Joi.boolean()
-      .truthy(1)
-      .falsy(0)
+      .truthy('1', 1)
+      .falsy('0', 0)
       .default(false)
 
     const permissionBlocks = Role.objects.reduce((perm, obj) => {
@@ -44,28 +44,33 @@ class Role extends BaseModel {
   }
 
   // used by hapi to validate the response, see the handler
-  static get responseValidation() {
+  static get baseResponseSchema() {
     const permissionBlocks = Role.objects.reduce((perm, obj) => {
-      perm[`${obj}_create`] = Role.schema[`${obj}_create`].required()
-      perm[`${obj}_read`] = Role.schema[`${obj}_read`].required()
-      perm[`${obj}_update`] = Role.schema[`${obj}_update`].required()
-      perm[`${obj}_delete`] = Role.schema[`${obj}_delete`].required()
+      perm[`${obj}_create`] = Role.baseSchema[`${obj}_create`].required()
+      perm[`${obj}_read`] = Role.baseSchema[`${obj}_read`].required()
+      perm[`${obj}_update`] = Role.baseSchema[`${obj}_update`].required()
+      perm[`${obj}_delete`] = Role.baseSchema[`${obj}_delete`].required()
       return perm
     }, {})
-    return BaseModel.compileSchema({
-      id: Role.schema.id.required(),
-      name: Role.schema.name.required(),
+    return {
+      id: Role.baseSchema.id.required(),
+      name: Role.baseSchema.name.required(),
 
       ...permissionBlocks,
 
-      createdAt: Role.schema.createdAt.required(),
-      updatedAt: Role.schema.updatedAt,
-    })
+      createdAt: Role.baseSchema.createdAt.required(),
+      updatedAt: Role.baseSchema.updatedAt,
+    }
+  }
+
+  // used by hapi to validate the payload, see the handler
+  static get basePayloadSchema() {
+    return {}
   }
 
   static get relationMappings() {
     return {
-      users: {
+      user: {
         relation: BaseModel.HasManyRelation,
         modelClass: `${__dirname}/user`,
         join: {

@@ -2,9 +2,7 @@ const Joi = require('@hapi/joi')
 const { omit } = require('lodash')
 const zxcvbn = require('zxcvbn')
 const argon2 = require('argon2')
-
 const BaseModel = require('models/baseModel')
-const Role = require('models/role')
 
 class User extends BaseModel {
   // Table name is the only required property.
@@ -14,6 +12,12 @@ class User extends BaseModel {
 
   static get virtualAttributes() {
     return ['password']
+  }
+
+  $formatJson(json) {
+    // Call the super class's implementation.
+    json = super.$formatJson(json)
+    return omit(json, ['passwordHash', 'password'])
   }
 
   async setPassword() {
@@ -39,7 +43,7 @@ class User extends BaseModel {
     return omit(this.toJSON(), ['passwordHash', 'password'])
   }
 
-  static get schema() {
+  static get baseSchema() {
     return {
       id: Joi.number()
         .min(0)
@@ -67,16 +71,20 @@ class User extends BaseModel {
   }
 
   // used by hapi to validate the response, see the handler
-  static get responseValidation() {
-    return BaseModel.compileSchema({
-      id: User.schema.id.required(),
-      username: User.schema.username.required(),
-      roleId: User.schema.roleId.required(),
-      role: Role.responseValidation,
-      loggedInAt: User.schema.loggedInAt,
-      createdAt: User.schema.createdAt.required(),
-      updatedAt: User.schema.updatedAt,
-    })
+  static get baseResponseSchema() {
+    return {
+      id: User.baseSchema.id.required(),
+      username: User.baseSchema.username.required(),
+      roleId: User.baseSchema.roleId.required(),
+      loggedInAt: User.baseSchema.loggedInAt,
+      createdAt: User.baseSchema.createdAt.required(),
+      updatedAt: User.baseSchema.updatedAt,
+    }
+  }
+
+  // used by hapi to validate the payload, see the handler
+  static get basePayloadSchema() {
+    return {}
   }
 
   static get relationMappings() {
@@ -89,7 +97,7 @@ class User extends BaseModel {
           to: 'roles.id',
         },
       },
-      sessions: {
+      session: {
         relation: BaseModel.HasManyRelation,
         modelClass: `${__dirname}/session`,
         join: {

@@ -8,7 +8,7 @@ class Post extends BaseModel {
     return 'posts'
   }
 
-  static get schema() {
+  static get baseSchema() {
     return {
       id: Joi.number()
         .min(0)
@@ -31,24 +31,24 @@ class Post extends BaseModel {
   }
 
   // used by hapi to validate the payload, see the handler
-  static get payloadValidation() {
+  static get basePayloadSchema() {
     return {
-      title: Post.schema.title,
-      contents: Post.schema.contents,
-      author: Post.schema.author.optional().default('Anonymous'),
+      title: Post.baseSchema.title,
+      contents: Post.baseSchema.contents,
+      author: Post.baseSchema.author.optional().default('Anonymous'),
     }
   }
 
   // used by hapi to validate the response, see the handler
-  static get responseValidation() {
-    return BaseModel.compileSchema({
-      id: Post.schema.id.required(),
-      title: Post.schema.title,
-      contents: Post.schema.contents,
-      author: Post.schema.author.optional().default('Anonymous'),
-      createdAt: Post.schema.createdAt.required(),
-      updatedAt: Post.schema.updatedAt,
-    })
+  static get baseResponseSchema() {
+    return {
+      id: Post.baseSchema.id.required(),
+      title: Post.baseSchema.title,
+      contents: Post.baseSchema.contents,
+      author: Post.baseSchema.author.optional().default('Anonymous'),
+      createdAt: Post.baseSchema.createdAt.required(),
+      updatedAt: Post.baseSchema.updatedAt,
+    }
   }
 
   // This object defines the relations to other models.

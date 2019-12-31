@@ -13,14 +13,14 @@ class Session extends BaseModel {
     return 'uid'
   }
 
-  static get schema() {
+  static get baseSchema() {
     return {
       uid: Joi.string()
         .required()
         .description('The uid of the wanted object'),
       valid: Joi.boolean()
-        .truthy(1)
-        .falsy(0)
+        .truthy(1, '1')
+        .falsy(0, '0')
         .default(true)
         .description('Wether or not the token is still valid'),
       userId: Joi.number()
@@ -32,23 +32,22 @@ class Session extends BaseModel {
   }
 
   // used by hapi to validate the payload, see the handler
-  static get payloadValidation() {
-    return BaseModel.compileSchema({
-      username: User.schema.username.required(),
-      password: User.schema.password.required(),
-    })
+  static get basePayloadSchema() {
+    return {
+      username: User.baseSchema.username.required(),
+      password: User.baseSchema.password.required(),
+    }
   }
 
   // used by hapi to validate the response, see the handler
-  static get responseValidation() {
-    return BaseModel.compileSchema({
-      uid: Session.schema.uid.required(),
-      valid: Session.schema.valid.required(),
-      userId: Session.schema.userId.required(),
-      user: User.responseValidation,
-      createdAt: Session.schema.createdAt.required(),
-      updatedAt: Session.schema.updatedAt,
-    })
+  static get baseResponseSchema() {
+    return {
+      uid: Session.baseSchema.uid.required(),
+      valid: Session.baseSchema.valid.required(),
+      userId: Session.baseSchema.userId.required(),
+      createdAt: Session.baseSchema.createdAt.required(),
+      updatedAt: Session.baseSchema.updatedAt,
+    }
   }
 
   static get relationMappings() {

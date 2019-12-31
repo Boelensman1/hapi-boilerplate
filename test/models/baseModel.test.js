@@ -9,7 +9,7 @@ class SimpleModel extends BaseModel {
     return 'simpleModel'
   }
 
-  static get schema() {
+  static get baseSchema() {
     return {
       num: Joi.number().min(0),
     }
@@ -57,8 +57,7 @@ describe('Test the basemodel', () => {
   test('Validation', async () => {
     const Simple = await setup(SimpleModel)
 
-    const e =
-      'child "num" fails because ["num" must be larger than or equal to 0]'
+    const e = '"num" must be larger than or equal to 0'
     await expect(Simple.query().insert({ num: -1 })).rejects.toThrow(e)
 
     expect(() => {

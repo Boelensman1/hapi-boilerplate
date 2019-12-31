@@ -1,9 +1,11 @@
 /* eslint-disable max-classes-per-file */
 
-const { Model } = require('objection')
+const { Model, Validator } = require('objection')
 const Joi = require('@hapi/joi')
-const { Validator } = require('objection')
 const { pick } = require('lodash')
+
+const isHasManyRelation = (relation) =>
+  relation.relation.name === 'HasManyRelation'
 
 class JoiValidator extends Validator {
   // eslint-disable-next-line class-methods-use-this
@@ -31,40 +33,102 @@ class JoiValidator extends Validator {
       joiSchema = pick(joiSchema, Object.keys(json))
     }
 
-    const result = Joi.validate(json, joiSchema, { noDefaults: isPatch })
-    if (result.error) {
-      throw result.error
-    }
-
-    return result.value
+    return Joi.attempt(json, Joi.compile(joiSchema), {
+      noDefaults: isPatch,
+    })
   }
+}
+
+const addNullAsEmpty = (schema) => {
+  if (!schema) {
+    return schema
+  }
+  Object.keys(schema).forEach((key) => {
+    if (Array.isArray(schema[key])) {
+      // scheme is in the form of [Joi.number(), Joi.string()]
+      schema[key] = schema[key].map((s) => s.empty(null))
+    } else if (schema[key].empty) {
+      // if this property can be empty, allow null as empty
+      schema[key] = schema[key].empty(null)
+    }
+  })
+  return schema
+}
+
+const addRelations = (schema, relationMappings, type) => {
+  if (!relationMappings) {
+    return schema
+  }
+  Object.entries(relationMappings).forEach(([name, relation]) => {
+    const relationClass = require(relation.modelClass)
+
+    let relationSchema = addNullAsEmpty(relationClass[type])
+
+    if (isHasManyRelation(relation)) {
+      relationSchema = Joi.array().items(relationSchema)
+    }
+    // allow null as empty
+    schema[name] = Joi.compile(relationSchema).empty(null)
+  })
+  return schema
 }
 
 // Override the `createValidator` method of a `Model` to use the
 // custom validator.
 class BaseModel extends Model {
-  static compileSchema(schema) {
-    Object.keys(schema).forEach((key) => {
-      if (Array.isArray(schema[key])) {
-        // scheme is in the form of [Joi.number(), Joi.string()]
-        schema[key] = schema[key].map((s) => s.empty(null))
-      } else {
-        schema[key] = schema[key].empty(null)
-      }
-    })
-    return Joi.compile(schema)
+  static get responseValidation() {
+    // cache the result so we don't get into an endless loop
+    if (!this.responseSchema) {
+      this.responseSchema = addNullAsEmpty(
+        addRelations(
+          this.baseResponseSchema,
+          this.relationMappings,
+          'baseResponseSchema',
+        ),
+      )
+    }
+    return this.responseSchema
+  }
+
+  static get payloadValidation() {
+    if (!this.payloadSchema) {
+      this.payloadSchema = addNullAsEmpty(this.basePayloadSchema)
+    }
+    return this.payloadSchema
+  }
+
+  static get schema() {
+    // cache the result
+    if (!this.schemaWithRelations) {
+      this.schemaWithRelations = addNullAsEmpty(
+        addRelations(this.baseSchema, this.relationMappings, 'baseSchema'),
+      )
+    }
+    return this.schemaWithRelations
   }
 
   static createValidator() {
     return new JoiValidator()
   }
 
+  static get modifiers() {
+    const { defaultAttributes } = this
+    return {
+      defaultAttributes(builder) {
+        // if we have defaultAttributes, select them
+        if (defaultAttributes) {
+          builder.select(defaultAttributes)
+        }
+      },
+    }
+  }
+
   $beforeInsert() {
-    this.createdAt = new Date().toISOString()
+    this.createdAt = new Date()
   }
 
   $beforeUpdate() {
-    this.updatedAt = new Date().toISOString()
+    this.updatedAt = new Date()
   }
 }
 
