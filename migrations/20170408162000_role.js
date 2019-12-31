@@ -1,5 +1,7 @@
 const NODE_ENV = process.env.NODE_ENV || 'development'
 
+const Role = require('models/role')
+
 exports.up = (knex) =>
   knex.schema
     .createTable('roles', (table) => {
@@ -9,56 +11,27 @@ exports.up = (knex) =>
         .notNullable()
         .unique()
 
-      table
-        .boolean('posts_create')
-        .notNullable()
-        .defaultTo(false)
-      table
-        .boolean('posts_read')
-        .notNullable()
-        .defaultTo(false)
-      table
-        .boolean('posts_update')
-        .notNullable()
-        .defaultTo(false)
-      table
-        .boolean('posts_delete')
-        .notNullable()
-        .defaultTo(false)
+      Role.objects.forEach((obj) => {
+        table
+          .boolean(`${obj}_create`)
+          .notNullable()
+          .defaultTo(false)
 
-      table
-        .boolean('users_create')
-        .notNullable()
-        .defaultTo(false)
-      table
-        .boolean('users_read')
-        .notNullable()
-        .defaultTo(false)
-      table
-        .boolean('users_update')
-        .notNullable()
-        .defaultTo(false)
-      table
-        .boolean('users_delete')
-        .notNullable()
-        .defaultTo(false)
+        table
+          .boolean(`${obj}_read`)
+          .notNullable()
+          .defaultTo(false)
 
-      table
-        .boolean('roles_create')
-        .notNullable()
-        .defaultTo(false)
-      table
-        .boolean('roles_read')
-        .notNullable()
-        .defaultTo(false)
-      table
-        .boolean('roles_update')
-        .notNullable()
-        .defaultTo(false)
-      table
-        .boolean('roles_delete')
-        .notNullable()
-        .defaultTo(false)
+        table
+          .boolean(`${obj}_update`)
+          .notNullable()
+          .defaultTo(false)
+
+        table
+          .boolean(`${obj}_delete`)
+          .notNullable()
+          .defaultTo(false)
+      })
 
       table.timestamp('createdAt')
       table.timestamp('updatedAt')
