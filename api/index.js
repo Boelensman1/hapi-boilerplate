@@ -20,7 +20,7 @@ const api = {
 
       /* other */
       { method: 'GET', path: '/status', config: Status },
-      { method: 'GET', path: '/{path*}', config: NotFound },
+      { method: '*', path: '/{path*}', config: NotFound },
     ])
   },
 }
