@@ -65,7 +65,9 @@ class Role extends BaseModel {
 
   // used by hapi to validate the payload, see the handler
   static get basePayloadSchema() {
-    return {}
+    return {
+      name: Role.baseSchema.name.required(),
+    }
   }
 
   static get relationMappings() {

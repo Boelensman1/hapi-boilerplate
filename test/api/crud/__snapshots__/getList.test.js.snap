@@ -1,0 +1,554 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test getList crud function Get filtered list 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 10,
+  "name": "nameC",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get filtered list 2`] = `
+Object {
+  "count": 1,
+}
+`;
+
+exports[`Test getList crud function Get filtered list 2 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 13,
+  "name": "nameB",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get filtered list 2 2`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 11,
+  "name": "nameD",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": 1970-01-01T00:00:01.000Z,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get filtered list 2 3`] = `
+Object {
+  "count": 2,
+}
+`;
+
+exports[`Test getList crud function Get filtered list using $hasProp 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 11,
+  "name": "nameD",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": 1970-01-01T00:00:01.000Z,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get filtered list using $hasProp 2`] = `
+Object {
+  "count": 1,
+}
+`;
+
+exports[`Test getList crud function Get filtered, ranged, sorted list 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 13,
+  "name": "nameB",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get filtered, ranged, sorted list 2`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 10,
+  "name": "nameC",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get filtered, ranged, sorted list 3`] = `
+Object {
+  "count": 3,
+  "previous": "https://www.example.org/crud/role/?filter=%7B%22id%22%3A%5B10%2C12%2C13%5D%7D&range=%5B0%2C1%5D&sort=%7B%22field%22%3A%22name%22%2C%22order%22%3A%22asc%22%7D",
+}
+`;
+
+exports[`Test getList crud function Get full list 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 1,
+  "name": "SYSTEM",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list 2`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 10,
+  "name": "nameC",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list 3`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 11,
+  "name": "nameD",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": 1970-01-01T00:00:01.000Z,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list 4`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 12,
+  "name": "nameA",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list 5`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 13,
+  "name": "nameB",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list 6`] = `
+Object {
+  "count": 5,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by id 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 13,
+  "name": "nameB",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by id 2`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 12,
+  "name": "nameA",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by id 3`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 11,
+  "name": "nameD",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": 1970-01-01T00:00:01.000Z,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by id 4`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 10,
+  "name": "nameC",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by id 5`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 1,
+  "name": "SYSTEM",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by id 6`] = `
+Object {
+  "count": 5,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by name 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 1,
+  "name": "SYSTEM",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by name 2`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 12,
+  "name": "nameA",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by name 3`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 13,
+  "name": "nameB",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by name 4`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 10,
+  "name": "nameC",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by name 5`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 11,
+  "name": "nameD",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": 1970-01-01T00:00:01.000Z,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get full list sorted by name 6`] = `
+Object {
+  "count": 5,
+}
+`;
+
+exports[`Test getList crud function Get list sorted by a virtual property desc 1`] = `
+Object {
+  "count": 2,
+}
+`;
+
+exports[`Test getList crud function Get multiple filtered list 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 13,
+  "name": "nameB",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get multiple filtered list 2`] = `
+Object {
+  "count": 1,
+}
+`;
+
+exports[`Test getList crud function Get partial list sorted by virtual property asc 1`] = `
+Object {
+  "count": 2,
+  "next": "https://www.example.org/crud/post/?sort=%7B%22field%22%3A%22titleWithAuthor%22%2C%22order%22%3A%22asc%22%7D&range=%5B1%2C2%5D",
+}
+`;
+
+exports[`Test getList crud function Get subrange of list 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 10,
+  "name": "nameC",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get subrange of list 2`] = `
+Object {
+  "count": 5,
+  "next": "https://www.example.org/crud/role/?range=%5B2%2C3%5D",
+  "previous": "https://www.example.org/crud/role/?range=%5B0%2C1%5D",
+}
+`;

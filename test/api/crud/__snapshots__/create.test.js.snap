@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test create crud function Insert 1`] = `
+Object {
+  "result": Object {
+    "createdAt": Any<Date>,
+    "id": Any<Number>,
+    "name": Any<String>,
+    "posts_create": 0,
+    "posts_delete": 0,
+    "posts_read": 0,
+    "posts_update": 0,
+    "roles_create": 0,
+    "roles_delete": 0,
+    "roles_read": 0,
+    "roles_update": 0,
+    "updatedAt": null,
+    "users_create": 0,
+    "users_delete": 0,
+    "users_read": 0,
+    "users_update": 0,
+  },
+  "statusCode": 201,
+}
+`;
+
+exports[`Test create crud function Insert duplicate 1`] = `
+Object {
+  "statusCode": 409,
+}
+`;

@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test the generated crud routes Create one 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 14,
+  "name": "New Role",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test the generated crud routes Get filtered list 1`] = `
+Object {
+  "createdAt": Any<String>,
+  "id": 13,
+  "name": "nameB",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test the generated crud routes Get filtered list 2`] = `
+Object {
+  "count": 1,
+}
+`;
+
+exports[`Test the generated crud routes Get list 1`] = `
+Object {
+  "createdAt": Any<String>,
+  "id": 13,
+  "name": "nameB",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test the generated crud routes Get list 2`] = `
+Object {
+  "count": 2,
+  "next": "https://www.example.org/crud/role/?sort=%7B%22field%22%3A%22id%22%2C%22order%22%3A%22desc%22%7D&filter=%7B%22id%22%3A%5B11%2C13%5D%7D&range=%5B1%2C2%5D",
+}
+`;
+
+exports[`Test the generated crud routes Get one 1`] = `
+Object {
+  "createdAt": Any<String>,
+  "id": 12,
+  "name": "nameA",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test the generated crud routes Get one with relations 1`] = `
+Object {
+  "createdAt": Any<String>,
+  "id": 100,
+  "loggedInAt": null,
+  "role": Object {
+    "createdAt": Any<String>,
+    "id": 10,
+    "name": "nameC",
+    "posts_create": 0,
+    "posts_delete": 0,
+    "posts_read": 0,
+    "posts_update": 0,
+    "roles_create": 0,
+    "roles_delete": 0,
+    "roles_read": 0,
+    "roles_update": 0,
+    "updatedAt": null,
+    "users_create": 0,
+    "users_delete": 0,
+    "users_read": 0,
+    "users_update": 0,
+  },
+  "roleId": 10,
+  "session": Array [],
+  "updatedAt": null,
+  "username": "Relation User",
+}
+`;
+
+exports[`Test the generated crud routes Get relation 1`] = `
+Object {
+  "createdAt": Any<String>,
+  "id": 100,
+  "loggedInAt": null,
+  "roleId": 10,
+  "updatedAt": null,
+  "username": "Relation User",
+}
+`;
+
+exports[`Test the generated crud routes Update one 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 10,
+  "name": "New Name",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": Any<Date>,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test the generated crud routes Update one with relations 1`] = `
+Object {
+  "createdAt": Any<String>,
+  "id": 10,
+  "name": "New Name",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": Any<String>,
+  "user": Array [
+    Object {
+      "createdAt": Any<String>,
+      "id": 100,
+      "loggedInAt": null,
+      "roleId": 10,
+      "updatedAt": Any<String>,
+      "username": "New UserName",
+    },
+  ],
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;

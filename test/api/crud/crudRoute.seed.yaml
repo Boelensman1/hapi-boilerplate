@@ -1,0 +1,14 @@
+role:
+  - id: 10
+    name: 'nameC'
+  - id: 11
+    name: 'nameD'
+  - id: 12
+    name: 'nameA'
+  - id: 13
+    name: 'nameB'
+user:
+  - id: 100
+    username: 'Relation User'
+    password: 'seedpasswrd$$'
+    roleId: 10

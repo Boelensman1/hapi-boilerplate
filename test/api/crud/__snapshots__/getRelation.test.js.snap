@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test getRelation crud function Get relation 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 100,
+  "loggedInAt": null,
+  "roleId": 10,
+  "updatedAt": null,
+  "username": "Relation User",
+}
+`;

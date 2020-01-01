@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test update crud function Remove virtual properties 1`] = `
+Object {
+  "author": "Author 0",
+  "contents": "ABC",
+  "createdAt": Any<Date>,
+  "id": 0,
+  "title": "New Post Title",
+  "titleWithAuthor": "New Post Title by Author 0",
+  "updatedAt": Any<Date>,
+}
+`;
+
+exports[`Test update crud function Update 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 10,
+  "name": "New Name",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": Any<Date>,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test update crud function Update to duplicate 1`] = `
+Object {
+  "statusCode": 409,
+}
+`;

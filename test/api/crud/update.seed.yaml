@@ -1,0 +1,15 @@
+role:
+  - id: 10
+    name: 'nameC'
+  - id: 11
+    name: 'test role dup'
+post:
+  - id: 0
+    title: 'Post 0'
+    contents: 'ABC'
+    author: 'Author 0'
+user:
+  - id: 100
+    username: 'Relation User'
+    password: 'seedpasswrd$$'
+    roleId: 10

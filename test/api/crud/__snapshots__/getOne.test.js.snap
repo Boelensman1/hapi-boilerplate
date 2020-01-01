@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test getOne crud function Get one 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 10,
+  "name": "nameC",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
+
+exports[`Test getOne crud function Get one with relations 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 10,
+  "name": "nameC",
+  "posts_create": 0,
+  "posts_delete": 0,
+  "posts_read": 0,
+  "posts_update": 0,
+  "roles_create": 0,
+  "roles_delete": 0,
+  "roles_read": 0,
+  "roles_update": 0,
+  "updatedAt": null,
+  "user": Array [
+    Object {
+      "createdAt": Any<Date>,
+      "id": 100,
+      "loggedInAt": null,
+      "roleId": 10,
+      "updatedAt": null,
+      "username": "Relation User",
+    },
+  ],
+  "users_create": 0,
+  "users_delete": 0,
+  "users_read": 0,
+  "users_update": 0,
+}
+`;
