@@ -68,7 +68,7 @@ function insertBatch(models, dataLists, names, batchCount, inserted) {
  * @returns {Promise} Promise that resolves when done
  */
 async function seedDatabase(models, seedfile) {
-  if (seedfile === undefined) {
+  if (!seedfile) {
     return Promise.resolve()
   }
   const seed = yaml.safeLoad(fs.readFileSync(seedfile))

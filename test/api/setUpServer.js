@@ -8,9 +8,10 @@ process.stdout.setMaxListeners(process.stdout.getMaxListeners() + 11)
  *
  * @param {objet} ioc The ioc object
  * @param {boolean} skipModels Wether to skip the model initialisation
+ * @param {boolean} enableAuth If the authentication plugin should be enabled
  * @returns {Promise} Promise that resolves when done
  */
-async function setUpServer(ioc, skipModels = false) {
+async function setUpServer(ioc, skipModels = false, enableAuth = false) {
   if (!skipModels) {
     const knex = ioc.resolve('knex')
 
@@ -18,7 +19,7 @@ async function setUpServer(ioc, skipModels = false) {
     await knex.migrate.latest()
   }
 
-  const { listener } = await startUpServer(ioc)
+  const { listener } = await startUpServer(ioc, enableAuth)
   return listener
 }
 
