@@ -8,6 +8,20 @@ class Post extends BaseModel {
     return 'posts'
   }
 
+  static get virtualAttributes() {
+    return ['titleWithAuthor']
+  }
+
+  get titleWithAuthor() {
+    return `${this.title} by ${this.author}`
+  }
+
+  /* eslint-disable */
+  // we need to add setters to make joi work, as joi does not know these
+  // attributes are virtual so tries to set them to its converted value
+  set titleWithAuthor(_null) {}
+  /* eslint-enable */
+
   static get baseSchema() {
     return {
       id: Joi.number()
@@ -17,6 +31,9 @@ class Post extends BaseModel {
         .max(20)
         .required()
         .description('The title of the post, maxlength of 20'),
+      titleWithAuthor: Joi.string().description(
+        'The title of the post including the author',
+      ),
       contents: Joi.string()
         .max(500)
         .required()
@@ -44,6 +61,7 @@ class Post extends BaseModel {
     return {
       id: Post.baseSchema.id.required(),
       title: Post.baseSchema.title,
+      titleWithAuthor: Post.baseSchema.titleWithAuthor,
       contents: Post.baseSchema.contents,
       author: Post.baseSchema.author.optional().default('Anonymous'),
       createdAt: Post.baseSchema.createdAt.required(),
