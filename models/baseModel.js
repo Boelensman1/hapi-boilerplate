@@ -4,6 +4,8 @@ const { Model, Validator } = require('objection')
 const Joi = require('@hapi/joi')
 const { pick } = require('lodash')
 
+const { toDate } = require('../util')
+
 const isHasManyRelation = (relation) =>
   relation.relation.name === 'HasManyRelation'
 
@@ -121,6 +123,14 @@ class BaseModel extends Model {
         }
       },
     }
+  }
+
+  // format date's
+  $parseDatabaseJson(json) {
+    json = super.$parseDatabaseJson(json)
+    toDate(json, 'createdAt')
+    toDate(json, 'updatedAt')
+    return json
   }
 
   $beforeInsert() {
