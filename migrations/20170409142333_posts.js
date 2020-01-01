@@ -4,8 +4,8 @@ exports.up = (knex) =>
     table.string('title')
     table.string('author')
     table.text('contents')
-    table.timestamp('createdAt')
-    table.timestamp('updatedAt')
+    table.bigInteger('createdAt').notNullable()
+    table.bigInteger('updatedAt')
   })
 
 exports.down = (knex) => knex.schema.dropTable('posts')

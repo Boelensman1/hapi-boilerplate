@@ -9,8 +9,8 @@ exports.up = (knex) =>
       .integer('userId')
       .unsigned()
       .notNullable()
-    table.timestamp('createdAt')
-    table.timestamp('updatedAt')
+    table.bigInteger('createdAt').notNullable()
+    table.bigInteger('updatedAt')
 
     table
       .foreign('userId')

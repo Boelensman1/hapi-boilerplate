@@ -4,7 +4,7 @@ const { Model, Validator } = require('objection')
 const Joi = require('@hapi/joi')
 const { pick } = require('lodash')
 
-const { toDate } = require('../util')
+const { toDate, toTime } = require('../util')
 
 const isHasManyRelation = (relation) =>
   relation.relation.name === 'HasManyRelation'
@@ -130,6 +130,13 @@ class BaseModel extends Model {
     json = super.$parseDatabaseJson(json)
     toDate(json, 'createdAt')
     toDate(json, 'updatedAt')
+    return json
+  }
+
+  $formatDatabaseJson(json) {
+    json = super.$formatDatabaseJson(json)
+    toTime(json, 'createdAt')
+    toTime(json, 'updatedAt')
     return json
   }
 
