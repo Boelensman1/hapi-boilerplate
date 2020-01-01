@@ -14,7 +14,7 @@ test('inserting user', async () => {
     password: randomstring(),
   }
 
-  const user = await role.$relatedQuery('users').insert(payload)
+  const user = await role.$relatedQuery('user').insert(payload)
 
   expect(user).toBeInstanceOf(User)
 
@@ -22,7 +22,6 @@ test('inserting user', async () => {
   expect(user.username).toBe(payload.username)
 
   // check automaticly inserted values
-  expect(user.id).toBe(1)
   expect(user.passwordHash.length).toBe(96)
   expect(user.passwordHash.startsWith('$argon2i')).toBe(true)
   expect(user.password).toEqual(undefined)
@@ -43,7 +42,7 @@ test('querying users', async () => {
   expect(users.length).toBe(1)
 
   // insert the role
-  await role.$relatedQuery('users').insert(payload)
+  await role.$relatedQuery('user').insert(payload)
 
   // query again
   users = await User.query()
@@ -61,11 +60,11 @@ test('Two users with the same password should have unequal hash', async () => {
   const password = randomstring(15)
 
   const inserted = await Promise.all([
-    role.$relatedQuery('users').insert({
+    role.$relatedQuery('user').insert({
       username: randomstring(),
       password,
     }),
-    role.$relatedQuery('users').insert({
+    role.$relatedQuery('user').insert({
       username: randomstring(),
       password,
     }),
@@ -83,7 +82,7 @@ test('Checking user password', async () => {
     password: randomstring(),
   }
 
-  const user = await role.$relatedQuery('users').insert(payload)
+  const user = await role.$relatedQuery('user').insert(payload)
 
   await Promise.all([
     user.checkPassword(payload.password).then((result) => {
@@ -105,5 +104,5 @@ test('Weak password should error out', async () => {
   }
 
   const e = 'Password is too weak'
-  await expect(role.$relatedQuery('users').insert(payload)).rejects.toThrow(e)
+  await expect(role.$relatedQuery('user').insert(payload)).rejects.toThrow(e)
 })
