@@ -19,7 +19,7 @@ async function setUpServer(ioc, skipModels = false, enableAuth = false) {
     await knex.migrate.latest()
   }
 
-  const { listener } = await startUpServer(ioc, enableAuth)
+  const { listener } = await startUpServer(ioc, skipModels, enableAuth)
   return listener
 }
 

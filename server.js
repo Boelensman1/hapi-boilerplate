@@ -6,14 +6,21 @@ const env = process.env.NODE_ENV || 'development'
 /**
  * Startup the server
  *
- * @param {object} ioc The IoC service
+ * @param {object} ioc          The IoC service
+ * @param {boolean} skipModelsInit Don't initialize the models
+ * @param {boolean} enableAuth  If the authentication plugin should be enabled
  * @returns {Promise} Promise resolving into the hapi server object
  */
-async function startUpServer(ioc) {
+async function startUpServer(ioc, skipModelsInit = false, enableAuth = true) {
   try {
     const config = ioc.resolve('config')
     // start up the server!
-    const server = await ioc.resolve('server', config.get('manifest'))
+    const server = await ioc.resolve(
+      'server',
+      config.get('manifest'),
+      skipModelsInit,
+      enableAuth,
+    )
     await server.start()
     server.app.ioc = ioc
     server.log(`✅  Server is listening on ${server.info.uri.toLowerCase()}`)
@@ -50,5 +57,5 @@ if (!module.parent) {
     process.exit(1)
   })
 
-  startUpServer(createIoC())
+  startUpServer(createIoC(), true)
 }

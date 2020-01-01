@@ -13,16 +13,18 @@ describe('Test /session route', () => {
       password: 'user test password',
     }
 
-    const response = await request(listener)
+    const {
+      body: { result },
+    } = await request(listener)
       .post('/session')
       .send(payload)
       .expect('Content-Type', /json/)
       .expect('set-cookie', /token/)
       .expect(201)
 
-    expect(response.body.userId).toBe(seed.user[0].id)
-    expect(response.body.valid).toBe(true)
-    expect(response.body.uid.length).toBe(36)
+    expect(result.userId).toBe(seed.user[0].id)
+    expect(result.valid).toBe(true)
+    expect(result.uid.length).toBe(36)
 
     const sessions = await models.session.query()
     expect(sessions.length).toBe(1)
@@ -41,14 +43,14 @@ describe('Test /session route', () => {
       })
     }
 
-    const response = await request(listener)
+    const { body } = await request(listener)
       .post('/session')
       .send(payload)
       .expect('Content-Type', /json/)
       .expect(noCookieHeader)
       .expect(401)
 
-    expect(response.body.message).toBe('Invalid Credentials')
+    expect(body.message).toBe('Invalid Credentials')
   })
 
   test('post with wrong password', async () => {
@@ -67,14 +69,14 @@ describe('Test /session route', () => {
       })
     }
 
-    const response = await request(listener)
+    const { body } = await request(listener)
       .post('/session')
       .send(payload)
       .expect('Content-Type', /json/)
       .expect(noCookieHeader)
       .expect(401)
 
-    expect(response.body.message).toBe('Invalid Credentials')
+    expect(body.message).toBe('Invalid Credentials')
   })
 
   test('get current', async () => {
@@ -90,20 +92,19 @@ describe('Test /session route', () => {
       .expect(201)
 
     // get current
-    const sessionInfo = (await agent.get('/session/current').expect(200)).body
-    const userInfo = sessionInfo.user
-    delete sessionInfo.user
-    expect(sessionInfo).toMatchSnapshot({
+    const { result } = (await agent.get('/session/current').expect(200)).body
+
+    expect(result).toMatchSnapshot({
       uid: expect.any(String),
       createdAt: expect.any(String),
-    })
-    expect(userInfo).toMatchSnapshot({
-      id: expect.any(Number),
-      createdAt: expect.any(String),
-      updatedAt: expect.any(String),
-      loggedInAt: expect.any(Number),
-      role: {
+      user: {
+        id: expect.any(Number),
         createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+        loggedInAt: expect.any(String),
+        role: {
+          createdAt: expect.any(String),
+        },
       },
     })
   })

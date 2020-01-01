@@ -4,6 +4,8 @@ const zxcvbn = require('zxcvbn')
 const argon2 = require('argon2')
 const BaseModel = require('models/baseModel')
 
+const { toTime, toDate } = require('../util')
+
 class User extends BaseModel {
   // Table name is the only required property.
   static get tableName() {
@@ -12,12 +14,6 @@ class User extends BaseModel {
 
   static get virtualAttributes() {
     return ['password']
-  }
-
-  $formatJson(json) {
-    // Call the super class's implementation.
-    json = super.$formatJson(json)
-    return omit(json, ['passwordHash', 'password'])
   }
 
   async setPassword() {
@@ -37,6 +33,24 @@ class User extends BaseModel {
     this.createdAt = new Date().toISOString()
 
     return this.setPassword(queryContext)
+  }
+
+  $parseDatabaseJson(json) {
+    json = super.$parseDatabaseJson(json)
+    toDate(json, 'loggedInAt')
+    return json
+  }
+
+  $formatDatabaseJson(json) {
+    json = super.$formatDatabaseJson(json)
+    toTime(json, 'loggedInAt')
+    return json
+  }
+
+  $formatJson(json) {
+    // Call the super class's implementation.
+    json = super.$formatJson(json)
+    return omit(json, ['passwordHash', 'password'])
   }
 
   getFiltered() {
