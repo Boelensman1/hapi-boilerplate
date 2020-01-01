@@ -2,10 +2,13 @@
 const { readdirSync } = require('fs')
 const { join } = require('path')
 
-module.exports = (directory) =>
+module.exports = (directory, exclude = []) => {
+  // always exclude index.js
+  exclude.push('index.js')
   // Read in the (js) files from a directory, require them and return them
-  readdirSync(directory).reduce((accumulator, file) => {
-    if (file.indexOf('.js') > -1 && file !== 'index.js')
+  return readdirSync(directory).reduce((accumulator, file) => {
+    if (file.indexOf('.js') > -1 && exclude.indexOf(file) === -1)
       accumulator[file.replace('.js', '')] = require(join(directory, file))
     return accumulator
   }, {})
+}
