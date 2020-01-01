@@ -1,0 +1,16 @@
+role:
+  - id: 200
+    name: 'userRole1'
+    user_read: true
+  - id: 300
+    name: 'userRole2'
+    user_read: false
+user:
+  - id: 10
+    username: 'testUser1'
+    password: 'user test password'
+    roleId: 200
+  - id: 11
+    username: 'testUser2'
+    password: 'user test password 2'
+    roleId: 300

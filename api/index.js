@@ -19,8 +19,9 @@ const api = {
       ...crudRoutes,
 
       /* other */
-      { method: 'GET', path: '/status', config: Status },
-      { method: '*', path: '/{path*}', config: NotFound },
+      { method: 'GET', path: '/status', config: Status.standard },
+      { method: 'GET', path: '/status/auth', config: Status.auth },
+      { method: 'GET', path: '/{path*}', config: NotFound },
     ])
   },
 }

@@ -10,7 +10,7 @@ class Role extends BaseModel {
 
   static get objects() {
     // also used by createAdminAcount
-    return ['posts', 'users', 'roles']
+    return ['post', 'user', 'role']
   }
 
   static get baseSchema() {
