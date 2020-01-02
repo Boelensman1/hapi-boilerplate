@@ -29,9 +29,8 @@ class User extends BaseModel {
     return argon2.verify(this.passwordHash, password)
   }
 
-  $beforeInsert(queryContext) {
-    this.createdAt = new Date().toISOString()
-
+  async $beforeInsert(queryContext) {
+    await super.$beforeInsert(queryContext)
     return this.setPassword(queryContext)
   }
 
