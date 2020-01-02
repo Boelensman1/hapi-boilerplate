@@ -1,17 +1,5 @@
-const post = require('models/post')
-const role = require('models/role')
-const session = require('models/session')
-const user = require('models/user')
-
-/**
- * Make the first letter of a string lowercase
- *
- * @param {string} string The string to edit
- * @returns {string} The same string but with the first letter lowercase
- */
-function lowerFirstLetter(string) {
-  return string.charAt(0).toLowerCase() + string.slice(1)
-}
+const modelObjects = require('models')
+const { lowerFirstLetter } = require('../util')
 
 /**
  * Initialise the objection.js models and bind them to knex
@@ -21,7 +9,7 @@ function lowerFirstLetter(string) {
 function initModels() {
   const knex = this.resolve('knex')
 
-  const modelArray = [post, role, session, user]
+  const modelArray = Object.values(modelObjects)
 
   const models = {}
   modelArray.forEach((model) => {

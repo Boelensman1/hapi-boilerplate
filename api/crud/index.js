@@ -1,3 +1,4 @@
+const models = require('models')
 const create = require('./create')
 const getList = require('./getList')
 const getOne = require('./getOne')
@@ -9,14 +10,7 @@ const { lowerFirstLetter } = require('../../util')
 
 const routes = []
 
-const modelObjects = {
-  post: require('models/post'),
-  role: require('models/role'),
-  session: require('models/session'),
-  user: require('models/user'),
-}
-
-Object.values(modelObjects).forEach((model) => {
+Object.values(models).forEach((model) => {
   const modelName = lowerFirstLetter(model.name)
   // Create
   routes.push({
