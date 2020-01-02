@@ -12,7 +12,7 @@ async function validateJwt(decoded, models, callback) {
   const session = await models.session
     .query()
     .findById(uid)
-    .eager('user.role')
+    .withGraphFetched('user.role')
   if (!session || !session.valid) {
     return callback(false)
   }
