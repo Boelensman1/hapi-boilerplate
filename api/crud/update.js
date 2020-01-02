@@ -38,7 +38,7 @@ module.exports = (modelName, { responseValidation, schema }) => ({
     }
 
     // set id from the request path
-    payload.id = id
+    payload[model.idColumn] = id
 
     let result
     try {
