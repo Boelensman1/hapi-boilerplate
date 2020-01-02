@@ -8,9 +8,9 @@
     "dev": "NODE_PATH=. nodemon -e 'js,yaml' -I ./server.js",
     "prod": "NODE_PATH=. pm2 start ./ecosystem.config.yaml --env production",
     "stop": "pm2 stop ./ecosystem.config.yaml",
-    "test": "NODE_PATH=. jest",
-    "test:watch": "NODE_PATH=. jest --watch",
-    "coverage": "NODE_PATH=. jest --coverage",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage": "jest --coverage",
     "lint": "eslint ."
   },
   "author": "Wigger Boelens",
@@ -66,5 +66,8 @@
     "sqlite3": "^4.1.1",
     "pg": "^7.17.0",
     "pm2": "^4.2.1"
+  },
+  "jest": {
+    "modulePaths": ["."]
   }
 }
