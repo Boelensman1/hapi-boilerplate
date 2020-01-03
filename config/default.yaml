@@ -24,3 +24,6 @@ defaultRange:
   rangeStart: 0
   rangeEnd: 30
 baseUrl: 'https://www.example.org'
+log:
+  prettyPrint: true
+  level: 'info'

@@ -45,6 +45,13 @@ async function createServer(manifest, skipModelsInit, enableAuth) {
     throw err
   }
 
+  if (!manifestObject.register) {
+    manifestObject.register = {}
+  }
+  if (!manifestObject.register.plugins) {
+    manifestObject.register.plugins = []
+  }
+
   manifestObject.register.plugins.unshift({ plugin: './api' })
   manifestObject.register.plugins.unshift({ plugin: '@hapi/inert' })
   manifestObject.register.plugins.unshift({ plugin: '@hapi/vision' })
@@ -55,6 +62,17 @@ async function createServer(manifest, skipModelsInit, enableAuth) {
     manifestObject.register.plugins.unshift({ plugin: 'plugins/initAuth' })
     manifestObject.register.plugins.unshift({ plugin: 'hapi-auth-jwt2' })
   }
+
+  // install logger
+  const config = this.resolve('config')
+  manifestObject.register.plugins.push({
+    plugin: 'hapi-pino',
+    options: {
+      instance: this.resolve('logger'),
+      prettyPrint: config.get('log.prettyPrint'),
+      level: config.get('log.level'),
+    },
+  })
 
   if (!skipModelsInit) {
     await this.resolve('knex')

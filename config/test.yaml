@@ -9,10 +9,6 @@ manifest:
     routes:
       cors:
         origin: 'ignore'
-  register:
-    plugins:
-      - plugin: 'hapi-pino'
-        options:
-          prettyPrint: true
-          level: 'error'
 jwtSecret: 'secret'
+log:
+  level: 'warn'
