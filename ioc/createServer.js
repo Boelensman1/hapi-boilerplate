@@ -69,7 +69,6 @@ async function createServer(manifest, skipModelsInit, enableAuth) {
     plugin: 'hapi-pino',
     options: {
       instance: this.resolve('logger'),
-      prettyPrint: config.get('log.prettyPrint'),
       level: config.get('log.level'),
     },
   })
