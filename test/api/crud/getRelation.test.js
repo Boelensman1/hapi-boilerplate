@@ -11,7 +11,7 @@ describe('Test getRelation crud function', () => {
     const { request, h } = await setUpCrudTest(seedLocation)
 
     request.params = { id: 10 }
-    const handler = getRelation('role', 'user', user).handler.bind(
+    const handler = getRelation('role', 'users', user).handler.bind(
       null,
       request,
       h,

@@ -56,7 +56,7 @@ describe('Test update crud function', () => {
 
     request.payload = {
       name: 'New Name',
-      user: [
+      users: [
         {
           username: 'new user',
           password: 'new password..',

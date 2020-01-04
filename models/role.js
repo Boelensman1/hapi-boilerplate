@@ -72,7 +72,7 @@ class Role extends BaseModel {
 
   static get relationMappings() {
     return {
-      user: {
+      users: {
         relation: BaseModel.HasManyRelation,
         modelClass: `${__dirname}/user`,
         join: {

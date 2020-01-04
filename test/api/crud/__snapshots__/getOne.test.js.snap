@@ -35,7 +35,11 @@ Object {
   "role_read": 0,
   "role_update": 0,
   "updatedAt": null,
-  "user": Array [
+  "user_create": 0,
+  "user_delete": 0,
+  "user_read": 0,
+  "user_update": 0,
+  "users": Array [
     Object {
       "createdAt": Any<Date>,
       "id": 100,
@@ -45,9 +49,5 @@ Object {
       "username": "Relation User",
     },
   ],
-  "user_create": 0,
-  "user_delete": 0,
-  "user_read": 0,
-  "user_update": 0,
 }
 `;

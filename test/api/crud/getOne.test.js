@@ -34,7 +34,7 @@ describe('Test getOne crud function', () => {
 
     expect(result).toMatchSnapshot({
       createdAt: expect.any(Date),
-      user: [
+      users: [
         {
           createdAt: expect.any(Date),
         },

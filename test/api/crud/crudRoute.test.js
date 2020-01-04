@@ -95,7 +95,7 @@ describe('Test the generated crud routes', () => {
     const {
       body: { result, statusCode },
     } = await request(listener)
-      .get('/crud/role/10/user')
+      .get('/crud/role/10/users')
       .expect('Content-Type', /json/)
       .expect(200)
 
@@ -201,7 +201,7 @@ describe('Test the generated crud routes', () => {
 
     const payload = {
       name: 'New Name',
-      user: [
+      users: [
         {
           id: 100,
           username: 'New UserName',
@@ -223,7 +223,7 @@ describe('Test the generated crud routes', () => {
       name: 'New Name',
       updatedAt: expect.any(String),
       createdAt: expect.any(String),
-      user: [
+      users: [
         {
           username: 'New UserName',
           updatedAt: expect.any(String),

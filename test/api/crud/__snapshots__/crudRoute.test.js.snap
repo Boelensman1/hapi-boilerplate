@@ -173,7 +173,11 @@ Object {
   "role_read": 0,
   "role_update": 0,
   "updatedAt": Any<String>,
-  "user": Array [
+  "user_create": 0,
+  "user_delete": 0,
+  "user_read": 0,
+  "user_update": 0,
+  "users": Array [
     Object {
       "createdAt": Any<String>,
       "id": 100,
@@ -183,9 +187,5 @@ Object {
       "username": "New UserName",
     },
   ],
-  "user_create": 0,
-  "user_delete": 0,
-  "user_read": 0,
-  "user_update": 0,
 }
 `;
