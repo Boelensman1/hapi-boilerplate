@@ -38,7 +38,7 @@
     "inverse": "^1.0.0",
     "js-yaml": "^3.13.1",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.20.6",
+    "knex": "^0.20.7",
     "lodash": ">=4.17.13",
     "objection": "^2.0.10",
     "objection-db-errors": "^1.1.2",
