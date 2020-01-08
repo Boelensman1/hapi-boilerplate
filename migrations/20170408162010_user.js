@@ -11,6 +11,11 @@ exports.up = async (knex) => {
         .specificType('username', 'CITEXT')
         .notNullable()
         .unique()
+    } else if (client === 'sqlite3') {
+      table
+        .specificType('username', 'varchar(255) collate nocase')
+        .notNullable()
+        .unique()
     } else {
       table
         .string('username')
