@@ -17,7 +17,7 @@
   "private": true,
   "dependencies": {
     "@hapi/boom": "^9.0.0",
-    "@hapi/bourne": "^1.3.2",
+    "@hapi/bourne": "^2.0.0",
     "@hapi/glue": "^6.2.0",
     "@hapi/good": "^8.2.4",
     "@hapi/good-console": "^8.1.2",
