@@ -40,9 +40,9 @@ async function startUpServer(ioc, skipModelsInit = false, enableAuth = true) {
     }
     // return the server instance
     return server
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error while starting up the server', error)
+  } catch (err) {
+    const log = ioc.resolve('logger')
+    log.error({ err })
     throw new Error('Error while starting up, check logs for details')
   }
 }
