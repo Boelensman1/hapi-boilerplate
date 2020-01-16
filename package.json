@@ -32,7 +32,7 @@
     "config": "^3.2.4",
     "fs-extra": "^8.1.0",
     "hapi-auth-jwt2": "^8.8.1",
-    "hapi-crud-acl": "0.0.5",
+    "hapi-crud-acl": "0.0.7",
     "hapi-pino": "^6.3.0",
     "hapi-swagger": "^11.1.0",
     "inverse": "^1.0.0",
