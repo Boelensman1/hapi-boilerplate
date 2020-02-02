@@ -36,14 +36,21 @@ module.exports = (modelName, { responseValidation }) => {
 
       const getRelations = query && query.getRelations
 
-      const dbQuery = model
-        .query()
-        .findById(id)
-        .modify('defaultAttributes')
+      const dbQuery = model.query().findById(id)
+
+      // if model has defaultAttributes modifier, apply it
+      if (model.modifiers && model.modifiers.defaultAttributes) {
+        dbQuery.modify('defaultAttributes')
+      }
 
       if (getRelations) {
         const relationExpression = Object.keys(model.relationMappings)
-          .map((r) => `${r}(defaultAttributes)`)
+          .map((r) =>
+            // if relation has defaultAttributes modifier, apply it
+            r.modifiers && r.modifiers.defaultAttributes
+              ? `${r}(defaultAttributes)`
+              : r,
+          )
           .toString()
         dbQuery.withGraphFetched(`[${relationExpression}]`)
       }

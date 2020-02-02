@@ -1,6 +1,7 @@
 const Joi = require('@hapi/joi')
 const responseSchema = require('util/responseSchema')
 const { UniqueViolationError } = require('objection-db-errors')
+const { omitId } = require('./util')
 
 module.exports = (modelName, { responseValidation, payloadValidation }) => ({
   description: `Insert a single ${modelName}`,
@@ -23,7 +24,7 @@ module.exports = (modelName, { responseValidation, payloadValidation }) => ({
 
     let result
     try {
-      result = await model.query().insertAndFetch(payload)
+      result = await model.query().insertAndFetch(omitId(payload, model))
     } catch (err) {
       if (err instanceof UniqueViolationError) {
         return h.response({ statusCode: 409 }).code(409)

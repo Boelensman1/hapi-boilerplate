@@ -2,7 +2,7 @@ const Joi = require('@hapi/joi')
 const Boom = require('@hapi/boom')
 const responseSchema = require('util/responseSchema')
 const { UniqueViolationError } = require('objection-db-errors')
-const { omit } = require('lodash')
+const { omitVirtualProperties } = require('./util')
 
 module.exports = (modelName, { responseValidation, schema }) => ({
   description: `Update a single ${modelName}`,
@@ -26,7 +26,7 @@ module.exports = (modelName, { responseValidation, schema }) => ({
     const model = ioc.resolve('models')[modelName]
 
     // get payload & remove virtual properties
-    const payload = omit(request.payload, model.virtualAttributes)
+    const payload = omitVirtualProperties(request.payload, model)
 
     const {
       params: { id },

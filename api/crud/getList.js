@@ -45,10 +45,14 @@ module.exports = (modelName, { responseValidation }) => ({
     const filter = parseFilter(query, model)
     const dbQuery = model
       .query()
-      .modify('defaultAttributes')
       .skipUndefined()
       .where(filter.where)
       .range()
+
+    // if model has defaultAttributes modifier, apply it
+    if (model.modifiers && model.modifiers.defaultAttributes) {
+      dbQuery.modify('defaultAttributes')
+    }
 
     // check if we're sorting by virtual
     if (!sort || !sort.virtual) {

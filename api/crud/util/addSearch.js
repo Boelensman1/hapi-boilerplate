@@ -30,7 +30,7 @@ const addSearch = (dbQuery, model, filter) => {
       .split(' ')
       .join(' <-> '),
   )
-  dbQuery.joinRelation(joins)
+  dbQuery.joinRelated(joins)
 }
 
 module.exports = addSearch
