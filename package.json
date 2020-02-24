@@ -29,7 +29,7 @@
     "aguid": "^2.0.0",
     "argon2": "^0.25.1",
     "blipp": "^4.0.1",
-    "config": "^3.2.5",
+    "config": "^3.2.6",
     "fs-extra": "^8.1.0",
     "hapi-auth-jwt2": "^8.8.1",
     "hapi-crud-acl": "0.1.0",
