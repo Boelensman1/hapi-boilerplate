@@ -60,7 +60,7 @@
     "prettier": "^1.19.1",
     "randomstring": "^1.1.5",
     "supertest": "^4.0.2",
-    "tape": "^4.13.0"
+    "tape": "^4.13.2"
   },
   "optionalDependencies": {
     "sqlite3": "^4.1.1",
