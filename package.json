@@ -24,7 +24,7 @@
     "@hapi/good-squeeze": "^6.0.0",
     "@hapi/hapi": "^18.4.1",
     "@hapi/inert": "^6.0.0",
-    "@hapi/joi": "^17.1.0",
+    "@hapi/joi": "^17.1.1",
     "@hapi/vision": "^5.5.4",
     "aguid": "^2.0.0",
     "argon2": "^0.25.1",
