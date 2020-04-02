@@ -25,7 +25,7 @@
     "@hapi/hapi": "^19.1.1",
     "@hapi/inert": "^6.0.0",
     "@hapi/joi": "^17.1.1",
-    "@hapi/vision": "^5.5.4",
+    "@hapi/vision": "^6.0.0",
     "aguid": "^2.0.0",
     "argon2": "^0.26.1",
     "blipp": "^4.0.1",
