@@ -13,12 +13,8 @@ module.exports = (modelName, { responseValidation }) => {
         id: Joi.number().min(0),
       }),
       query: Joi.object({
-        getRelations: Joi.boolean()
-          .truthy('1', 1)
-          .falsy('0', 0),
-        getRelationIds: Joi.boolean()
-          .truthy('1', 1)
-          .falsy('0', 0),
+        getRelations: Joi.boolean().truthy('1', 1).falsy('0', 0),
+        getRelationIds: Joi.boolean().truthy('1', 1).falsy('0', 0),
       }),
     },
     response: {

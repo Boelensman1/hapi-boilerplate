@@ -16,11 +16,7 @@ module.exports = (
     }),
   },
   response: {
-    schema: responseSchema(
-      Joi.array()
-        .single()
-        .items(responseValidation),
-    ),
+    schema: responseSchema(Joi.array().single().items(responseValidation)),
   },
   plugins: {
     hapiCrudAcl: {

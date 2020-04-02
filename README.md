@@ -1,5 +1,4 @@
 # hapi-boilerplate
-
 hapi API Boilerplate with an opinionated view on project structure.
 
 ## Core Stack
@@ -11,7 +10,6 @@ hapi API Boilerplate with an opinionated view on project structure.
 ## Quick Start
 
 Clone project, install dependencies and migrate the database:
-
 ```bash
 $ git clone https://github.com/boelensman1/hapi-boilerplate.git
 $ cd hapi-boilerplate
@@ -20,60 +18,53 @@ $ knex migrate:latest
 ```
 
 Create local config file and modify it
-
 ```bash
 $ echo jwtSecret: \'$(LC_ALL=C tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)\' > config/local.yaml
 ```
 
 Start the server:
-
 ```bash
 $ npm run dev
 ```
 
 Run tests:
-
 ```bash
 $ npm run test
 ```
-
 Or, if you want to run the tests repeatedly
-
 ```bash
 $ npm run test:watch
 ```
 
 ## Plugins
-
 - **zxcvbn** - Password Strength Estimation for user passwords
-  https://github.com/dropbox/zxcvbn
+https://github.com/dropbox/zxcvbn
 - **inverse** - Inversion of Control container
-  https://github.com/mcordingley/Inverse.js
+https://github.com/mcordingley/Inverse.js
 - **glue** - Server composer for hapi.js.
-  https://github.com/hapijs/glue
+https://github.com/hapijs/glue
 - **blipp** - Simple hapi plugin to display the routes table at startup.
-  https://github.com/danielb2/blipp
+https://github.com/danielb2/blipp
 - **boom** - For HTTP-friendly error objects
-  https://github.com/hapijs/boom
+https://github.com/hapijs/boom
 - **good** - Hapi process monitor. It listens for events emitted by Hapi Server instances and allows custom reporters to be registered that output subscribed events.
-  https://github.com/hapijs/good
+https://github.com/hapijs/good
 - **good-console** - Console reporting for Good process monitor.
-  https://github.com/hapijs/good-console
+https://github.com/hapijs/good-console
 - **good-squeeze** - Simple transform stream for event filtering with good.
-  https://github.com/hapijs/good-squeeze
+https://github.com/hapijs/good-squeeze
 - **jest** - Node test utility.
-  https://jestjs.io
+    https://jestjs.io
 - **supertest** - Utility to test the api's responses.
-  https://github.com/visionmedia/supertest
+https://github.com/visionmedia/supertest
 - **nodemon** - Monitor for any changes in your node.js application and automatically restart the server.
-  https://github.com/remy/nodemon
+https://github.com/remy/nodemon
 - **pm2** - Process monitor for production
-  https://pm2.io
+https://pm2.io
 - **eslint** - A fully pluggable tool for identifying and reporting on patterns in JavaScript.
-  https://github.com/eslint/eslint
+https://github.com/eslint/eslint
 
 ## Project Structure
-
 ```
 .
 ├── api/
@@ -151,11 +142,9 @@ $ npm run test:watch
 ```
 
 ## Thanks
-
 Based on: https://github.com/rjmreis/hapi-api
 
 ## License
-
 The MIT License (MIT)
 
 Copyright (c) 2015 Wigger Boelens
