@@ -1,8 +1,10 @@
+const { insertIdColumn } = require('../util')
+
 const NODE_ENV = process.env.NODE_ENV || 'development'
 
 exports.up = async (knex) => {
   await knex.schema.createTable('users', (table) => {
-    table.increments()
+    insertIdColumn(table)
 
     const { client } = knex.client.config
     if (client === 'pg') {

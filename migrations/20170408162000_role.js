@@ -1,8 +1,9 @@
+const { insertIdColumn } = require('../util')
 const Role = require('models/role')
 
 exports.up = (knex) =>
   knex.schema.createTable('roles', (table) => {
-    table.increments()
+    insertIdColumn(table)
     table.string('name').notNullable().unique()
 
     Role.objects.forEach((obj) => {

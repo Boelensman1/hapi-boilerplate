@@ -1,6 +1,8 @@
+const { insertIdColumn } = require('../util')
+
 exports.up = (knex) =>
   knex.schema.createTable('posts', (table) => {
-    table.increments()
+    insertIdColumn(table)
     table.string('title')
     table.string('author')
     table.text('contents')
