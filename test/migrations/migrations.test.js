@@ -1,9 +1,9 @@
-const config = require('config')
-const Knex = require('knex')
+const createIoC = require('ioc/create')
 
 describe('Migrations', () => {
   test('Should migrate all the way up and down', async () => {
-    const knex = new Knex(config.knex)
+    const ioc = createIoC()
+    const knex = ioc.resolve('knex')
 
     // check that currentversion is 'none' at the start
     let currentVersion = await knex.migrate.currentVersion()

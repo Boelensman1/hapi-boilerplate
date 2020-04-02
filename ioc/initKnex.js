@@ -5,9 +5,11 @@ const Knex = require('knex')
  *
  * @returns {object} knex The knex object
  */
-function initKnex() {
+function initKnex(crookCatcher) {
   const config = this.resolve('config')
-  const knexConfig = config.util.cloneDeep(config.get('knex'))
+  const knexConfig = config.util.cloneDeep(
+    config.get(crookCatcher ? 'crookCatcherKnex' : 'knex'),
+  )
 
   // enable foreign keys for sqlite
   if (config.get('knex.client') === 'sqlite3') {

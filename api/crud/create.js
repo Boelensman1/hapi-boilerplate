@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi')
 const responseSchema = require('util/responseSchema')
-const { UniqueViolationError } = require('objection-db-errors')
+const { UniqueViolationError } = require('objection')
 const { omitId } = require('./util')
 
 module.exports = (modelName, { responseValidation, payloadValidation }) => ({

@@ -1,14 +1,35 @@
 const glue = require('@hapi/glue')
+const stream = require('stream')
 const path = require('path')
+
+const payloadSerializer = (payload) => {
+  if (!payload) {
+    return payload
+  }
+  // remove file data
+  Object.entries(payload).forEach(([key, value]) => {
+    if (Buffer.isBuffer(value) || value instanceof stream.Readable) {
+      payload[key] = '<--file-->'
+    }
+  })
+  return payload
+}
 
 /**
  * Create the server
  *
  * @param {object} manifest The serverconfig
  * @param {boolean} skipModelsInit Don't initialize the models
+ * @param {boolean} enableAuth Enable authentication
+ * @param {boolean} registerRoutes Register the server routes
  * @returns {Promise} Promise resolving into the hapi server object
  */
-async function createServer(manifest, skipModelsInit, enableAuth) {
+async function createServer(
+  manifest,
+  skipModelsInit,
+  enableAuth,
+  registerRoutes,
+) {
   let manifestObject = manifest
   if (manifest.util) {
     // needed as otherwise hapi errors about unknown properties like util / get
@@ -25,7 +46,7 @@ async function createServer(manifest, skipModelsInit, enableAuth) {
   if (!manifestObject.server.routes.cors) {
     manifestObject.server.routes.cors = {
       origin: ['*'],
-      exposedHeaders: ['Content-Range'],
+      exposedHeaders: ['Content-Range', 'Content-Disposition'],
     }
   }
 
@@ -52,9 +73,20 @@ async function createServer(manifest, skipModelsInit, enableAuth) {
     manifestObject.register.plugins = []
   }
 
-  manifestObject.register.plugins.unshift({ plugin: './api' })
+  if (registerRoutes) {
+    manifestObject.register.plugins.unshift({ plugin: './api' })
+  }
   manifestObject.register.plugins.unshift({ plugin: '@hapi/inert' })
-  manifestObject.register.plugins.unshift({ plugin: '@hapi/vision' })
+  manifestObject.register.plugins.unshift({
+    plugin: '@hapi/vision',
+    options: {
+      engines: { pug: require('pug') },
+      compileOptions: {
+        basedir: path.resolve(__dirname, '..', 'templates'),
+      },
+      path: path.resolve(__dirname, '..', 'templates'),
+    },
+  })
   if (enableAuth) {
     manifestObject.register.plugins.unshift({
       plugin: 'plugins/initPermissions',
@@ -70,6 +102,10 @@ async function createServer(manifest, skipModelsInit, enableAuth) {
     options: {
       instance: this.resolve('logger'),
       level: config.get('log.level'),
+      logPayload: true,
+      serializers: {
+        payload: payloadSerializer,
+      },
     },
   })
 

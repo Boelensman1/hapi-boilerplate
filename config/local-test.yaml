@@ -1,0 +1,4 @@
+# disable sentry in testing
+sentryDSN: ''
+cookieOptions:
+  domain:

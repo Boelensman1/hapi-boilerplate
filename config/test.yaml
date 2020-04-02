@@ -9,6 +9,8 @@ manifest:
     routes:
       cors:
         origin: 'ignore'
+    router:
+      stripTrailingSlash: true
 jwtSecret: 'secret'
 log:
   level: 'warn'

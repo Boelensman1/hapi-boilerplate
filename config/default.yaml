@@ -1,12 +1,3 @@
-manifest:
-  register:
-    plugins:
-      - plugin: 'hapi-swagger'
-        options:
-          info:
-            title: 'Lumberjack'
-          grouping: 'tags'
-          documentationPath: '/'
 knex:
   useNullAsDefault: true
   client: 'sqlite3'
@@ -26,4 +17,5 @@ defaultRange:
 baseUrl: 'https://www.example.org'
 log:
   prettyPrint: true
-  level: 'info'
+  level: 'warn'
+sentryDSN: '' # set to dsn found in sentry

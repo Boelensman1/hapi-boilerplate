@@ -8,7 +8,10 @@ const logger = require('pino')
  */
 function initLogger(minLogLevel) {
   const config = this.resolve('config')
-  const log = logger({ prettyPrint: config.get('log.prettyPrint') })
+  const log = logger({
+    prettyPrint: config.get('log.prettyPrint'),
+    redact: ['req.headers.cookie', 'payload.context'],
+  })
   if (minLogLevel) {
     log.level = minLogLevel
   } else {

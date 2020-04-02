@@ -11,7 +11,7 @@ const env = process.env.NODE_ENV || 'development'
  * @param {boolean} enableAuth  If the authentication plugin should be enabled
  * @returns {Promise} Promise resolving into the hapi server object
  */
-async function startUpServer(ioc, skipModelsInit = false, enableAuth = true) {
+async function startUpServer(ioc, skipModelsInit, enableAuth, registerRoutes) {
   try {
     const config = ioc.resolve('config')
     // start up the server!
@@ -20,6 +20,7 @@ async function startUpServer(ioc, skipModelsInit = false, enableAuth = true) {
       config.get('manifest'),
       skipModelsInit,
       enableAuth,
+      registerRoutes,
     )
     await server.start()
     server.app.ioc = ioc
@@ -51,11 +52,5 @@ module.exports = startUpServer
 
 // check if we're running as a require. If we are not, start up the server
 if (!module.parent) {
-  process.on('unhandledRejection', (err) => {
-    // eslint-disable-next-line no-console
-    console.log(err)
-    process.exit(1)
-  })
-
-  startUpServer(createIoC(), true)
+  startUpServer(createIoC(), true, true, true)
 }

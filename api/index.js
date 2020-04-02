@@ -1,5 +1,3 @@
-/* eslint max-len: [2, 100, 2] */
-
 const Status = require('./handlers/status')
 const Session = require('./handlers/session')
 const NotFound = require('./handlers/notFound')
@@ -15,13 +13,13 @@ const api = {
       { method: 'POST', path: '/session', config: Session.post },
       { method: 'GET', path: '/session/current', config: Session.info },
 
-      /* crud routes */
-      ...crudRoutes,
-
       /* other */
       { method: 'GET', path: '/status', config: Status.standard },
       { method: 'GET', path: '/status/auth', config: Status.auth },
       { method: 'GET', path: '/{path*}', config: NotFound },
+
+      /* crud routes */
+      ...crudRoutes,
     ])
   },
 }
