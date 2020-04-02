@@ -43,6 +43,10 @@ Or, if you want to run the tests repeatedly
 $ npm run test:watch
 ```
 
+## Running in production using systemctl
+
+For running in production, copy hapi-boilerplate.service.example to hapi-boilerplate.service and modify it to your needs. Specifically you'll have to modify lines 7, 8, 9, 12, 13
+
 ## Plugins
 
 - **zxcvbn** - Password Strength Estimation for user passwords
@@ -55,20 +59,14 @@ $ npm run test:watch
   https://github.com/danielb2/blipp
 - **boom** - For HTTP-friendly error objects
   https://github.com/hapijs/boom
-- **good** - Hapi process monitor. It listens for events emitted by Hapi Server instances and allows custom reporters to be registered that output subscribed events.
-  https://github.com/hapijs/good
-- **good-console** - Console reporting for Good process monitor.
-  https://github.com/hapijs/good-console
-- **good-squeeze** - Simple transform stream for event filtering with good.
-  https://github.com/hapijs/good-squeeze
 - **jest** - Node test utility.
   https://jestjs.io
+- **pino** - Super fast, all natural json logger
+  https://github.com/pinojs/pino
 - **supertest** - Utility to test the api's responses.
   https://github.com/visionmedia/supertest
 - **nodemon** - Monitor for any changes in your node.js application and automatically restart the server.
   https://github.com/remy/nodemon
-- **pm2** - Process monitor for production
-  https://pm2.io
 - **eslint** - A fully pluggable tool for identifying and reporting on patterns in JavaScript.
   https://github.com/eslint/eslint
 
@@ -108,7 +106,6 @@ $ npm run test:watch
 |   ├── session.js                  * The objection model for sessions
 |   └── user.js                     * The objection model for users
 ├── plugins/
-|   ├── good-file.js                * Plugin that saves the logs to a file
 |   ├── initAuth.js                 * Initialises the authentication plugin
 |   └── initPermissions.js          * Initialises the permissions plugin
 ├── test/
