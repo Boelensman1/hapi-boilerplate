@@ -21,8 +21,12 @@ module.exports = (modelName, { responseValidation }) => ({
     query: Joi.object({
       sort: Joi.object({ field: Joi.string(), order: Joi.string() }),
       filter: Joi.object(),
-      range: Joi.array().length(2).items(Joi.number().min(0)),
-      getRelationIds: Joi.boolean().truthy('1', 1).falsy('0', 0),
+      range: Joi.array()
+        .length(2)
+        .items(Joi.number().min(0)),
+      getRelationIds: Joi.boolean()
+        .truthy('1', 1)
+        .falsy('0', 0),
     }),
   },
   response: {
@@ -44,7 +48,11 @@ module.exports = (modelName, { responseValidation }) => ({
     // these will error if it's impossible to sort/filter by that column
     const sort = parseSort(query, model)
     const filter = parseFilter(query, model)
-    const dbQuery = model.query().skipUndefined().where(filter.where).range()
+    const dbQuery = model
+      .query()
+      .skipUndefined()
+      .where(filter.where)
+      .range()
 
     // if model has defaultAttributes modifier, apply it
     if (model.modifiers && model.modifiers.defaultAttributes) {
