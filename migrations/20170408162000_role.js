@@ -1,5 +1,5 @@
-const { insertIdColumn } = require('../util')
 const Role = require('models/role')
+const { insertIdColumn } = require('../util')
 
 exports.up = (knex) =>
   knex.schema.createTable('roles', (table) => {
