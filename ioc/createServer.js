@@ -77,16 +77,7 @@ async function createServer(
     manifestObject.register.plugins.unshift({ plugin: './api' })
   }
   manifestObject.register.plugins.unshift({ plugin: '@hapi/inert' })
-  manifestObject.register.plugins.unshift({
-    plugin: '@hapi/vision',
-    options: {
-      engines: { pug: require('pug') },
-      compileOptions: {
-        basedir: path.resolve(__dirname, '..', 'templates'),
-      },
-      path: path.resolve(__dirname, '..', 'templates'),
-    },
-  })
+  manifestObject.register.plugins.unshift({ plugin: '@hapi/vision' })
   if (enableAuth) {
     manifestObject.register.plugins.unshift({
       plugin: 'plugins/initPermissions',
