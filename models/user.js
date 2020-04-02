@@ -7,13 +7,13 @@ const BaseModel = require('models/baseModel')
 const { toTime, toDate } = require('../util')
 
 class User extends BaseModel {
-  // Table name is the only required property.
   static get tableName() {
     return 'users'
   }
 
+  // virtualAttributes must be defined, is used in crud route generation
   static get virtualAttributes() {
-    return ['password']
+    return ['password', ...this.addedProperties]
   }
 
   async setPassword() {

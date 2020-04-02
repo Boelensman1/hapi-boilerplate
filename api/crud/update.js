@@ -25,9 +25,7 @@ module.exports = (modelName, { responseValidation, schema }) => ({
     const { ioc } = request.server.app
     const model = ioc.resolve('models')[modelName]
 
-    // get payload & remove virtual properties
-    const payload = omitVirtualProperties(request.payload, model)
-
+    let { payload } = request
     const {
       params: { id },
     } = request
@@ -40,9 +38,28 @@ module.exports = (modelName, { responseValidation, schema }) => ({
     // set id from the request path
     payload[model.idColumn] = id
 
+    // modify payload to use idColumns
+    model.idColumns.forEach(({ key, name, many }) => {
+      if (payload[key] !== undefined) {
+        if (many) {
+          payload[name] = payload[key].map((id) => ({ id }))
+        } else if (payload[key] !== null) {
+          payload[name] = { id: payload[key] }
+        }
+        delete payload[key]
+      }
+    })
+
+    // remove virtual properties
+    payload = omitVirtualProperties(request.payload, model)
+
     let result
     try {
-      result = await model.query().upsertGraphAndFetch(payload)
+      result = await model.query().upsertGraphAndFetch(payload, {
+        relate: true,
+        update: true,
+        unrelate: true,
+      })
     } catch (err) {
       if (err instanceof UniqueViolationError) {
         return h.response({ statusCode: 409 }).code(409)

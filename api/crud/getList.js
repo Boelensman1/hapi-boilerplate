@@ -11,6 +11,7 @@ const {
   getPagination,
   addSearch,
   formatResult,
+  setRelationIds,
 } = require('./util')
 
 module.exports = (modelName, { responseValidation }) => ({
@@ -20,9 +21,8 @@ module.exports = (modelName, { responseValidation }) => ({
     query: Joi.object({
       sort: Joi.object({ field: Joi.string(), order: Joi.string() }),
       filter: Joi.object(),
-      range: Joi.array()
-        .length(2)
-        .items(Joi.number().min(0)),
+      range: Joi.array().length(2).items(Joi.number().min(0)),
+      getRelationIds: Joi.boolean().truthy('1', 1).falsy('0', 0),
     }),
   },
   response: {
@@ -38,20 +38,22 @@ module.exports = (modelName, { responseValidation }) => ({
     const model = ioc.resolve('models')[modelName]
     const { query } = request
 
+    const getRelationIds = query && query.getRelationIds
     const { rangeStart, rangeEnd } = parseRange(query)
 
     // these will error if it's impossible to sort/filter by that column
     const sort = parseSort(query, model)
     const filter = parseFilter(query, model)
-    const dbQuery = model
-      .query()
-      .skipUndefined()
-      .where(filter.where)
-      .range()
+    const dbQuery = model.query().skipUndefined().where(filter.where).range()
 
     // if model has defaultAttributes modifier, apply it
     if (model.modifiers && model.modifiers.defaultAttributes) {
       dbQuery.modify('defaultAttributes')
+    }
+
+    if (getRelationIds) {
+      const relations = Object.keys(model.relationMappings)
+      dbQuery.withGraphFetched(`[${relations.toString()}]`)
     }
 
     // check if we're sorting by virtual
@@ -99,6 +101,10 @@ module.exports = (modelName, { responseValidation }) => ({
       results.length,
     )
     const pagination = getPagination(model, total, query)
+
+    if (getRelationIds) {
+      setRelationIds(results, model, true)
+    }
 
     return h
       .response({

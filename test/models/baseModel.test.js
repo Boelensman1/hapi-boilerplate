@@ -9,6 +9,10 @@ class SimpleModel extends BaseModel {
     return 'simpleModel'
   }
 
+  static get virtualAttributes() {
+    return []
+  }
+
   static get baseSchema() {
     return {
       num: Joi.number().min(0),

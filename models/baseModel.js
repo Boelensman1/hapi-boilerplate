@@ -4,10 +4,7 @@ const { Model, Validator } = require('objection')
 const Joi = require('@hapi/joi')
 const { pick } = require('lodash')
 
-const { toDate, toTime } = require('../util')
-
-const isHasManyRelation = (relation) =>
-  relation.relation.name === 'HasManyRelation'
+const { toTime, toDate, isManyRelation } = require('../util')
 
 class JoiValidator extends Validator {
   // eslint-disable-next-line class-methods-use-this
@@ -37,40 +34,115 @@ class JoiValidator extends Validator {
 
     return Joi.attempt(json, Joi.compile(joiSchema), {
       noDefaults: isPatch,
+      allowUnknown: model.constructor.allowUnknown,
     })
   }
 }
 
-const addNullAsEmpty = (schema) => {
+const addNullAsEmptyAndSetDefault = (
+  schema,
+  { idColumn, virtualAttributes, relationProperties },
+) => {
   if (!schema) {
     return schema
   }
+
+  if (!relationProperties) {
+    relationProperties = []
+  }
+
+  const modify = (key) => (schemaEntry) => {
+    let result = schemaEntry.empty(null)
+
+    // ignore id column, createdAt & updatedAt as these should
+    // not default to null, because otherwise you can't insert them
+    // same is true for the relation & virtual properties
+    if (
+      key !== idColumn &&
+      key !== 'createdAt' &&
+      key !== 'updatedAt' &&
+      !relationProperties.includes(key) &&
+      !virtualAttributes.includes(key)
+    ) {
+      if (result.describe().flags.default === undefined) {
+        result = result.default(null)
+      }
+    }
+    return result
+  }
+
   Object.keys(schema).forEach((key) => {
+    if (!schema[key]) {
+      throw Error(`Key ${key} is not defined!`)
+    }
     if (Array.isArray(schema[key])) {
       // scheme is in the form of [Joi.number(), Joi.string()]
-      schema[key] = schema[key].map((s) => s.empty(null))
+      schema[key] = schema[key].map(modify(key))
     } else if (schema[key].empty) {
       // if this property can be empty, allow null as empty
-      schema[key] = schema[key].empty(null)
+      schema[key] = modify(key)(schema[key])
     }
   })
   return schema
 }
 
-const addRelations = (schema, relationMappings, type) => {
+const addVirtualAttributes = (model) => {
+  const { relationMappings, baseSchema } = model
+
+  if (!relationMappings) {
+    return
+  }
+  if (!model.addedProperties) {
+    model.addedProperties = []
+  }
+  if (!model.relationProperties) {
+    model.relationProperties = []
+  }
+
+  const pushIfNotExists = (array, value) => {
+    // check if the model includes this property (making it non virtual)
+    // for example if the relation is from xxx.id to yyy.xxxId
+    // then xxxId should not be virtual on the model yyy
+    // we also check if we have not already added this property
+    if (!Object.keys(baseSchema).includes(value) && !array.includes(value)) {
+      array.push(value)
+    }
+  }
+
+  Object.entries(relationMappings).forEach(([name, relation]) => {
+    pushIfNotExists(model.relationProperties, name)
+    if (isManyRelation(relation)) {
+      pushIfNotExists(model.addedProperties, `${name}Ids`)
+    } else {
+      pushIfNotExists(model.addedProperties, `${name}Id`)
+    }
+  })
+}
+
+const addRelations = (model, type, addFullRelations) => {
+  const { relationMappings } = model
+  const schema = model[type]
+
   if (!relationMappings) {
     return schema
   }
+
   Object.entries(relationMappings).forEach(([name, relation]) => {
     const relationClass = require(relation.modelClass)
 
-    let relationSchema = addNullAsEmpty(relationClass[type])
+    addVirtualAttributes(model)
+    let relationSchema = addNullAsEmptyAndSetDefault(relationClass[type], model)
 
-    if (isHasManyRelation(relation)) {
+    if (isManyRelation(relation)) {
       relationSchema = Joi.array().items(relationSchema)
+      schema[`${name}Ids`] = Joi.array().items(Joi.number().min(0))
+    } else {
+      schema[`${name}Id`] = Joi.number().min(0)
     }
-    // allow null as empty
-    schema[name] = Joi.compile(relationSchema).empty(null)
+    if (addFullRelations) {
+      // allow null as empty
+      schema[name] = Joi.compile(relationSchema).empty(null)
+    }
   })
   return schema
 }
@@ -81,12 +153,10 @@ class BaseModel extends Model {
   static get responseValidation() {
     // cache the result so we don't get into an endless loop
     if (!this.responseSchema) {
-      this.responseSchema = addNullAsEmpty(
-        addRelations(
-          this.baseResponseSchema,
-          this.relationMappings,
-          'baseResponseSchema',
-        ),
+      addVirtualAttributes(this)
+      this.responseSchema = addNullAsEmptyAndSetDefault(
+        addRelations(this, 'baseResponseSchema', true),
+        this,
       )
     }
     return this.responseSchema
@@ -94,7 +164,11 @@ class BaseModel extends Model {
 
   static get payloadValidation() {
     if (!this.payloadSchema) {
-      this.payloadSchema = addNullAsEmpty(this.basePayloadSchema)
+      addVirtualAttributes(this)
+      this.payloadSchema = addNullAsEmptyAndSetDefault(
+        addRelations(this, 'basePayloadSchema', false),
+        this,
+      )
     }
     return this.payloadSchema
   }
@@ -102,11 +176,35 @@ class BaseModel extends Model {
   static get schema() {
     // cache the result
     if (!this.schemaWithRelations) {
-      this.schemaWithRelations = addNullAsEmpty(
-        addRelations(this.baseSchema, this.relationMappings, 'baseSchema'),
+      addVirtualAttributes(this)
+      this.schemaWithRelations = addNullAsEmptyAndSetDefault(
+        addRelations(this, 'baseSchema', true),
+        this,
       )
     }
     return this.schemaWithRelations
+  }
+
+  static get idColumns() {
+    const idColumns = []
+    Object.entries(this.relationMappings).forEach(([name, relation]) => {
+      if (isManyRelation(relation)) {
+        idColumns.push({
+          key: `${name}Ids`,
+          name,
+          many: true,
+          model: relation.modelClass,
+        })
+      } else {
+        idColumns.push({
+          key: `${name}Id`,
+          name,
+          many: false,
+          model: relation.modelClass,
+        })
+      }
+    })
+    return idColumns
   }
 
   static createValidator() {
@@ -125,7 +223,24 @@ class BaseModel extends Model {
     }
   }
 
-  // format date's
+  toJSON(opts) {
+    if (!opts || !opts.noAdded) {
+      return super.toJSON(opts)
+    }
+    const { noAdded, ...options } = opts
+    const json = super.toJSON(options)
+
+    if (!this.constructor.addedProperties) {
+      return json
+    }
+
+    this.constructor.addedProperties.forEach((prop) => {
+      delete json[prop]
+    })
+
+    return json
+  }
+
   $parseDatabaseJson(json) {
     json = super.$parseDatabaseJson(json)
     toDate(json, 'createdAt')

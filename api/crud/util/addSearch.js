@@ -6,19 +6,17 @@ const genColumns = (dbQuery, model) => {
     if (relation === '$self') {
       // not a relation, this is the model itself
       result = result.concat(
-        attributes.map((a) => `to_tsvector("${model.tableName}"."${a}")`),
+        attributes.map((a) => `"${model.tableName}"."${a}"`),
       )
     } else {
       joins[relation] = true
       const relationModel = require(model.relationMappings[relation].modelClass)
       result = result.concat(
-        attributes.map(
-          (a) => `to_tsvector("${relationModel.tableName}"."${a}")`,
-        ),
+        attributes.map((a) => `"${relationModel.tableName}"."${a}"`),
       )
     }
   })
-  return { query: result.join(' || '), joins }
+  return { query: `to_tsvector(concat_ws(' ', ${result.join(',')}))`, joins }
 }
 
 const addSearch = (dbQuery, model, filter) => {
@@ -28,9 +26,10 @@ const addSearch = (dbQuery, model, filter) => {
     filter.search
       .trim()
       .split(' ')
+      .map((c) => `${c}:*`)
       .join(' <-> '),
   )
-  dbQuery.joinRelated(joins)
+  dbQuery.leftJoinRelated(joins)
 }
 
 module.exports = addSearch

@@ -3,13 +3,13 @@ const Joi = require('@hapi/joi')
 const BaseModel = require('models/baseModel')
 
 class Post extends BaseModel {
-  // Table name is the only required property.
   static get tableName() {
     return 'posts'
   }
 
+  // virtualAttributes must be defined, is used in crud route generation
   static get virtualAttributes() {
-    return ['titleWithAuthor']
+    return ['titleWithAuthor', ...this.addedProperties]
   }
 
   get titleWithAuthor() {

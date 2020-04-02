@@ -22,9 +22,23 @@ module.exports = (modelName, { responseValidation, payloadValidation }) => ({
     const model = ioc.resolve('models')[modelName]
     const { payload } = request
 
+    // modify payload to use idColumns
+    model.idColumns.forEach(({ key, name, many }) => {
+      if (payload[key] !== undefined) {
+        if (many) {
+          payload[name] = payload[key].map((id) => ({ id }))
+        } else if (payload[key] !== null) {
+          payload[name] = { id: payload[key] }
+        }
+        delete payload[key]
+      }
+    })
+
     let result
     try {
-      result = await model.query().insertAndFetch(omitId(payload, model))
+      result = await model.query().upsertGraphAndFetch(omitId(payload, model), {
+        relate: true,
+      })
     } catch (err) {
       if (err instanceof UniqueViolationError) {
         return h.response({ statusCode: 409 }).code(409)

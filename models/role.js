@@ -3,7 +3,6 @@ const Joi = require('@hapi/joi')
 const BaseModel = require('models/baseModel')
 
 class Role extends BaseModel {
-  // Table name is the only required property.
   static get tableName() {
     return 'roles'
   }
@@ -11,6 +10,11 @@ class Role extends BaseModel {
   static get objects() {
     // also used by createAdminAcount
     return ['post', 'user', 'role']
+  }
+
+  // virtualAttributes must be defined, is used in crud route generation
+  static get virtualAttributes() {
+    return [...this.addedProperties]
   }
 
   static get baseSchema() {

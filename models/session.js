@@ -4,13 +4,17 @@ const BaseModel = require('models/baseModel')
 const User = require('models/user')
 
 class Session extends BaseModel {
-  // Table name is the only required property.
   static get tableName() {
     return 'sessions'
   }
 
   static get idColumn() {
     return 'uid'
+  }
+
+  // virtualAttributes must be defined, is used in crud route generation
+  static get virtualAttributes() {
+    return [...this.addedProperties]
   }
 
   static get baseSchema() {
