@@ -34,6 +34,8 @@ describe('Test update crud function', () => {
     request.payload = {
       title: 'New Post Title',
       titleWithAuthor: 'Virtual attribute',
+      author: 'me',
+      contents: 'test contents',
     }
     request.params = { id: seed.post[0].id }
 

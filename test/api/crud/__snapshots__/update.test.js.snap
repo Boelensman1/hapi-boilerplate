@@ -2,12 +2,12 @@
 
 exports[`Test update crud function Remove virtual properties 1`] = `
 Object {
-  "author": "Author 0",
-  "contents": "ABC",
+  "author": "me",
+  "contents": "test contents",
   "createdAt": Any<Date>,
   "id": 0,
   "title": "New Post Title",
-  "titleWithAuthor": "New Post Title by Author 0",
+  "titleWithAuthor": "New Post Title by me",
   "updatedAt": Any<Date>,
 }
 `;

@@ -197,7 +197,7 @@ describe('Test the generated crud routes', () => {
   })
 
   test('Update one with relations', async () => {
-    const { listener } = await setUpHandlerTest(seedLocation)
+    const { listener, seed } = await setUpHandlerTest(seedLocation)
 
     const payload = {
       name: 'New Name',
@@ -205,6 +205,7 @@ describe('Test the generated crud routes', () => {
         {
           id: 100,
           username: 'New UserName',
+          passwordHash: seed.user[0].passwordHash,
         },
       ],
     }
