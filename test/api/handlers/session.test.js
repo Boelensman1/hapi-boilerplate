@@ -86,10 +86,7 @@ describe('Test /session route', () => {
     // login
     const payload = { username: 'testUser1', password: 'user test password' }
 
-    await agent
-      .post('/session')
-      .send(payload)
-      .expect(201)
+    await agent.post('/session').send(payload).expect(201)
 
     // get current
     const { result } = (await agent.get('/session/current').expect(200)).body

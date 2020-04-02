@@ -7,27 +7,18 @@ exports.up = async (knex) => {
     const { client } = knex.client.config
     if (client === 'pg') {
       // case insensitive
-      table
-        .specificType('username', 'CITEXT')
-        .notNullable()
-        .unique()
+      table.specificType('username', 'CITEXT').notNullable().unique()
     } else if (client === 'sqlite3') {
       table
         .specificType('username', 'varchar(255) collate nocase')
         .notNullable()
         .unique()
     } else {
-      table
-        .string('username')
-        .notNullable()
-        .unique()
+      table.string('username').notNullable().unique()
     }
 
     table.string('passwordHash').notNullable()
-    table
-      .integer('roleId')
-      .unsigned()
-      .notNullable()
+    table.integer('roleId').unsigned().notNullable()
     table.bigInteger('loggedInAt')
     table.bigInteger('createdAt').notNullable()
     table.bigInteger('updatedAt')

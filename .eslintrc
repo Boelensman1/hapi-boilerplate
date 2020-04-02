@@ -1,16 +1,13 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "airbnb",
-    "prettier",
-  ],
+  "extends": ["airbnb", "prettier"],
   "env": {
     "node": true,
     "es6": true,
-    "jest": true,
+    "jest": true
   },
   "globals": {
-    "approot": true,
+    "approot": true
   },
   "rules": {
     "semi": [2, "never"],
@@ -26,15 +23,12 @@
     "no-unused-vars": [2, { "ignoreRestSiblings": true }],
     "import/no-dynamic-require": 0,
     "import/no-extraneous-dependencies": 0,
-    "import/prefer-default-export": 0,
+    "import/prefer-default-export": 0
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "moduleDirectory": [
-          "node_modules",
-          "."
-        ]
+        "moduleDirectory": ["node_modules", "."]
       }
     }
   }

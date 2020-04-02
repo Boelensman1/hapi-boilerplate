@@ -18,10 +18,7 @@ class Role extends BaseModel {
   }
 
   static get baseSchema() {
-    const base = Joi.boolean()
-      .truthy('1', 1)
-      .falsy('0', 0)
-      .default(false)
+    const base = Joi.boolean().truthy('1', 1).falsy('0', 0).default(false)
 
     const permissionBlocks = Role.objects.reduce((perm, obj) => {
       perm[`${obj}_create`] = base.description(`Allow role to add a ${obj}`)
@@ -32,13 +29,8 @@ class Role extends BaseModel {
     }, {})
 
     return {
-      id: Joi.number()
-        .min(0)
-        .description('The id of the role object'),
-      name: Joi.string()
-        .min(3)
-        .required()
-        .description('Name of the role'),
+      id: Joi.number().min(0).description('The id of the role object'),
+      name: Joi.string().min(3).required().description('Name of the role'),
 
       ...permissionBlocks,
 

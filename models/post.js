@@ -24,9 +24,7 @@ class Post extends BaseModel {
 
   static get baseSchema() {
     return {
-      id: Joi.number()
-        .min(0)
-        .description('The identifier of the post'),
+      id: Joi.number().min(0).description('The identifier of the post'),
       title: Joi.string()
         .max(20)
         .required()

@@ -1,14 +1,8 @@
 exports.up = (knex) =>
   knex.schema.createTable('sessions', (table) => {
-    table
-      .string('uid')
-      .notNullable()
-      .primary()
+    table.string('uid').notNullable().primary()
     table.boolean('valid').notNullable()
-    table
-      .integer('userId')
-      .unsigned()
-      .notNullable()
+    table.integer('userId').unsigned().notNullable()
     table.bigInteger('createdAt').notNullable()
     table.bigInteger('updatedAt')
 

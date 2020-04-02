@@ -19,17 +19,13 @@ class Session extends BaseModel {
 
   static get baseSchema() {
     return {
-      uid: Joi.string()
-        .required()
-        .description('The uid of the wanted object'),
+      uid: Joi.string().required().description('The uid of the wanted object'),
       valid: Joi.boolean()
         .truthy(1, '1')
         .falsy(0, '0')
         .default(true)
         .description('Wether or not the token is still valid'),
-      userId: Joi.number()
-        .min(0)
-        .description('The id of the connected user'),
+      userId: Joi.number().min(0).description('The id of the connected user'),
       createdAt: Joi.date().description('When the object was created'),
       updatedAt: Joi.date().description('When the object was last updated'),
     }

@@ -26,9 +26,7 @@ module.exports = {
 
       const { username, password } = request.payload
 
-      const user = await User.query()
-        .where({ username })
-        .first()
+      const user = await User.query().where({ username }).first()
       if (!user) {
         throw Boom.unauthorized('Invalid Credentials')
       }

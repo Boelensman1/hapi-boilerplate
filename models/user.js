@@ -58,9 +58,7 @@ class User extends BaseModel {
 
   static get baseSchema() {
     return {
-      id: Joi.number()
-        .min(0)
-        .description('The id of the wanted object'),
+      id: Joi.number().min(0).description('The id of the wanted object'),
       username: Joi.string()
         .min(3)
         .max(255)
@@ -74,9 +72,7 @@ class User extends BaseModel {
         .min(3)
         .max(255)
         .description('The password of the user'),
-      roleId: Joi.number()
-        .min(0)
-        .description('The id of the role of the user'),
+      roleId: Joi.number().min(0).description('The id of the role of the user'),
       loggedInAt: Joi.date().description('When the user last logged in'),
       createdAt: Joi.date().description('When the object was created'),
       updatedAt: Joi.date().description('When the object was last updated'),
