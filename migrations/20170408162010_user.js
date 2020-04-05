@@ -3,10 +3,16 @@ const { insertIdColumn } = require('../util')
 const NODE_ENV = process.env.NODE_ENV || 'development'
 
 exports.up = async (knex) => {
+  const { client } = knex.client.config
+  if (client === 'pg') {
+    // enable case insensitive extention
+    // this is not deleted on migration down as we
+    // don't know if it already existed
+    await knex.schema.raw('CREATE EXTENSION IF NOT EXISTS citext')
+  }
+
   await knex.schema.createTable('users', (table) => {
     insertIdColumn(table)
-
-    const { client } = knex.client.config
     if (client === 'pg') {
       // case insensitive
       table.specificType('username', 'CITEXT').notNullable().unique()
