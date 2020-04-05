@@ -1,0 +1,8 @@
+jwtSecret: 'gKcjvCwjVyhivkU44S5S6TOziS9UchcW'
+knex:
+  client: 'pg'
+  connection:
+    host: 'db'
+    user: 'postgres'
+    password: 'example'
+    database: 'postgres'
