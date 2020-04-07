@@ -43,6 +43,14 @@ Or, if you want to run the tests repeatedly
 $ npm run test:watch
 ```
 
+## Running dev environment in docker
+
+```bash
+docker-compose up -d db
+docker-compose run server init
+docker-compose up -d
+```
+
 ## Running in production using systemctl
 
 For running in production, copy hapi-boilerplate.service.example to hapi-boilerplate.service and modify it to your needs. Specifically you'll have to modify lines 7, 8, 9, 12, 13
