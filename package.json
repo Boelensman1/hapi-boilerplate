@@ -58,7 +58,7 @@
     "eslint-plugin-react": "^7.19.0",
     "jest": "^25.2.7",
     "nodemon": "^2.0.2",
-    "prettier": "^2.0.3",
+    "prettier": "^2.0.4",
     "randomstring": "^1.1.5",
     "supertest": "^4.0.2",
     "tape": "^4.13.2"
