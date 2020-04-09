@@ -25,7 +25,7 @@
     "@hapi/vision": "^6.0.0",
     "@sentry/node": "^5.15.4",
     "aguid": "^2.0.0",
-    "argon2": "^0.26.1",
+    "argon2": "^0.26.2",
     "blipp": "^4.0.1",
     "config": "^3.3.1",
     "fs-extra": "^9.0.0",
