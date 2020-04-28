@@ -64,7 +64,7 @@
     "tape": "^5.0.0"
   },
   "optionalDependencies": {
-    "sqlite3": "^4.1.1",
+    "sqlite3": "^4.2.0",
     "pg": "^8.0.3",
     "mysql": "^2.18.1"
   },
