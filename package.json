@@ -28,7 +28,7 @@
     "argon2": "^0.26.2",
     "blipp": "^4.0.1",
     "config": "^3.3.1",
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^9.0.1",
     "hapi-auth-jwt2": "^10.1.0",
     "hapi-crud-acl": "0.1.0",
     "hapi-pino": "^6.5.0",
