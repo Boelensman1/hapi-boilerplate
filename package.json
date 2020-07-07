@@ -38,7 +38,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.15",
     "lodash": ">=4.17.13",
-    "objection": "^2.2.0",
+    "objection": "^2.2.1",
     "pino": "^6.3.2",
     "pino-pretty": "^4.0.0",
     "pino-sentry": "^0.2.5",
