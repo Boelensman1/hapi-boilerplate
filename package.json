@@ -40,7 +40,7 @@
     "lodash": ">=4.17.19",
     "objection": "^2.2.1",
     "pino": "^6.3.2",
-    "pino-pretty": "^4.0.1",
+    "pino-pretty": "^4.0.2",
     "pino-sentry": "^0.2.5",
     "pino-tee": "^0.3.0",
     "readline": "^1.3.0",
