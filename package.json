@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@hapi/code": "^8.0.1",
-    "@hapi/lab": "^22.0.4",
+    "@hapi/lab": "^22.0.5",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.5.0",
     "eslint-config-airbnb": "^18.2.0",
