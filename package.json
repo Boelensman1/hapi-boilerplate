@@ -36,7 +36,7 @@
     "inverse": "^1.0.0",
     "js-yaml": "^3.14.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.20.15",
+    "knex": "^0.21.2",
     "lodash": ">=4.17.19",
     "objection": "^2.2.2",
     "pino": "^6.5.0",
