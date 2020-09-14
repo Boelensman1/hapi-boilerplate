@@ -23,7 +23,7 @@
     "@hapi/inert": "^6.0.2",
     "@hapi/joi": "^17.1.1",
     "@hapi/vision": "^6.0.1",
-    "@sentry/node": "^5.22.3",
+    "@sentry/node": "^5.23.0",
     "aguid": "^2.0.0",
     "argon2": "^0.26.2",
     "blipp": "^4.0.1",
