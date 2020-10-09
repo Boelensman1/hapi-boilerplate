@@ -65,7 +65,7 @@
   },
   "optionalDependencies": {
     "sqlite3": "^4.2.0",
-    "pg": "^8.4.0",
+    "pg": "^8.4.1",
     "mysql": "^2.18.1"
   },
   "jest": {
