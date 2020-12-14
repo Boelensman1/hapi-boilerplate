@@ -39,7 +39,7 @@
     "knex": "^0.20.15",
     "lodash": ">=4.17.20",
     "objection": "^2.2.3",
-    "pino": "^6.7.0",
+    "pino": "^6.8.0",
     "pino-pretty": "^4.3.0",
     "pino-sentry": "^0.2.5",
     "pino-tee": "^0.3.0",
