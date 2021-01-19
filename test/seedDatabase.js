@@ -71,7 +71,7 @@ async function seedDatabase(models, seedfile) {
   if (!seedfile) {
     return Promise.resolve()
   }
-  const seed = yaml.safeLoad(fs.readFileSync(seedfile))
+  const seed = yaml.load(fs.readFileSync(seedfile))
 
   const batchModels = Object.keys(seed).map((modelName) => {
     if (!models[modelName]) {
