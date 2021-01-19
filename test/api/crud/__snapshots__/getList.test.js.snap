@@ -75,6 +75,96 @@ Object {
 }
 `;
 
+exports[`Test getList crud function Get filtered list by not equal 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 1,
+  "name": "SYSTEM",
+  "post_create": 0,
+  "post_delete": 0,
+  "post_read": 0,
+  "post_update": 0,
+  "role_create": 0,
+  "role_delete": 0,
+  "role_read": 0,
+  "role_update": 0,
+  "updatedAt": null,
+  "user_create": 0,
+  "user_delete": 0,
+  "user_read": 0,
+  "user_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get filtered list by not equal 2`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 11,
+  "name": "nameD",
+  "post_create": 0,
+  "post_delete": 0,
+  "post_read": 0,
+  "post_update": 0,
+  "role_create": 0,
+  "role_delete": 0,
+  "role_read": 0,
+  "role_update": 0,
+  "updatedAt": 1970-01-01T00:00:01.000Z,
+  "user_create": 0,
+  "user_delete": 0,
+  "user_read": 0,
+  "user_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get filtered list by not equal 3`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 12,
+  "name": "nameA",
+  "post_create": 0,
+  "post_delete": 0,
+  "post_read": 0,
+  "post_update": 0,
+  "role_create": 0,
+  "role_delete": 0,
+  "role_read": 0,
+  "role_update": 0,
+  "updatedAt": null,
+  "user_create": 0,
+  "user_delete": 0,
+  "user_read": 0,
+  "user_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get filtered list by not equal 4`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": 13,
+  "name": "nameB",
+  "post_create": 0,
+  "post_delete": 0,
+  "post_read": 0,
+  "post_update": 0,
+  "role_create": 0,
+  "role_delete": 0,
+  "role_read": 0,
+  "role_update": 0,
+  "updatedAt": null,
+  "user_create": 0,
+  "user_delete": 0,
+  "user_read": 0,
+  "user_update": 0,
+}
+`;
+
+exports[`Test getList crud function Get filtered list by not equal 5`] = `
+Object {
+  "count": 4,
+}
+`;
+
 exports[`Test getList crud function Get filtered list using isNotNull 1`] = `
 Object {
   "createdAt": Any<Date>,

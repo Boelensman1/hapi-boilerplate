@@ -252,4 +252,95 @@ describe('Test getList crud function', () => {
     )
     expect(pagination).toMatchSnapshot()
   })
+
+  test('Get filtered list by not equal', async () => {
+    const { request, h } = await setUpCrudTest(seedLocation)
+    const handler = getList('role', role).handler.bind(null, request, h)
+
+    request.query = { filter: { 'id:neq': 10 } }
+
+    const {
+      body: { result, pagination },
+      headers,
+    } = await handler()
+
+    expect(headers['Content-Range']).toBe('role 0-4/4')
+    expect(result).toHaveLength(4)
+    result.forEach((r) => {
+      expect(r.id).not.toBe(10)
+    })
+    result.forEach((role) =>
+      expect(role).toMatchSnapshot({
+        createdAt: expect.any(Date),
+      }),
+    )
+    expect(pagination).toMatchSnapshot()
+  })
+
+  test('Filter list by non existing column', async () => {
+    const { request, h } = await setUpCrudTest(seedLocation)
+    const handler = getList('role', role).handler.bind(null, request, h)
+
+    request.query = { filter: { nonexistingcolumn: 1 } }
+
+    await expect(handler()).rejects.toThrowError('no column')
+  })
+
+  /*
+  test('Get filtered list by relation not equal', async () => {
+    const { request, h, seed } = await setUpCrudTest(seedLocation)
+    const handler = getList('agencyFeeClaim', agencyFeeClaim).handler.bind(
+      null,
+      request,
+      h,
+    )
+
+    request.query = {
+      filter: { claim: { 'key:neq': seed.claim[1].key } },
+    }
+
+    const {
+      body: { result, pagination },
+      headers,
+    } = await handler()
+
+    expect(headers['Content-Range']).toBe('agencyFeeClaim 0-1/1')
+    expect(result).toHaveLength(1)
+    expect(result[0].id).toBe(0)
+    result.forEach((agencyFeeClaim) =>
+      expect(agencyFeeClaim).toMatchSnapshot({
+        createdAt: expect.any(Date),
+      }),
+    )
+    expect(pagination).toMatchSnapshot()
+  })
+  */
+
+  /*
+  test('Get list filtered by relation', async () => {
+    const { request, h } = await setUpCrudTest(seedLocation)
+    const handler = getList('role', role).handler.bind(
+      null,
+      request,
+      h,
+    )
+
+    request.query = { filter: { user: { key: 123457 } } }
+
+    const {
+      body: { result, pagination },
+      headers,
+    } = await handler()
+
+    expect(headers['Content-Range']).toBe('agencyFeeClaim 0-1/1')
+    expect(result).toHaveLength(1)
+    expect(result[0].id).toBe(1)
+    result.forEach((agencyFeeClaim) =>
+      expect(agencyFeeClaim).toMatchSnapshot({
+        createdAt: expect.any(Date),
+      }),
+    )
+    expect(pagination).toMatchSnapshot()
+  })
+  */
 })
