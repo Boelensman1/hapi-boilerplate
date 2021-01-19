@@ -75,7 +75,7 @@ Object {
 }
 `;
 
-exports[`Test getList crud function Get filtered list using $hasProp 1`] = `
+exports[`Test getList crud function Get filtered list using isNotNull 1`] = `
 Object {
   "createdAt": Any<Date>,
   "id": 11,
@@ -96,7 +96,7 @@ Object {
 }
 `;
 
-exports[`Test getList crud function Get filtered list using $hasProp 2`] = `
+exports[`Test getList crud function Get filtered list using isNotNull 2`] = `
 Object {
   "count": 1,
 }

@@ -55,11 +55,16 @@ module.exports = (modelName, { responseValidation, schema }) => ({
 
     let result
     try {
-      result = await model.query().upsertGraphAndFetch(payload, {
-        relate: true,
-        update: true,
-        unrelate: true,
-      })
+      result = await model.transaction((trx) =>
+        model
+          .query(trx)
+          .upsertGraphAndFetch(payload, {
+            relate: true,
+            update: true,
+            unrelate: true,
+          })
+          .execute(),
+      )
     } catch (err) {
       if (err instanceof UniqueViolationError) {
         return h.response({ statusCode: 409 }).code(409)

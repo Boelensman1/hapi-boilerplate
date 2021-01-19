@@ -19,11 +19,11 @@ const genColumns = (dbQuery, model) => {
   return { query: `to_tsvector(concat_ws(' ', ${result.join(',')}))`, joins }
 }
 
-const addSearch = (dbQuery, model, filter) => {
+const addSearch = (dbQuery, model, value) => {
   const { query, joins } = genColumns(dbQuery, model)
   dbQuery.whereRaw(
     `${query} @@ to_tsquery('english', ?)`,
-    filter.search
+    value
       .trim()
       .split(' ')
       .map((c) => `${c}:*`)

@@ -185,11 +185,11 @@ describe('Test getList crud function', () => {
     expect(pagination).toMatchSnapshot()
   })
 
-  test('Get filtered list using $hasProp', async () => {
+  test('Get filtered list using isNotNull', async () => {
     const { request, h } = await setUpCrudTest(seedLocation)
     const handler = getList('role', role).handler.bind(null, request, h)
 
-    request.query = { filter: { $hasProp: 'updatedAt' } }
+    request.query = { filter: { 'updatedAt:isNotNull': true } }
 
     const {
       body: { result, pagination },

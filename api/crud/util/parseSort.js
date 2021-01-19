@@ -6,6 +6,12 @@ module.exports = (query, model) => {
   }
   const { field, order } = query.sort
 
+  if (!field || !order) {
+    throw Boom.badRequest(
+      `Sort is not in the format {field: 'id', order: 'desc'}`,
+    )
+  }
+
   if (field && !model.schema[field]) {
     throw Boom.badRequest(`${model.name} has no column ${field} to sort by`)
   }

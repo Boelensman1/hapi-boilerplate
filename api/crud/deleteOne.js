@@ -1,5 +1,11 @@
 const Joi = require('@hapi/joi')
 const Boom = require('@hapi/boom')
+const { ForeignKeyViolationError } = require('objection')
+
+const capitalize = (s) => {
+  if (typeof s !== 'string') return ''
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}
 
 module.exports = (modelName) => ({
   description: `Delete a single ${modelName}`,
@@ -21,9 +27,17 @@ module.exports = (modelName) => ({
       params: { id },
     } = request
 
-    const result = await model.query().deleteById(id)
+    let result
+    try {
+      result = await model.query().deleteById(id)
+    } catch (err) {
+      if (err instanceof ForeignKeyViolationError) {
+        throw Boom.conflict(`${capitalize(modelName)} still has dependencies`)
+      }
+      throw err
+    }
     if (!result) {
-      throw Boom.notFound(`No ${model} with this id exists`)
+      throw Boom.notFound(`No ${modelName} with this id exists`)
     }
     return h.response({ statusCode: 200 })
   },

@@ -43,8 +43,25 @@ module.exports = (modelName, { responseValidation }) => ({
 
     // these will error if it's impossible to sort/filter by that column
     const sort = parseSort(query, model)
-    const filter = parseFilter(query, model)
-    const dbQuery = model.query().skipUndefined().where(filter.where).range()
+    const { filters, virtualFilters, search, relations } = parseFilter(
+      query,
+      model,
+    )
+
+    if (Object.keys(virtualFilters).length > 0) {
+      throw Boom.notImplemented('method not implemented')
+    }
+
+    const dbQuery = model.query().skipUndefined().range()
+    // join relations that are needed for filters
+    relations.forEach((relation) => {
+      dbQuery.joinRelated(relation, { alias: `__rel_${relation}` })
+    })
+
+    // apply the filters
+    filters.forEach((filter) => {
+      dbQuery.where(filter.column, filter.operator, filter.value)
+    })
 
     // if model has defaultAttributes modifier, apply it
     if (model.modifiers && model.modifiers.defaultAttributes) {
@@ -66,19 +83,12 @@ module.exports = (modelName, { responseValidation }) => ({
       dbQuery.offset(rangeStart).limit(rangeEnd - rangeStart)
     }
 
-    filter.whereIn.forEach((whereInFilter) => {
-      dbQuery.whereIn(whereInFilter.column, whereInFilter.values)
-    })
-    filter.whereNotNull.forEach((whereNotNullFilter) => {
-      dbQuery.whereNotNull(whereNotNullFilter)
-    })
-
     // add seach
-    if (filter.search) {
+    if (search) {
       if (!model.searchableAttributes) {
         throw Boom.badRequest(`${model.name} has no searchable columns`)
       }
-      addSearch(dbQuery, model, filter)
+      addSearch(dbQuery, model, search)
     }
 
     const dbResult = await dbQuery
