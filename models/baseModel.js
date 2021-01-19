@@ -137,6 +137,9 @@ const addRelations = (model, type, addFullRelations) => {
       relationSchema = Joi.array().items(relationSchema)
       schema[`${name}Ids`] = Joi.array().items(Joi.number().min(0))
     } else {
+      // id should NOT be required as $relatedQuery does not set the id
+      // if you want to set a Id column as required,
+      // do that validation in the beforeInsert & beforeUpdate hook
       schema[`${name}Id`] = Joi.number().min(0)
     }
     if (addFullRelations) {
@@ -150,6 +153,8 @@ const addRelations = (model, type, addFullRelations) => {
 // Override the `createValidator` method of a `Model` to use the
 // custom validator.
 class BaseModel extends Model {
+  static addedProperties = []
+
   static get responseValidation() {
     // cache the result so we don't get into an endless loop
     if (!this.responseSchema) {
