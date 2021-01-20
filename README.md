@@ -16,7 +16,7 @@ Clone project, install dependencies and migrate the database:
 $ git clone https://github.com/boelensman1/hapi-boilerplate.git
 $ cd hapi-boilerplate
 $ npm install
-$ knex migrate:latest
+$ NODE_PATH=. knex migrate:latest
 ```
 
 Create local config file and modify it
