@@ -1,4 +1,4 @@
-const Role = require('../models/role')
+const Role = require('models/role')
 const { insertIdColumn } = require('../util')
 
 exports.up = (knex) =>
