@@ -30,7 +30,7 @@
     "config": "^3.3.3",
     "fs-extra": "^9.1.0",
     "hapi-auth-jwt2": "^10.2.0",
-    "hapi-crud-acl": "0.1.0",
+    "hapi-crud-acl": "1.0.2",
     "hapi-pino": "^8.3.0",
     "hapi-swagger": "^13.1.0",
     "inverse": "^1.0.0",
