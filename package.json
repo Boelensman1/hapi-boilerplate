@@ -37,7 +37,7 @@
     "js-yaml": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.17",
-    "lodash": ">=4.17.20",
+    "lodash": ">=4.17.21",
     "objection": "^2.2.14",
     "pino": "^6.11.1",
     "pino-pretty": "^4.5.0",
