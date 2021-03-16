@@ -16,7 +16,7 @@
   "author": "Wigger Boelens",
   "private": true,
   "dependencies": {
-    "@hapi/boom": "^9.1.1",
+    "@hapi/boom": "^9.1.2",
     "@hapi/bourne": "^2.0.0",
     "@hapi/glue": "^8.0.0",
     "@hapi/hapi": "^19.2.0",
